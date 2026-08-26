@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-hunter: #f0163e;
+  --color-hunter-dark: #c01032;
+  --color-negro: #2a2623;
+  --color-hueso: #f7f5f2;
+  --color-hueso-2: #efece8;
+  --color-gris: #8a857f;
+  --color-gris-claro: #e5e1dc;
+  --font-display: "Raleway", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Roboto", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  font-family: var(--font-body);
+  background: var(--color-hueso);
+  color: var(--color-negro);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Scrollbar sobria */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: #d4cfc9; border-radius: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ───────── Tarjetas vivas por nivel de desempeño (fondo animado + glitter) ─────────
+   .card-viva + modificador de color: card-oro (excepcional) · card-verde (destacado) · card-azul (sólido) */
+.card-oro   { --viva-suave: #fdf6e0; --viva-suave2: #fff3ee; --viva-borde: #e6c866; --viva-halo: rgba(230, 200, 102, 0.3); --viva-sombra: rgba(230, 180, 60, 0.35); --viva-luz: rgba(255, 214, 90, 0.22); --viva-glitter: 255, 215, 80; }
+.card-verde { --viva-suave: #e9f9f0; --viva-suave2: #f2fdf7; --viva-borde: #74d3a4; --viva-halo: rgba(52, 180, 120, 0.25); --viva-sombra: rgba(16, 160, 96, 0.3); --viva-luz: rgba(52, 211, 153, 0.22); --viva-glitter: 110, 231, 183; }
+.card-azul  { --viva-suave: #e8f3fd; --viva-suave2: #f0f9ff; --viva-borde: #85bbe8; --viva-halo: rgba(56, 140, 220, 0.25); --viva-sombra: rgba(30, 120, 200, 0.3); --viva-luz: rgba(56, 189, 248, 0.22); --viva-glitter: 125, 211, 252; }
+.card-viva {
+  position: relative;
+  background-image: linear-gradient(120deg, #ffffff 0%, var(--viva-suave) 20%, #ffffff 45%, var(--viva-suave2) 70%, var(--viva-suave) 90%, #ffffff 100%);
+  background-size: 280% 280%;
+  animation: viva-fondo 9s ease-in-out infinite;
+  border-color: var(--viva-borde) !important;
+  box-shadow: 0 0 0 1px var(--viva-halo), 0 10px 30px -12px var(--viva-sombra);
+}
+/* Los brillos viven DETRÁS del contenido: solo se ven en el fondo */
+.card-viva > * {
+  position: relative;
+  z-index: 1;
+}
+/* Barrido de luz diagonal (efecto holográfico) */
+.card-viva::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 42%, var(--viva-luz) 47%, rgba(255, 255, 255, 0.55) 50%, var(--viva-luz) 53%, transparent 58%);
+  background-size: 250% 100%;
+  animation: viva-barrido 3.2s linear infinite;
+}
+/* Glitter: destellos que titilan y flotan */
+.card-viva::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(var(--viva-glitter), 0.9) 0 1px, transparent 2.5px),
+    radial-gradient(circle at 78% 16%, rgba(255, 255, 255, 0.95) 0 1.2px, transparent 2.6px),
+    radial-gradient(circle at 30% 78%, rgba(var(--viva-glitter), 0.8) 0 1px, transparent 2.4px),
+    radial-gradient(circle at 88% 65%, rgba(var(--viva-glitter), 0.9) 0 1.4px, transparent 3px),
+    radial-gradient(circle at 55% 35%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2.2px),
+    radial-gradient(circle at 65% 88%, rgba(var(--viva-glitter), 0.7) 0 1.1px, transparent 2.4px),
+    radial-gradient(circle at 42% 10%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2.2px),
+    radial-gradient(circle at 8% 60%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2.2px),
+    radial-gradient(circle at 94% 40%, rgba(var(--viva-glitter), 0.8) 0 1px, transparent 2.2px);
+  animation: viva-glitter 2.4s ease-in-out infinite alternate;
+}
+@keyframes viva-fondo {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes viva-barrido {
+  from { background-position: 125% 0; }
+  to { background-position: -25% 0; }
+}
+@keyframes viva-glitter {
+  0% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; }
+  100% { opacity: 0.35; transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-viva,
+  .card-viva::before,
+  .card-viva::after { animation: none; }
+}
+
+/* iOS Safari hace ZOOM automático al enfocar un campo con fuente < 16px (y el zoom queda
+   pegado al cerrar el teclado). En móvil, todo campo editable usa 16px como mínimo — el
+   !important es deliberado: debe ganarle a text-sm/text-[13px] de cualquier componente. */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* input[type=date] en iOS/WebKit conserva la apariencia NATIVA: impone ancho y alto
+   intrínsecos propios e IGNORA width:100%, así que el campo se desbordaba por la derecha
+   fuera de la tarjeta blanca en el iPhone (y el font-size:16px de arriba agranda todavía
+   más ese intrínseco). appearance:none le devuelve al CSS el control del tamaño; el
+   selector nativo de fecha se sigue abriendo igual al tocar el campo. */
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  color: inherit;
+}
+/* Ya sin apariencia nativa, iOS centra el valor y lo pinta con su color de acento (azul):
+   se lo devolvemos al color de texto del tema y alineado a la izquierda. */
+input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  color: inherit;
+}
+input[type="date"]::-webkit-datetime-edit {
+  color: inherit;
+}

@@ -1,0 +1,721 @@
+// Plataforma de Evaluación de Desempeño 360 — Hunter (Fase 1)
+// Modelo de dominio: organización, ciclos de evaluación, objetivos,
+// resultados (nota combinada + potencial + 9-Box), calibración auditada y feedback/PDI.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ───────────────────────── Organización ─────────────────────────
+
+model Pais {
+  id            String            @id @default(cuid())
+  codigo        String            @unique // PE, EC, CO, CL
+  nombre        String
+  colaboradores Colaborador[]
+  ciclos        Ciclo[]
+  cierresCiclo  CicloPaisCierre[]
+}
+
+model Area {
+  id            String        @id @default(cuid())
+  nombre        String        @unique
+  descripcion   String?
+  colaboradores Colaborador[]
+  puestos       Puesto[]
+}
+
+model NivelJerarquico {
+  id      String @id @default(cuid())
+  nombre  String @unique
+  orden   Int    @default(0)
+  compPct Int    @default(50) // % de competencias en la nota combinada; objetivos = 100 − compPct
+
+  puestos      Puesto[]
+  evaluaciones Evaluacion[]
+}
+
+model Dimension {
+  id           String                @id @default(cuid())
+  nombre       String                @unique // Analítica, Operativa, Liderazgo, Digital, Interpersonal
+  descripcion  String?
+  orden        Int                   @default(0)
+  competencias Competencia[]
+  pesosPuesto  PesoDimensionPuesto[]
+}
+
+model Competencia {
+  id          String              @id @default(cuid())
+  nombre      String              @unique
+  descripcion String?
+  dimensionId String
+  dimension   Dimension           @relation(fields: [dimensionId], references: [id])
+  preguntas   Pregunta[]
+  puestos     PuestoCompetencia[]
+}
+
+model Puesto {
+  id                String                @id @default(cuid())
+  nombre            String                @unique
+  nivelId           String
+  nivel             NivelJerarquico       @relation(fields: [nivelId], references: [id])
+  areaId            String?
+  area              Area?                 @relation(fields: [areaId], references: [id])
+  descripcion       String? // propósito del puesto
+  responsabilidades String? // una por línea (se renderizan como lista)
+  formacion         String?
+  experiencia       String?
+  certificaciones   String?
+  reportaA          String?
+  supervisa         String?
+  competencias      PuestoCompetencia[]
+  pesos             PesoDimensionPuesto[] // pesos por dimensión: deben sumar 100
+  colaboradores     Colaborador[]
+  evaluaciones      Evaluacion[]
+}
+
+model PuestoCompetencia {
+  puestoId      String
+  competenciaId String
+  puesto        Puesto      @relation(fields: [puestoId], references: [id], onDelete: Cascade)
+  competencia   Competencia @relation(fields: [competenciaId], references: [id], onDelete: Cascade)
+
+  @@id([puestoId, competenciaId])
+}
+
+model PesoDimensionPuesto {
+  puestoId        String
+  dimensionId     String
+  peso            Int // % — la suma por puesto debe ser 100 (validado a nivel aplicación)
+  puntajeEsperado Float     @default(3) // perfil ideal del puesto en la dimensión, escala 1–5 (la de la evaluación)
+  puesto          Puesto    @relation(fields: [puestoId], references: [id], onDelete: Cascade)
+  dimension       Dimension @relation(fields: [dimensionId], references: [id], onDelete: Cascade)
+
+  @@id([puestoId, dimensionId])
+}
+
+enum NivelLiderazgo {
+  ESTRATEGICO // gerentes de país
+  TACTICO // directores y jefaturas
+  OPERATIVO // supervisores
+}
+
+model Colaborador {
+  id             String          @id @default(cuid())
+  codigo         String?         @unique // ID del padrón (PER-001, ECU-015…): clave de upsert del importador
+  nombres        String
+  apellidos      String
+  documento      String          @unique // p.ej. "PE · 40291855"
+  email          String?         @unique // del padrón; requerido para aprovisionar cuenta de acceso
+  telefono       String?
+  nivelLiderazgo NivelLiderazgo? // solo para quien tiene gente a cargo
+  fechaIngreso   DateTime?
+  activo         Boolean         @default(true)
+  bajaEn         DateTime? // fecha del soft-delete (archivo de desactivados)
+
+  paisId   String
+  pais     Pais    @relation(fields: [paisId], references: [id])
+  areaId   String?
+  area     Area?   @relation(fields: [areaId], references: [id])
+  puestoId String?
+  puesto   Puesto? @relation(fields: [puestoId], references: [id])
+
+  jefeId String?
+  jefe   Colaborador?  @relation("Jerarquia", fields: [jefeId], references: [id])
+  equipo Colaborador[] @relation("Jerarquia")
+
+  usuario               Usuario?
+  extensionesPlazo      ExtensionPlazoObjetivos[]
+  evaluacionesRecibidas Asignacion[]              @relation("Evaluado")
+  evaluacionesARendir   Asignacion[]              @relation("Evaluador")
+  objetivos             Objetivo[]                @relation("ObjetivosDelColaborador")
+  logros                ObjetivoLogro[]
+  resultados            Resultado[]
+  feedbacks             Feedback[]                @relation("FeedbackColaborador")
+}
+
+// ───────────────────────── Usuarios y acceso ─────────────────────────
+
+enum RolSistema {
+  RRHH
+  COLABORADOR // el rol "jefe" se deriva de tener equipo a cargo
+}
+
+enum AlcanceRrhh {
+  REGIONAL
+  PAIS
+}
+
+model Usuario {
+  id                     String                  @id @default(cuid())
+  email                  String                  @unique
+  passwordHash           String // bcrypt (autorizado por TI Hunter 2026-06-12)
+  rol                    RolSistema              @default(COLABORADOR)
+  debeCambiarPassword    Boolean                 @default(false) // true con contraseña temporal: forzar cambio al primer login
+  passwordChangedAt      DateTime? // sello: al cambiar/resetear contraseña se actualiza e invalida sesiones vivas previas
+  passwordAnteriores     String[]                @default([]) // hashes de las 2 contraseñas previas: no se pueden reutilizar
+  alcanceRrhh            AlcanceRrhh? // alcance de datos del usuario con acceso admin (RRHH o rol configurable)
+  alcancePaisId          String? // si RRHH de país
+  rolAdminId             String? // rol admin configurable (solo aplica a rol COLABORADOR; RRHH = sistema)
+  rolAdmin               RolAdmin?               @relation(fields: [rolAdminId], references: [id], onDelete: SetNull)
+  activo                 Boolean                 @default(true)
+  colaboradorId          String?                 @unique // nulable: la purga de carga inicial desvincula antes de borrar
+  // colaboradores; queda null hasta que `revincularCuentas` la empareja por correo con el padrón nuevo.
+  colaborador            Colaborador?            @relation(fields: [colaboradorId], references: [id])
+  codigos2fa             Codigo2FA[]
+  pushSubscriptions      PushSubscription[]
+  tokensRestablecimiento TokenRestablecimiento[]
+  auditLogs              AuditLog[]
+  calibraciones          Calibracion[]
+  createdAt              DateTime                @default(now())
+}
+
+/**
+ * Rol configurable del MÓDULO DE ADMINISTRACIÓN (los roles de proceso —Jefe, Colaborador—
+ * no son configurables). `permisos` = Record<SeccionAdmin, 'VER' | 'GESTIONAR'>; sección
+ * ausente = sin acceso. La fila esSistema («RR.HH.») es de solo lectura en la matriz.
+ */
+model RolAdmin {
+  id          String    @id @default(cuid())
+  nombre      String    @unique
+  descripcion String?
+  esSistema   Boolean   @default(false)
+  permisos    Json
+  usuarios    Usuario[]
+  createdAt   DateTime  @default(now())
+}
+
+/**
+ * Rate limiting de ventana fija (persistente, apto para serverless: no depende de memoria de instancia).
+ */
+model RateLimit {
+  clave    String   @id // p.ej. "solicitar:ip:1.2.3.4" o "solicitar:email:x@y.com"
+  hits     Int      @default(0)
+  reinicia DateTime // fin de la ventana; al pasar, el contador se reinicia
+}
+
+/**
+ * Token de restablecimiento de contraseña (flujo «¿Olvidaste tu contraseña?»): enlace de un
+ * solo uso, 30 minutos. Se guarda el SHA-256 del token (patrón Codigo2FA / SGSI).
+ */
+model TokenRestablecimiento {
+  id        String   @id @default(cuid())
+  usuarioId String
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiraEn  DateTime
+  usado     Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+/**
+ * Suscripción de Web Push. Es POR DISPOSITIVO, no por usuario: la misma persona puede tener
+ * el iPhone instalado y el escritorio. `endpoint` es la URL que da el navegador (FCM, Mozilla,
+ * Apple) y es la clave natural: si el usuario reinstala, el endpoint cambia y entra otra fila.
+ * Se borran solas cuando el servicio de push responde 404/410 (suscripción caducada).
+ */
+model PushSubscription {
+  id            String    @id @default(cuid())
+  usuarioId     String
+  usuario       Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  endpoint      String    @unique
+  p256dh        String // clave pública del cliente para cifrar el payload
+  auth          String // secreto de autenticación del cliente
+  agente        String? // user-agent recortado: para reconocer el dispositivo en la UI
+  createdAt     DateTime  @default(now())
+  ultimoEnvioEn DateTime? // último push aceptado por el servicio: ayuda a purgar zombis
+
+  @@index([usuarioId])
+}
+
+model Codigo2FA {
+  id         String   @id @default(cuid())
+  usuarioId  String
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  codigoHash String // sha256 del código de 6 dígitos (SHA-256 para tokens según SGSI)
+  expiraEn   DateTime
+  usado      Boolean  @default(false)
+  intentos   Int      @default(0) // intentos fallidos; el código se invalida al llegar al máximo
+  createdAt  DateTime @default(now())
+}
+
+// ───────────────────────── Banco de preguntas ─────────────────────────
+
+model Pregunta {
+  id            String               @id @default(cuid())
+  texto         String
+  competenciaId String
+  competencia   Competencia          @relation(fields: [competenciaId], references: [id])
+  // A qué modalidades aplica la redacción (la ascendente evalúa al jefe y se redacta distinto)
+  modalidades   TipoEvaluacion[]     @default([JEFE, PAR, AUTO])
+  // Descriptores BARS por nivel de la escala (índice 0 = nota 1 … índice 4 = nota 5): la conducta
+  // observable de cada calificación. Todo-o-nada: 5 textos o vacío (el responder cae a escala simple).
+  descriptores  String[]             @default([])
+  activa        Boolean              @default(true)
+  respuestas    Respuesta[]
+  ciclos        CicloPregunta[]
+  evaluaciones  EvaluacionPregunta[]
+}
+
+/**
+ * Evaluación con nombre: plantilla de preguntas del banco, organizada por modalidad.
+ * Alcance: pertenece a un NIVEL (vía rápida) o a un PUESTO (excepción; pisa a la del nivel).
+ * Exactamente uno de nivelId/puestoId (XOR validado en las acciones).
+ * Dentro del alcance, el cuestionario de cada colaborador se filtra por las competencias de SU puesto.
+ */
+model Evaluacion {
+  id                 String                        @id @default(cuid())
+  nombre             String                        @unique
+  descripcion        String?
+  nivelId            String?
+  nivel              NivelJerarquico?              @relation(fields: [nivelId], references: [id])
+  puestoId           String?
+  puesto             Puesto?                       @relation(fields: [puestoId], references: [id])
+  activa             Boolean                       @default(true)
+  createdAt          DateTime                      @default(now())
+  preguntas          EvaluacionPregunta[]
+  preguntasPotencial EvaluacionPreguntaPotencial[]
+  ciclos             CicloEvaluacion[]
+}
+
+model EvaluacionPregunta {
+  evaluacionId String
+  evaluacion   Evaluacion     @relation(fields: [evaluacionId], references: [id], onDelete: Cascade)
+  preguntaId   String
+  pregunta     Pregunta       @relation(fields: [preguntaId], references: [id], onDelete: Cascade)
+  modalidad    TipoEvaluacion
+
+  @@id([evaluacionId, preguntaId, modalidad])
+}
+
+/**
+ * Preguntas de potencial: las responde SOLO el jefe y definen el eje Y del 9-Box.
+ * No pertenecen a competencias ni dimensiones y nunca se mezclan con la nota de desempeño.
+ * RR.HH. las cura en el banco (sección propia) y cada evaluación elige cuáles aplica.
+ */
+model PreguntaPotencial {
+  id           String                        @id @default(cuid())
+  texto        String
+  orden        Int
+  activa       Boolean                       @default(true)
+  // Descriptores BARS por nivel (índice 0 = nota 1 … 4 = nota 5), igual que Pregunta.descriptores
+  descriptores String[]                      @default([])
+  respuestas   RespuestaPotencial[]
+  evaluaciones EvaluacionPreguntaPotencial[]
+  ciclos       CicloPreguntaPotencial[]
+}
+
+model EvaluacionPreguntaPotencial {
+  evaluacionId        String
+  evaluacion          Evaluacion        @relation(fields: [evaluacionId], references: [id], onDelete: Cascade)
+  preguntaPotencialId String
+  preguntaPotencial   PreguntaPotencial @relation(fields: [preguntaPotencialId], references: [id], onDelete: Cascade)
+
+  @@id([evaluacionId, preguntaPotencialId])
+}
+
+/**
+ * Snapshot de preguntas de potencial del ciclo, con su alcance (como CicloPregunta).
+ */
+model CicloPreguntaPotencial {
+  id                  String            @id @default(cuid())
+  cicloId             String
+  preguntaPotencialId String
+  nivelId             String?
+  puestoId            String?
+  ciclo               Ciclo             @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  preguntaPotencial   PreguntaPotencial @relation(fields: [preguntaPotencialId], references: [id], onDelete: Cascade)
+
+  @@index([cicloId, nivelId])
+  @@index([cicloId, puestoId])
+}
+
+// ───────────────────────── Ciclos de evaluación ─────────────────────────
+
+enum EstadoCiclo {
+  BORRADOR
+  ACTIVO
+  CERRADO
+}
+
+enum TipoPeriodo {
+  ANUAL
+  SEMESTRAL
+}
+
+enum EstadoPeriodo {
+  BORRADOR // creado, aún sin abrir la carga
+  CARGA_ABIERTA // la organización puede definir objetivos (hasta fechaLimiteCarga; RRHH puede extender)
+  CERRADO // objetivos congelados: listos para ser evaluados por ciclos
+}
+
+/**
+ * Ventana de definición de objetivos (anual o semestral), independiente del ciclo de evaluación.
+ * RRHH la abre manualmente (notifica a la organización) y los ciclos evalúan sobre ella.
+ */
+model PeriodoObjetivos {
+  id               String                    @id @default(cuid())
+  nombre           String                    @unique // "2026", "2026-S1"
+  tipo             TipoPeriodo               @default(ANUAL)
+  estado           EstadoPeriodo             @default(BORRADOR)
+  fechaLimiteCarga DateTime
+  // Alcance flexible (vacío = toda la organización). Mismo modelo que Ciclo; el período
+  // NO aplica regla de antigüedad (un ingreso reciente también carga objetivos).
+  focoPaisIds      String[]                  @default([])
+  focoAreaIds      String[]                  @default([])
+  focoNivelIds     String[]                  @default([])
+  incluirIds       String[]                  @default([])
+  excluirIds       String[]                  @default([])
+  objetivos        Objetivo[]
+  ciclos           Ciclo[]
+  extensiones      ExtensionPlazoObjetivos[]
+  createdAt        DateTime                  @default(now())
+}
+
+/**
+ * Extensión individual del plazo de carga (deadline blando por colaborador: licencias, ingresos nuevos).
+ */
+model ExtensionPlazoObjetivos {
+  periodoId     String
+  colaboradorId String
+  hasta         DateTime
+  periodo       PeriodoObjetivos @relation(fields: [periodoId], references: [id], onDelete: Cascade)
+  colaborador   Colaborador      @relation(fields: [colaboradorId], references: [id], onDelete: Cascade)
+  createdAt     DateTime         @default(now())
+
+  @@id([periodoId, colaboradorId])
+}
+
+model Ciclo {
+  id           String            @id @default(cuid())
+  nombre       String
+  descripcion  String?
+  paisId       String? // DERIVADO del foco: país único del alcance (null = multi-país/todos). Lo recalculan crearCiclo/editarCiclo; cierre por país, congelamiento y cicloFueraDeAlcance lo consumen igual que siempre.
+  pais         Pais?             @relation(fields: [paisId], references: [id])
+  // Alcance flexible: filtros combinables (vacío = todos; entre dimensiones se exigen todas)
+  focoPaisIds  String[]          @default([])
+  focoAreaIds  String[]          @default([])
+  focoNivelIds String[]          @default([])
+  // Ajustes manuales sobre los filtros (colaboradorIds)
+  incluirIds   String[]          @default([]) // sumados aunque no cumplan filtros
+  excluirIds   String[]          @default([]) // quitados aunque los cumplan
+  fechaInicio  DateTime
+  fechaFin     DateTime
+  estado       EstadoCiclo       @default(BORRADOR)
+  publicado    Boolean           @default(false) // resultados visibles a colaboradores
+  // null = el ciclo NO evalúa objetivos: nota final 100% competencias (renormaliza notaFinal)
+  periodoId    String? // período de objetivos que este ciclo evalúa
+  periodo      PeriodoObjetivos? @relation(fields: [periodoId], references: [id])
+
+  // Evaluaciones aplicadas (una por nivel + excepciones por puesto); las preguntas se copian a CicloPregunta al crear
+  evaluaciones CicloEvaluacion[]
+
+  // Snapshot de configuración al lanzar (pesos modalidades y combinación por nivel)
+  configJson Json?
+
+  preguntas          CicloPregunta[]
+  preguntasPotencial CicloPreguntaPotencial[]
+  perfilesEvaluados  CicloPerfilEvaluado[]
+  asignaciones       Asignacion[]
+  resultados         Resultado[]
+  feedbacks          Feedback[]
+  cierresPais        CicloPaisCierre[]
+  createdAt          DateTime                 @default(now())
+}
+
+/**
+ * Cierre administrativo POR PAÍS de un ciclo regional: cada país corta, recalcula y
+ * publica sus resultados de forma independiente (control del avance del despliegue).
+ * Cuando todos los países con participantes están cerrados, el ciclo pasa a CERRADO.
+ */
+model CicloPaisCierre {
+  id        String   @id @default(cuid())
+  cicloId   String
+  ciclo     Ciclo    @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  paisId    String
+  pais      Pais     @relation(fields: [paisId], references: [id])
+  publicado Boolean  @default(false) // resultados visibles para los colaboradores de ese país
+  cerradoEn DateTime @default(now())
+
+  @@unique([cicloId, paisId])
+}
+
+/**
+ * Referencia de qué evaluaciones eligió el ciclo (trazabilidad; el snapshot real es CicloPregunta).
+ */
+model CicloEvaluacion {
+  cicloId      String
+  ciclo        Ciclo      @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  evaluacionId String
+  evaluacion   Evaluacion @relation(fields: [evaluacionId], references: [id], onDelete: Cascade)
+
+  @@id([cicloId, evaluacionId])
+}
+
+/**
+ * Snapshot de preguntas del ciclo, con su alcance (nivel o puesto) y modalidad.
+ * Al responder: primero las filas del PUESTO del evaluado; si no hay, las de su NIVEL.
+ */
+model CicloPregunta {
+  id         String         @id @default(cuid())
+  cicloId    String
+  preguntaId String
+  modalidad  TipoEvaluacion
+  nivelId    String? // alcance nivel (sin FK: el snapshot sobrevive a cambios del catálogo)
+  puestoId   String? // alcance puesto (excepción)
+  ciclo      Ciclo          @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  pregunta   Pregunta       @relation(fields: [preguntaId], references: [id], onDelete: Cascade)
+
+  @@index([cicloId, nivelId, modalidad])
+  @@index([cicloId, puestoId, modalidad])
+}
+
+enum TipoEvaluacion {
+  JEFE
+  PAR
+  ASCENDENTE
+  AUTO
+}
+
+enum Conformidad {
+  CONFORME
+  OBSERVADO
+}
+
+enum EstadoAsignacion {
+  PROPUESTA // par externo al equipo propuesto por el jefe; no evalúa hasta que RR.HH. apruebe
+  PENDIENTE
+  BORRADOR
+  ENVIADA
+  INVALIDADA // RR.HH. la invalidó al resolver un incidente (sesgo de par): las respuestas se conservan como registro pero NO cuentan en la nota, contadores ni slots
+}
+
+/**
+ * Perfil de evaluación CONGELADO al lanzar: por qué puesto y nivel se evalúa a cada participante,
+ * con qué competencias y con qué pesos por dimensión.
+ * El maestro de puestos se lee EN VIVO en todas partes, así que editar los pesos, las competencias
+ * o el nivel de un puesto movía la nota y el cuestionario de gente que ya estaba siendo evaluada:
+ * quien respondía antes contestaba más ítems que quien entraba después, y las notas se comparan
+ * entre sí en el 9-Box. Con el perfil anclado, el maestro se puede editar cuando haga falta y los
+ * cambios entran en el ciclo SIGUIENTE.
+ * Sin FK a puesto/nivel/competencia/dimensión, igual que CicloPregunta: el snapshot tiene que
+ * sobrevivir a cambios del catálogo. Los ciclos lanzados antes de esto no tienen fila y quien lee
+ * cae al maestro (mismo criterio que CicloPreguntaPotencial).
+ * Se congela el puesto que la persona OCUPÓ: un ascenso a mitad de ciclo no le cambia la
+ * evaluación en curso. Y quien no estaba en el alcance al lanzar no participa: entra en el
+ * siguiente ciclo (regla de antigüedad mínima de Hunter).
+ */
+model CicloPerfilEvaluado {
+  id             String   @id @default(cuid())
+  cicloId        String
+  colaboradorId  String
+  puestoId       String? // sin FK (snapshot); null = participaba sin puesto asignado
+  nivelId        String?
+  competenciaIds String[] @default([]) // las del puesto al lanzar: filtran el cuestionario
+  pesosJson      Json // [{ dimensionId, peso, puntajeEsperado }] del puesto al lanzar
+  ciclo          Ciclo    @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  createdAt      DateTime @default(now())
+
+  @@unique([cicloId, colaboradorId])
+  @@index([cicloId])
+}
+
+model Asignacion {
+  id          String           @id @default(cuid())
+  cicloId     String
+  ciclo       Ciclo            @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  evaluadorId String
+  evaluador   Colaborador      @relation("Evaluador", fields: [evaluadorId], references: [id])
+  evaluadoId  String
+  evaluado    Colaborador      @relation("Evaluado", fields: [evaluadoId], references: [id])
+  tipo        TipoEvaluacion
+  estado      EstadoAsignacion @default(PENDIENTE)
+  enviadaEn   DateTime?
+
+  respuestas          Respuesta[]
+  respuestasPotencial RespuestaPotencial[] // solo tipo JEFE
+
+  @@unique([cicloId, evaluadorId, evaluadoId, tipo])
+}
+
+model Respuesta {
+  id           String     @id @default(cuid())
+  asignacionId String
+  asignacion   Asignacion @relation(fields: [asignacionId], references: [id], onDelete: Cascade)
+  preguntaId   String
+  pregunta     Pregunta   @relation(fields: [preguntaId], references: [id])
+  valor        Int // escala 1–5 (sin comentarios cualitativos por decisión de RRHH)
+
+  @@unique([asignacionId, preguntaId])
+}
+
+model RespuestaPotencial {
+  id           String            @id @default(cuid())
+  asignacionId String
+  asignacion   Asignacion        @relation(fields: [asignacionId], references: [id], onDelete: Cascade)
+  preguntaId   String
+  pregunta     PreguntaPotencial @relation(fields: [preguntaId], references: [id])
+  valor        Int // 1–5 → promedio = eje Y del 9-Box
+
+  @@unique([asignacionId, preguntaId])
+}
+
+// ───────────────────────── Objetivos ─────────────────────────
+
+enum TipoObjetivo {
+  TRANSVERSAL
+  INDIVIDUAL
+  DESARROLLO
+}
+
+enum EstadoObjetivo {
+  PROPUESTO
+  APROBADO
+  RECHAZADO
+}
+
+model Objetivo {
+  id          String           @id @default(cuid())
+  periodoId   String
+  periodo     PeriodoObjetivos @relation(fields: [periodoId], references: [id], onDelete: Cascade)
+  tipo        TipoObjetivo
+  titulo      String
+  descripcion String?
+  peso        Int // % — por colaborador: transversales aplicables + individuales = 100
+  metaFecha   String? // p.ej. "dic-2026"
+  metrica     String?
+  estado      EstadoObjetivo   @default(PROPUESTO) // transversales nacen APROBADO
+
+  // Individual / desarrollo: pertenece a un colaborador
+  colaboradorId String?
+  colaborador   Colaborador? @relation("ObjetivosDelColaborador", fields: [colaboradorId], references: [id])
+
+  // Transversal: focalización (vacío = toda la organización)
+  focoAreaIds   String[] @default([])
+  focoNivelIds  String[] @default([])
+  focoPaisIds   String[] @default([])
+  focoPuestoIds String[] @default([])
+
+  logros    ObjetivoLogro[]
+  createdAt DateTime        @default(now())
+}
+
+model ObjetivoLogro {
+  id                String      @id @default(cuid())
+  objetivoId        String
+  objetivo          Objetivo    @relation(fields: [objetivoId], references: [id], onDelete: Cascade)
+  colaboradorId     String
+  colaborador       Colaborador @relation(fields: [colaboradorId], references: [id])
+  avanceColaborador Int? // % reportado en autoevaluación
+  logroFinal        Int? // % confirmado por el jefe (o Dirección para transversales)
+
+  @@unique([objetivoId, colaboradorId])
+}
+
+// ───────────────────────── Resultados, calibración y 9-Box ─────────────────────────
+
+model Resultado {
+  id            String      @id @default(cuid())
+  cicloId       String
+  ciclo         Ciclo       @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  colaboradorId String
+  colaborador   Colaborador @relation(fields: [colaboradorId], references: [id])
+
+  notaCompetencias      Float? // 1–5 ponderada por dimensión y modalidad (con ajustes de calibración aplicados)
+  cumplimientoObjetivos Float? // %
+  notaFinal             Float? // combinada por nivel
+  notaCalibrada         Float? // legado: ajuste directo de la nota final (la calibración nueva es por componentes)
+  potencial             Float? // 1–5 (promedio 5 preguntas del jefe)
+  box                   String? // cuadrante 9-Box
+
+  // Calibración por componentes: el desglose es lo que ve RR.HH. al calibrar y lo que
+  // explica la nota; los ajustes reemplazan la nota de una dimensión y se re-aplican al recalcular
+  desgloseDimJson Json? // [{ dimensionId, nombre, nota, pesoEfectivo, ajuste? }]
+  ajustesDimJson  Json? // { [dimensionId]: notaAjustada }
+
+  // Conformidad del colaborador con su nota (vista previa pre-cierre): decisión ÚNICA y
+  // auditable — CONFORME o OBSERVADO con comentario, insumo de la calibración de RR.HH.
+  // notaAceptada ancla la nota VIGENTE al decidir: si luego se calibra, queda claro qué aceptó.
+  conformidad   Conformidad?
+  conformidadEn DateTime?
+  observacion   String?
+  notaAceptada  Float?
+
+  // Exención del gate de conformidad al cierre: RR.HH. Regional exime POR COLABORADOR a quien
+  // no puede confirmar su nota (vacaciones, licencia, sin cuenta) — motivo obligatorio y auditado
+  conformidadEximidaEn     DateTime?
+  conformidadEximidaMotivo String?
+
+  calculadoEn   DateTime?
+  calibraciones Calibracion[]
+
+  @@unique([cicloId, colaboradorId])
+}
+
+// Registro de auditoría de calibración — INMUTABLE (solo insert)
+model Calibracion {
+  id            String    @id @default(cuid())
+  resultadoId   String
+  resultado     Resultado @relation(fields: [resultadoId], references: [id], onDelete: Cascade)
+  ambito        String    @default("NOTA") // NOTA (legado: nota final directa) | DIMENSION | OBJETIVO
+  referencia    String? // nombre de la dimensión o título del objetivo ajustado
+  valorAnterior Float // nota 1–5 (NOTA/DIMENSION) o % de logro (OBJETIVO)
+  valorNuevo    Float
+  motivo        String // obligatorio
+  usuarioId     String
+  usuario       Usuario   @relation(fields: [usuarioId], references: [id])
+  createdAt     DateTime  @default(now())
+}
+
+// ───────────────────────── Feedback y PDI ─────────────────────────
+
+model Feedback {
+  id            String      @id @default(cuid())
+  cicloId       String
+  ciclo         Ciclo       @relation(fields: [cicloId], references: [id], onDelete: Cascade)
+  colaboradorId String
+  colaborador   Colaborador @relation("FeedbackColaborador", fields: [colaboradorId], references: [id])
+  realizadaEn   DateTime    @default(now())
+  acuerdos      String? // editable por jefe y colaborador
+  pdi           Json? // [{ titulo, fechaObjetivo, estado }]
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([cicloId, colaboradorId])
+}
+
+// ───────────────────────── Configuración y auditoría ─────────────────────────
+
+model Config {
+  clave String @id // 'pesosModalidades' | 'combinacionPorNivel'
+  valor Json
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  usuarioId String?
+  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
+  accion    String // p.ej. 'CICLO_LANZADO', 'CICLO_CERRADO', 'CALIBRACION', 'IMPORTACION'
+  entidad   String?
+  detalle   Json?
+  createdAt DateTime @default(now())
+}
+
+model RecordatorioEnvio {
+  id             String   @id @default(cuid())
+  proceso        String // 'OBJETIVOS' | 'EVALUACIONES' | 'DIGEST_RRHH' | 'NOTA_PRELIMINAR'
+  referencia     String // periodoId o cicloId
+  hito           String // 'D30' | 'D15' | 'D7' | 'DIARIO' | 'ULTIMO_DIA' | 'SEMANAL' | 'UNICO'
+  fecha          DateTime // día del envío (fecha truncada para la unicidad diaria)
+  destinatarioId String? // usuario/colaborador puntual (correo 7 y transaccionales registrables); null = lote
+  enviados       Int
+  fallidos       Int
+  detalleJson    Json? // muestra de fallidos, conteos por país del digest
+  creadoEn       DateTime @default(now())
+
+  @@unique([proceso, referencia, hito, fecha, destinatarioId])
+}
