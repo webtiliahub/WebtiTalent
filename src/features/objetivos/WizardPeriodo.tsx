@@ -71,7 +71,7 @@ export function WizardPeriodo({ paises, areas, nivelesCatalogo, colaboradores, p
     })
   }
 
-  const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+  const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
   const pasos = ['Datos del período', 'Alcance', 'Revisión']
 
   return (
@@ -79,8 +79,8 @@ export function WizardPeriodo({ paises, areas, nivelesCatalogo, colaboradores, p
       {/* indicador de pasos */}
       <div className="flex gap-2">
         {pasos.map((p, i) => (
-          <div key={p} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-[13px] font-bold ${paso === i + 1 ? 'bg-red-50 text-hunter-dark ring-1 ring-hunter/30' : paso > i + 1 ? 'bg-emerald-50 text-emerald-700' : 'bg-hueso-2 text-gris'}`}>
-            <span className={`grid h-5 w-5 place-items-center rounded-full text-[10px] ${paso === i + 1 ? 'bg-hunter text-white' : paso > i + 1 ? 'bg-emerald-500 text-white' : 'bg-gris-claro text-gris'}`}>
+          <div key={p} className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-[13px] font-bold ${paso === i + 1 ? 'bg-blue-50 text-marca-dark ring-1 ring-marca/30' : paso > i + 1 ? 'bg-emerald-50 text-emerald-700' : 'bg-hueso-2 text-gris'}`}>
+            <span className={`grid h-5 w-5 place-items-center rounded-full text-[10px] ${paso === i + 1 ? 'bg-marca text-white' : paso > i + 1 ? 'bg-emerald-500 text-white' : 'bg-gris-claro text-gris'}`}>
               {paso > i + 1 ? '✓' : i + 1}
             </span>
             {p}
@@ -150,7 +150,7 @@ export function WizardPeriodo({ paises, areas, nivelesCatalogo, colaboradores, p
         )}
       </div>
 
-      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">{error}</p>}
 
       <div className="flex justify-between">
         <button type="button" disabled={paso === 1} onClick={() => setPaso((p) => p - 1)} className="rounded-xl border border-gris-claro bg-white px-4 py-2.5 text-[13px] font-bold transition hover:bg-hueso disabled:opacity-40">
@@ -166,12 +166,12 @@ export function WizardPeriodo({ paises, areas, nivelesCatalogo, colaboradores, p
                 ].filter(Boolean).join(', ')}
               </span>
             )}
-            <button type="button" disabled={!puedeAvanzar} onClick={() => setPaso((p) => p + 1)} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50">
+            <button type="button" disabled={!puedeAvanzar} onClick={() => setPaso((p) => p + 1)} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50">
               Siguiente →
             </button>
           </span>
         ) : (
-          <button type="button" disabled={pendiente} onClick={crear} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+          <button type="button" disabled={pendiente} onClick={crear} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
             {pendiente ? 'Creando…' : 'Crear período ✓'}
           </button>
         )}

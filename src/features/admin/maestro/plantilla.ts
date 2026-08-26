@@ -74,7 +74,7 @@ export function hojasPlantillaMaestra(catalogos: { niveles: string[]; dimensione
     nombre: 'Padrón',
     filas: [
       ['codigo', 'documento', 'nombres', 'apellidos', 'email', 'telefono', 'pais', 'area', 'cargo', 'nivel_jerarquico', 'codigo_jefe', 'nivel_liderazgo', 'fecha_ingreso'],
-      ['PER-001', '40967470', 'Nombre', 'Apellido', 'correo@hunter.com', '+51 999 999 999', pais, area, PUESTO_EJEMPLO, niv, '', '', '2024-01-15'],
+      ['PER-001', '40967470', 'Nombre', 'Apellido', 'correo@marca.com', '+51 999 999 999', pais, area, PUESTO_EJEMPLO, niv, '', '', '2024-01-15'],
     ],
   }
 

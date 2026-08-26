@@ -189,7 +189,7 @@ export function IslaNav({ nav }: { nav: NavMovil }) {
         <span
           ref={pillActivoRef}
           aria-hidden
-          className="pointer-events-none absolute inset-y-2 left-0 w-0 rounded-full bg-hunter/10 opacity-0 transition-[transform,width,opacity] duration-[320ms] ease-[cubic-bezier(.22,1.18,.36,1)] motion-reduce:transition-none"
+          className="pointer-events-none absolute inset-y-2 left-0 w-0 rounded-full bg-marca/10 opacity-0 transition-[transform,width,opacity] duration-[320ms] ease-[cubic-bezier(.22,1.18,.36,1)] motion-reduce:transition-none"
         />
 
         {destinos.map((d, i) => {
@@ -208,7 +208,7 @@ export function IslaNav({ nav }: { nav: NavMovil }) {
               // Enter con el foco puesto no marca la bandera, así que sigue navegando.
               onClick={(e) => { if (gestoRef.current) { e.preventDefault(); gestoRef.current = false } }}
               draggable={false}
-              className={`relative z-[1] flex items-center rounded-full px-3.5 py-2 transition-[transform,color] duration-150 ${enRojo ? 'text-hunter' : 'text-gris'} ${candidato === i ? 'scale-[0.93]' : ''}`}
+              className={`relative z-[1] flex items-center rounded-full px-3.5 py-2 transition-[transform,color] duration-150 ${enRojo ? 'text-marca' : 'text-gris'} ${candidato === i ? 'scale-[0.93]' : ''}`}
             >
               <span className="grid w-5 place-items-center"><Icono slug={d.icono} /></span>
               {/* La etiqueta no se monta y desmonta: anima su ancho, y ese ensanchamiento con

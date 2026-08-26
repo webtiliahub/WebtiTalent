@@ -28,12 +28,12 @@ export function TarjetaMiembro({ nombre, transversales, usado, objetivos, ventan
       <button
         type="button"
         onClick={() => setAbierto(true)}
-        className="w-full rounded-xl border border-gris-claro p-4 text-left transition hover:border-hunter/50 hover:shadow-md"
+        className="w-full rounded-xl border border-gris-claro p-4 text-left transition hover:border-marca/50 hover:shadow-md"
       >
         <p className="text-sm font-bold">{nombre}</p>
         <p className="mt-0.5 text-xs text-gris">{transversales} transversales · {aprobados} individuales aprobados</p>
         <div className="mt-2 h-2 rounded-full bg-hueso-2">
-          <div className={`h-2 rounded-full ${usado === 100 ? 'bg-emerald-500' : 'bg-hunter'}`} style={{ width: `${Math.min(usado, 100)}%` }} />
+          <div className={`h-2 rounded-full ${usado === 100 ? 'bg-emerald-500' : 'bg-marca'}`} style={{ width: `${Math.min(usado, 100)}%` }} />
         </div>
         <p className="mt-1 flex items-center justify-between text-[11px]">
           <span className="font-semibold text-gris">Ver objetivos →</span>
@@ -60,7 +60,7 @@ export function TarjetaMiembro({ nombre, transversales, usado, objetivos, ventan
                 title="Ver el detalle completo del objetivo (con su descripción)"
                 className="flex cursor-pointer items-center gap-4 rounded-xl border border-gris-claro px-4 py-3 transition hover:bg-hueso"
               >
-                <span className="w-14 shrink-0 text-center font-display text-xl font-extrabold tracking-tight text-hunter">{o.peso}%</span>
+                <span className="w-14 shrink-0 text-center font-display text-xl font-extrabold tracking-tight text-marca">{o.peso}%</span>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold">{o.titulo}</p>
                 </div>

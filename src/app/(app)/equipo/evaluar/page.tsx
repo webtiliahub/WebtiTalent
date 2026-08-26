@@ -97,7 +97,7 @@ export default async function EvaluarEquipoPage({ searchParams }: { searchParams
                     <p className="text-xs text-gris">{a.evaluado.puesto?.nombre ?? ''} · Competencias + objetivos + potencial</p>
                   </div>
                   {a.estado === 'ENVIADA' ? <Chip tono="ok">Enviada</Chip> : a.estado === 'BORRADOR' ? <Chip tono="pendiente">En curso</Chip> : <Chip tono="pendiente">Pendiente</Chip>}
-                  <Link href={`/evaluaciones/${a.id}`} className="rounded-xl bg-hunter px-4 py-2 font-display text-xs font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark">
+                  <Link href={`/evaluaciones/${a.id}`} className="rounded-xl bg-marca px-4 py-2 font-display text-xs font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark">
                     {a.estado === 'ENVIADA' ? 'Ver' : 'Evaluar →'}
                   </Link>
                 </div>

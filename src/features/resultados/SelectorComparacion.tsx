@@ -64,7 +64,7 @@ export function SelectorComparacion({ cicloId, esRegional, paisFijo, paises, are
           <div className="mt-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <p className="text-[11px] text-gris">Sin área = el país completo. Solo aparecen áreas con evaluados en el ciclo.</p>
             <div className="flex items-center gap-2">
-              <button className="flex-1 rounded-xl bg-hunter px-4 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark md:flex-none md:py-2">Comparar</button>
+              <button className="flex-1 rounded-xl bg-marca px-4 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark md:flex-none md:py-2">Comparar</button>
               {activa && (
                 <Link href={`/admin/resultados/analisis?ciclo=${cicloId}`} className="flex-1 rounded-xl border border-gris-claro px-3.5 py-2.5 text-center text-[13px] font-bold transition hover:bg-hueso md:flex-none md:py-2">
                   Salir

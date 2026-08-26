@@ -7,10 +7,10 @@ const raleway = Raleway({ subsets: ['latin'], variable: '--font-display', weight
 const roboto = Roboto({ subsets: ['latin'], variable: '--font-body', weight: ['300', '400', '500', '700'] })
 
 export const metadata: Metadata = {
-  title: 'Talent Hub · Hunter',
-  description: 'Plataforma de gestión de desempeño y talento — Hunter',
+  title: 'WebtiTalent · Webtilia',
+  description: 'Plataforma de gestión de desempeño y talento — Webtilia',
   manifest: '/manifest.webmanifest',
-  appleWebApp: { capable: true, title: 'Talent Hub', statusBarStyle: 'default' },
+  appleWebApp: { capable: true, title: 'WebtiTalent', statusBarStyle: 'default' },
   // Sin un `icon` declarado, el navegador pide /favicon.ico por su cuenta y recibía un 404 en cada
   // carga (visible en la consola de cualquiera que abriera DevTools). Se declara el PNG de 32 px
   // derivado del mismo icono de la PWA, en vez de añadir un .ico: un PNG renombrado a .ico dejaría

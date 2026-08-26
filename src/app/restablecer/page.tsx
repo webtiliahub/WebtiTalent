@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { CheckCircle2, Lock } from 'lucide-react'
 import { PASSWORD_MIN_CARACTERES, esquemaPasswordNueva } from '@/shared/lib/password'
 
-const inputCls = 'h-11 w-full rounded-[11px] border border-gris-claro bg-white pl-10 pr-4 text-sm text-negro outline-none transition-all placeholder:text-gris/70 focus:border-hunter focus:ring-4 focus:ring-hunter/15'
+const inputCls = 'h-11 w-full rounded-[11px] border border-gris-claro bg-white pl-10 pr-4 text-sm text-negro outline-none transition-all placeholder:text-gris/70 focus:border-marca focus:ring-4 focus:ring-marca/15'
 
 function FormRestablecer() {
   const router = useRouter()
@@ -43,7 +43,7 @@ function FormRestablecer() {
       <div className="text-center">
         <h1 className="font-display text-xl font-extrabold text-negro">Enlace incompleto</h1>
         <p className="mt-2 text-sm text-gris">Abre el enlace tal como llegó a tu correo, o solicita uno nuevo desde el login.</p>
-        <button onClick={() => router.push('/login')} className="mt-5 w-full rounded-xl bg-hunter px-5 py-2.5 font-display text-sm font-bold text-white transition hover:bg-hunter-dark">
+        <button onClick={() => router.push('/login')} className="mt-5 w-full rounded-xl bg-marca px-5 py-2.5 font-display text-sm font-bold text-white transition hover:bg-marca-dark">
           Ir a iniciar sesión
         </button>
       </div>
@@ -56,7 +56,7 @@ function FormRestablecer() {
         <CheckCircle2 className="mx-auto h-10 w-10 text-emerald-500" />
         <h1 className="mt-3 font-display text-xl font-extrabold text-negro">Contraseña actualizada</h1>
         <p className="mt-2 text-sm text-gris">Ya puedes ingresar con tu nueva contraseña y el código que llegará a tu correo.</p>
-        <button onClick={() => router.push('/login')} className="mt-5 w-full rounded-xl bg-hunter px-5 py-2.5 font-display text-sm font-bold text-white transition hover:bg-hunter-dark">
+        <button onClick={() => router.push('/login')} className="mt-5 w-full rounded-xl bg-marca px-5 py-2.5 font-display text-sm font-bold text-white transition hover:bg-marca-dark">
           Ir a iniciar sesión
         </button>
       </div>
@@ -82,10 +82,10 @@ function FormRestablecer() {
           onChange={(e) => setConfirmar(e.target.value)} placeholder="Repite la contraseña" className={inputCls} />
       </div>
 
-      {error && <p className="mt-3 rounded-xl bg-red-50 px-3.5 py-2 text-[13px] text-hunter-dark">{error}</p>}
+      {error && <p className="mt-3 rounded-xl bg-red-50 px-3.5 py-2 text-[13px] text-alerta-dark">{error}</p>}
 
       <button type="submit" disabled={cargando}
-        className="mt-5 w-full rounded-xl bg-hunter px-5 py-2.5 font-display text-sm font-bold text-white transition hover:bg-hunter-dark disabled:opacity-50">
+        className="mt-5 w-full rounded-xl bg-marca px-5 py-2.5 font-display text-sm font-bold text-white transition hover:bg-marca-dark disabled:opacity-50">
         {cargando ? 'Guardando…' : 'Guardar contraseña'}
       </button>
       <p className="mt-3 text-center text-xs text-gris">El enlace vence a los 30 minutos y solo puede usarse una vez.</p>

@@ -47,7 +47,7 @@ export function FiltrosResultados({
   const mismas = (a: string[], b: string[]) => a.length === b.length && [...a].sort().join(',') === [...b].sort().join(',')
   const hayCambio = !mismas(areasElegidas, areasSel)
 
-  const selectCls = 'w-full min-w-0 rounded-xl border border-gris-claro bg-white px-3 py-2.5 text-sm outline-none transition focus:border-hunter sm:w-auto sm:py-2'
+  const selectCls = 'w-full min-w-0 rounded-xl border border-gris-claro bg-white px-3 py-2.5 text-sm outline-none transition focus:border-marca sm:w-auto sm:py-2'
 
   return (
     <form ref={form} method="get" className="mb-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">

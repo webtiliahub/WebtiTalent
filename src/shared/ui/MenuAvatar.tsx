@@ -43,7 +43,7 @@ export function MenuAvatar({ nombre, rolLabel, paises, paisActual, esRrhhRegiona
   return (
     <div ref={raiz} className="relative">
       <button onClick={() => setAbierto((v) => !v)} aria-label="Mi cuenta"
-        className="grid h-9 w-9 place-items-center rounded-full bg-hunter font-display text-xs font-extrabold text-white">
+        className="grid h-9 w-9 place-items-center rounded-full bg-marca font-display text-xs font-extrabold text-white">
         {iniciales}
       </button>
       {abierto && (
@@ -59,7 +59,7 @@ export function MenuAvatar({ nombre, rolLabel, paises, paisActual, esRrhhRegiona
           )}
           <InterruptorNotificaciones />
           <button onClick={salir}
-            className="mt-3 w-full rounded-xl border border-gris-claro px-3 py-2 text-left text-[13px] font-bold text-hunter transition hover:bg-red-50">
+            className="mt-3 w-full rounded-xl border border-gris-claro px-3 py-2 text-left text-[13px] font-bold text-alerta transition hover:bg-red-50">
             Cerrar sesión
           </button>
         </div>

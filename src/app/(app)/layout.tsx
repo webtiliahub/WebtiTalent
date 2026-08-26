@@ -22,7 +22,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     esAdmin ? prisma.pais.findMany({ orderBy: { codigo: 'asc' } }) : Promise.resolve([]),
     sesion.esJefe ? prisma.colaborador.count({ where: { jefeId: sesion.colaboradorId, activo: true } }) : Promise.resolve(null),
   ])
-  // Fuerza el cambio por contraseña temporal o por caducidad (6 meses, pedido de Hunter)
+  // Fuerza el cambio por contraseña temporal o por caducidad (6 meses, política heredada)
   if (cuenta?.debeCambiarPassword || passwordExpirada(cuenta?.passwordChangedAt ?? null)) redirect('/cambiar-password')
   const paisActual = jar.get('pais')?.value ?? null
 

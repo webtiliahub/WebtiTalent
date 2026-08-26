@@ -74,7 +74,7 @@ function AccionExencion({ fila, esRegional, cicloActivo }: { fila: FilaConformid
         onChange={(e) => setMotivo(e.target.value)}
         rows={2}
         placeholder="Motivo de la exención (queda en auditoría): vacaciones, licencia médica, sin cuenta…"
-        className="w-full rounded-lg border border-gris-claro bg-white px-3 py-2 text-xs outline-none focus:border-hunter"
+        className="w-full rounded-lg border border-gris-claro bg-white px-3 py-2 text-xs outline-none focus:border-marca"
       />
       <p className="text-[10px] text-gris">
         Motivo obligatorio (mínimo 10 caracteres) · queda en el log de auditoría
@@ -88,13 +88,13 @@ function AccionExencion({ fila, esRegional, cicloActivo }: { fila: FilaConformid
             const res = await eximirConformidad(fila.resultadoId, motivo)
             if (!res.ok) setError(res.error)
           })}
-          className="flex-1 rounded-lg bg-hunter px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-hunter-dark disabled:opacity-50 md:flex-none"
+          className="flex-1 rounded-lg bg-marca px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-marca-dark disabled:opacity-50 md:flex-none"
         >
           {pendiente ? 'Eximiendo…' : 'Confirmar exención'}
         </button>
         <button onClick={() => { setAbierto(false); setMotivo(''); setError(null) }} className={`${btnMiniCls} flex-1 md:flex-none`}>Cancelar</button>
       </div>
-      {error && <p className="text-[11px] text-hunter-dark">{error}</p>}
+      {error && <p className="text-[11px] text-marca-dark">{error}</p>}
     </div>
   )
 }

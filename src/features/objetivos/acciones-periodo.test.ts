@@ -62,7 +62,7 @@ const prismaMock = vi.mocked(prisma, true)
 
 const SESION_REGIONAL: SesionUsuario = {
   id: 'rrhh-regional-1',
-  email: 'rrhh@hunter.test',
+  email: 'rrhh@marca.test',
   name: 'RRHH Regional',
   rol: 'RRHH',
   colaboradorId: 'colab-rrhh-1',

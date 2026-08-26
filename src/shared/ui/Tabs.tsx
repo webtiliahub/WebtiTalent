@@ -38,7 +38,7 @@ export function Tabs({ tabs, inicial, full = false, rejillaMovil = false }: {
               rejillaMovil ? 'min-w-0 whitespace-normal leading-tight md:whitespace-nowrap' : ''
             } ${t.soloEscritorio ? 'hidden md:flex' : ''} ${rejillaMovil && t.id === ultimaMovil ? 'col-span-2 md:col-span-1' : ''} ${
               activa === t.id
-                ? 'bg-hunter text-white shadow-md shadow-hunter/30'
+                ? 'bg-marca text-white shadow-md shadow-marca/30'
                 : 'border border-gris-claro bg-white text-gris hover:bg-hueso hover:text-negro'
             }`}
           >

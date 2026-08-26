@@ -14,7 +14,7 @@ type PreguntaItem = { id: string; texto: string; activa: boolean; competencia: s
 
 export const NIVELES_BARS = ['Insuficiente', 'En desarrollo', 'Competente', 'Superior', 'Excepcional'] as const
 
-const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
 
 export const ETIQUETA_MODALIDAD: Record<string, string> = { JEFE: 'Jefe', PAR: 'Pares', ASCENDENTE: 'Ascendente', AUTO: 'Auto' }
 const ORDEN_MODALIDADES = ['JEFE', 'PAR', 'ASCENDENTE', 'AUTO'] as const
@@ -56,20 +56,20 @@ export function BancoPreguntas({ dimensiones, preguntas, potencial, puedeGestion
           <div className="grid w-full grid-cols-2 gap-2 md:contents">
             <button
               onClick={() => setSeccion('competencias')}
-              className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${seccion === 'competencias' ? 'bg-hunter text-white shadow-md shadow-hunter/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
+              className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${seccion === 'competencias' ? 'bg-marca text-white shadow-md shadow-marca/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
             >
               🗂 Por competencia · {preguntas.length}
             </button>
             <button
               onClick={() => setSeccion('potencial')}
-              className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${seccion === 'potencial' ? 'bg-hunter text-white shadow-md shadow-hunter/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
+              className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${seccion === 'potencial' ? 'bg-marca text-white shadow-md shadow-marca/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
             >
               📈 Potencial · {potencial.length}
             </button>
           </div>
         </div>
         {seccion === 'competencias' && puedeGestionar && (
-          <button onClick={() => setModalAbierto(true)} className="w-full shrink-0 rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark md:w-auto">
+          <button onClick={() => setModalAbierto(true)} className="w-full shrink-0 rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark md:w-auto">
             ＋ Nueva pregunta
           </button>
         )}
@@ -94,7 +94,7 @@ export function BancoPreguntas({ dimensiones, preguntas, potencial, puedeGestion
                 <button
                   key={d.id}
                   onClick={() => setFiltro(filtro === d.id ? null : d.id)}
-                  className={`rounded-full px-3 py-1 text-[11px] font-bold transition ${filtro === d.id ? 'bg-hunter text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
+                  className={`rounded-full px-3 py-1 text-[11px] font-bold transition ${filtro === d.id ? 'bg-marca text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
                 >
                   {d.nombre} · {n}
                 </button>
@@ -129,7 +129,7 @@ export function BancoPreguntas({ dimensiones, preguntas, potencial, puedeGestion
                 </button>
 
                 {/* Escritorio: la fila original */}
-                <button type="button" onClick={() => setViendo(p)} title="Ver la pregunta completa" className="hidden min-w-0 flex-1 text-left text-sm transition hover:text-hunter-dark md:block">
+                <button type="button" onClick={() => setViendo(p)} title="Ver la pregunta completa" className="hidden min-w-0 flex-1 text-left text-sm transition hover:text-marca-dark md:block">
                   {p.texto}
                 </button>
                 <span className="hidden items-center gap-3 md:flex">
@@ -152,7 +152,7 @@ export function BancoPreguntas({ dimensiones, preguntas, potencial, puedeGestion
                     <span className="grid h-7 w-7 place-items-center rounded-lg text-base font-bold text-gris/50 group-hover/acc:hidden group-focus-within/acc:hidden">⋯</span>
                     <span className="hidden items-center gap-1 group-hover/acc:flex group-focus-within/acc:flex">
                       <button onClick={() => setEditando(p)} title="Editar" className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-hueso hover:text-negro"><Pencil size={13} /></button>
-                      <button onClick={() => eliminar(p)} title="Eliminar" className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-hunter"><Trash2 size={13} /></button>
+                      <button onClick={() => eliminar(p)} title="Eliminar" className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-alerta"><Trash2 size={13} /></button>
                     </span>
                   </span>
                 )}
@@ -186,7 +186,7 @@ export function BancoPreguntas({ dimensiones, preguntas, potencial, puedeGestion
                 <ul className="grid grid-cols-[max-content_1fr] gap-x-3 gap-y-2 text-[13px] leading-relaxed">
                   {viendo.descriptores.map((d, i) => (
                     <li key={i} className="contents">
-                      <span className="font-bold"><span className="text-hunter">{i + 1}</span> · {NIVELES_BARS[i]}</span>
+                      <span className="font-bold"><span className="text-marca">{i + 1}</span> · {NIVELES_BARS[i]}</span>
                       <span className="text-gris">{d}</span>
                     </li>
                   ))}
@@ -278,8 +278,8 @@ function FormPregunta({ dimensiones, dimensionInicial, edicion, onCerrar }: {
       {/* Progreso del asistente */}
       <div>
         <div className="mb-1.5 flex gap-1.5" aria-label={`Paso ${paso} de 2`}>
-          <span className="h-1 flex-1 rounded-full bg-hunter" />
-          <span className={`h-1 flex-1 rounded-full ${paso === 2 ? 'bg-hunter' : 'bg-hueso-2'}`} />
+          <span className="h-1 flex-1 rounded-full bg-marca" />
+          <span className={`h-1 flex-1 rounded-full ${paso === 2 ? 'bg-marca' : 'bg-hueso-2'}`} />
         </div>
         <p className="text-[11px] font-bold uppercase tracking-wide text-gris">
           Paso {paso} de 2 · {paso === 1 ? 'La pregunta' : 'Descriptores de la escala (BARS)'}
@@ -323,7 +323,7 @@ function FormPregunta({ dimensiones, dimensionInicial, edicion, onCerrar }: {
         <div className="flex flex-wrap gap-2">
           {ORDEN_MODALIDADES.map((m) => (
             <label key={m} className="flex cursor-pointer items-center gap-2 rounded-xl border border-gris-claro bg-hueso px-3 py-2 text-[13px]">
-              <input type="checkbox" name="modalidades" value={m} defaultChecked={edicion ? edicion.modalidades.includes(m) : m !== 'ASCENDENTE'} className="h-4 w-4 accent-[#f0163e]" />
+              <input type="checkbox" name="modalidades" value={m} defaultChecked={edicion ? edicion.modalidades.includes(m) : m !== 'ASCENDENTE'} className="h-4 w-4 accent-[#0067ff]" />
               {ETIQUETA_MODALIDAD[m]}
             </label>
           ))}
@@ -338,7 +338,7 @@ function FormPregunta({ dimensiones, dimensionInicial, edicion, onCerrar }: {
         <div className="space-y-2">
           {NIVELES_BARS.map((nivel, i) => (
             <label key={nivel} className="flex items-start gap-2">
-              <span className="mt-2 w-24 shrink-0 text-[11px] font-bold"><span className="text-hunter">{i + 1}</span> · {nivel}</span>
+              <span className="mt-2 w-24 shrink-0 text-[11px] font-bold"><span className="text-marca">{i + 1}</span> · {nivel}</span>
               <textarea
                 name={`descriptor${i + 1}`}
                 rows={3}
@@ -353,7 +353,7 @@ function FormPregunta({ dimensiones, dimensionInicial, edicion, onCerrar }: {
       </div>
       </div>
 
-      {aviso && <p className={`rounded-lg px-3 py-2 text-sm ${aviso.includes('✓') ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-hunter-dark'}`}>{aviso}</p>}
+      {aviso && <p className={`rounded-lg px-3 py-2 text-sm ${aviso.includes('✓') ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-alerta-dark'}`}>{aviso}</p>}
       <div className="flex items-center justify-between gap-2 pt-1">
         {paso === 2
           ? <button type="button" onClick={() => { setAviso(null); setPaso(1) }} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">← Atrás</button>
@@ -363,11 +363,11 @@ function FormPregunta({ dimensiones, dimensionInicial, edicion, onCerrar }: {
           {/* key distinto en cada botón: sin él React REUTILIZA el nodo al cambiar de paso
               (type button→submit) y la acción por defecto del mismo clic enviaba el form */}
           {paso === 1 ? (
-            <button key="siguiente" type="button" onClick={avanzar} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark">
+            <button key="siguiente" type="button" onClick={avanzar} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark">
               Siguiente →
             </button>
           ) : (
-            <button key="enviar" type="submit" disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button key="enviar" type="submit" disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Guardando…' : edicion ? 'Guardar cambios ✓' : 'Agregar al banco →'}
             </button>
           )}
@@ -447,7 +447,7 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
           <p className="text-xs text-gris">Las responde solo el jefe · definen el eje vertical del 9-Box · sin competencia ni dimensión (no afectan la nota de desempeño)</p>
         </div>
         {puedeGestionar && (
-          <button onClick={() => setEditando('nueva')} className="w-full shrink-0 rounded-xl border border-dashed border-hunter/50 px-4 py-2.5 text-[12.5px] font-bold text-hunter-dark transition hover:bg-red-50/50 md:w-auto md:py-2">
+          <button onClick={() => setEditando('nueva')} className="w-full shrink-0 rounded-xl border border-dashed border-marca/50 px-4 py-2.5 text-[12.5px] font-bold text-marca-dark transition hover:bg-blue-50/50 md:w-auto md:py-2">
             ＋ Nueva pregunta de potencial
           </button>
         )}
@@ -471,7 +471,7 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
               </button>
 
               {/* Escritorio: la fila original */}
-              <button type="button" onClick={() => setViendo(p)} title="Ver la pregunta completa" className="hidden min-w-0 flex-1 text-left text-sm transition hover:text-hunter-dark md:block">
+              <button type="button" onClick={() => setViendo(p)} title="Ver la pregunta completa" className="hidden min-w-0 flex-1 text-left text-sm transition hover:text-marca-dark md:block">
                 {p.texto}
               </button>
               <span className="hidden items-center gap-3 md:flex">
@@ -486,7 +486,7 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
                   <span className="grid h-7 w-7 place-items-center rounded-lg text-base font-bold text-gris/50 group-hover/acc:hidden group-focus-within/acc:hidden">⋯</span>
                   <span className="hidden items-center gap-1 group-hover/acc:flex group-focus-within/acc:flex">
                     <button onClick={() => setEditando(p)} title="Editar" className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-hueso hover:text-negro"><Pencil size={13} /></button>
-                    <button onClick={() => eliminar(p)} title="Eliminar" className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-hunter"><Trash2 size={13} /></button>
+                    <button onClick={() => eliminar(p)} title="Eliminar" className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-alerta"><Trash2 size={13} /></button>
                   </span>
                 </span>
               )}
@@ -510,7 +510,7 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
                 <ul className="grid grid-cols-[max-content_1fr] gap-x-3 gap-y-2 text-[13px] leading-relaxed">
                   {viendo.descriptores.map((d, i) => (
                     <li key={i} className="contents">
-                      <span className="font-bold"><span className="text-hunter">{i + 1}</span> · {NIVELES_BARS[i]}</span>
+                      <span className="font-bold"><span className="text-marca">{i + 1}</span> · {NIVELES_BARS[i]}</span>
                       <span className="text-gris">{d}</span>
                     </li>
                   ))}
@@ -535,8 +535,8 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
         <form onSubmit={enviar} className="space-y-3">
           <div>
             <div className="mb-1.5 flex gap-1.5" aria-label={`Paso ${paso} de 2`}>
-              <span className="h-1 flex-1 rounded-full bg-hunter" />
-              <span className={`h-1 flex-1 rounded-full ${paso === 2 ? 'bg-hunter' : 'bg-hueso-2'}`} />
+              <span className="h-1 flex-1 rounded-full bg-marca" />
+              <span className={`h-1 flex-1 rounded-full ${paso === 2 ? 'bg-marca' : 'bg-hueso-2'}`} />
             </div>
             <p className="text-[11px] font-bold uppercase tracking-wide text-gris">
               Paso {paso} de 2 · {paso === 1 ? 'La pregunta' : 'Descriptores de la escala (BARS)'}
@@ -553,7 +553,7 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
             <div className="space-y-2">
               {NIVELES_BARS.map((nivel, i) => (
                 <label key={nivel} className="flex items-start gap-2">
-                  <span className="mt-2 w-24 shrink-0 text-[11px] font-bold"><span className="text-hunter">{i + 1}</span> · {nivel}</span>
+                  <span className="mt-2 w-24 shrink-0 text-[11px] font-bold"><span className="text-marca">{i + 1}</span> · {nivel}</span>
                   <textarea
                     name={`descriptor${i + 1}`}
                     rows={3}
@@ -567,7 +567,7 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
             <p className="mt-1 text-[11px] text-gris">Opcionales, pero completos: o los 5 niveles o ninguno.</p>
           </div>
 
-          {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+          {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
           <div className="flex items-center justify-between gap-2 pt-1">
             {paso === 2
               ? <button type="button" onClick={() => { setAviso(null); setPaso(1) }} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">← Atrás</button>
@@ -576,11 +576,11 @@ function SeccionPotencial({ potencial, puedeGestionar = true }: { potencial: Pot
               <button type="button" onClick={() => setEditando(null)} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
               {/* key distinto: evita que React reutilice el nodo y el clic de Siguiente envíe */}
               {paso === 1 ? (
-                <button key="siguiente" type="button" onClick={avanzar} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark">
+                <button key="siguiente" type="button" onClick={avanzar} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark">
                   Siguiente →
                 </button>
               ) : (
-                <button key="enviar" type="submit" disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+                <button key="enviar" type="submit" disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
                   {pendiente ? 'Guardando…' : 'Guardar ✓'}
                 </button>
               )}

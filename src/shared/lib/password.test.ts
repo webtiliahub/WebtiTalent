@@ -16,10 +16,10 @@ describe('esquemaPasswordNueva', () => {
     expect(ok('1234567890')).toBe(false)
   })
   it('rechaza palabras comunes y el nombre de la empresa', () => {
-    expect(ok('Hunter2026x')).toBe(false)   // contiene «hunter»
-    expect(ok('carsegsa123')).toBe(false)
+    expect(ok('Webtilia2026x')).toBe(false) // contiene «webtilia»
+    expect(ok('webtitalent123')).toBe(false)
     expect(ok('password1234')).toBe(false)
-    expect(ok('Cenit123456')).toBe(false)
+    expect(ok('Admin1234567')).toBe(false)
   })
   it('tope de 128 caracteres', () => {
     expect(ok('a1' + 'x'.repeat(200))).toBe(false)

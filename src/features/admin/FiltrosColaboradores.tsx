@@ -38,7 +38,7 @@ export function FiltrosColaboradores({ areas, niveles, q, area, nivel }: {
         onKeyDown={(e) => { if (e.key === 'Enter') aplicar({ q: (e.target as HTMLInputElement).value }) }}
         onBlur={(e) => { if (e.target.value.trim() !== (q ?? '')) aplicar({ q: e.target.value }) }}
         placeholder="Buscar por nombre, documento o código…"
-        className="w-full rounded-xl border border-gris-claro bg-white px-3.5 py-2 text-base outline-none focus:border-hunter md:w-72 md:text-sm"
+        className="w-full rounded-xl border border-gris-claro bg-white px-3.5 py-2 text-base outline-none focus:border-marca md:w-72 md:text-sm"
       />
       <div className="grid w-full grid-cols-2 items-center gap-2 md:contents">
         <div className="md:w-80">

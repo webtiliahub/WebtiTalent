@@ -44,7 +44,7 @@ export function EditarEvaluacionesCiclo({ cicloId, niveles, porNivelInicial, por
     <>
       <button
         onClick={() => setAbierto(true)}
-        className="rounded-xl border border-gris-claro px-4 py-2 text-xs font-bold transition hover:border-hunter hover:text-hunter"
+        className="rounded-xl border border-gris-claro px-4 py-2 text-xs font-bold transition hover:border-marca hover:text-marca"
       >
         ✎ Editar evaluaciones
       </button>
@@ -59,13 +59,13 @@ export function EditarEvaluacionesCiclo({ cicloId, niveles, porNivelInicial, por
           {/* Sin preview de alcance en este modal (no es el wizard): usa los totales del nivel. */}
           <SelectorEvaluaciones niveles={niveles} porNivel={porNivel} setPorNivel={setPorNivel} porPuesto={porPuesto} setPorPuesto={setPorPuesto} conteos={undefined} />
         </div>
-        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-5 flex items-center justify-end gap-2">
           <button type="button" onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
           <button
             onClick={guardar}
             disabled={pendiente || evaluacionIds.length === 0}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60"
           >
             {pendiente ? 'Guardando…' : 'Guardar cambios'}
           </button>

@@ -13,7 +13,7 @@ import { Prisma } from '@/generated/prisma/client'
  * 2) NextAuth (credentials) valida el código (SHA-256, 10 min, un solo uso) y abre sesión.
  */
 export const authOptions: NextAuthOptions = {
-  // 24 h de sesión (pedido EXPLÍCITO de Hunter, no modificar): un solo login por jornada. La
+  // 24 h de sesión (heredado del diseño original — Hunter lo exigía): un solo login por jornada. La
   // seguridad no depende de este plazo: rol/alcance/activo se re-derivan de la BD en cada request y
   // el cambio de contraseña invalida la sesión al instante (pwdStamp). Se evaluó un cierre por
   // inactividad para las PC de planta compartidas, pero contradice el «un login por jornada».
@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
   pages: { signIn: '/login' },
   providers: [
     CredentialsProvider({
-      name: 'Hunter 2FA',
+      name: 'WebtiTalent 2FA',
       credentials: { email: {}, codigo: {} },
       async authorize(credentials) {
         const email = credentials?.email?.toLowerCase().trim()

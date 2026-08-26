@@ -129,7 +129,7 @@ export function InterruptorNotificaciones() {
     return (
       <p className={`${marco} border-gris-claro bg-hueso text-gris`}>
         <span className="flex items-center gap-1.5 font-bold text-negro"><BellOff size={13} />Notificaciones bloqueadas</span>
-        <span className="mt-0.5 block text-[11.5px]">Las rechazaste en este dispositivo. Se reactivan desde los ajustes del sistema, en las notificaciones de Talent Hub.</span>
+        <span className="mt-0.5 block text-[11.5px]">Las rechazaste en este dispositivo. Se reactivan desde los ajustes del sistema, en las notificaciones de WebtiTalent.</span>
       </p>
     )
   }

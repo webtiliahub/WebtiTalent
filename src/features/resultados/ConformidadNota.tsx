@@ -90,7 +90,7 @@ export function ConformidadNota({ cicloId, estado, fecha, observacion, notaAcept
         <p className="mt-2 rounded-lg bg-hueso-2 px-3 py-2 text-xs text-gris">
           Esta decisión es única y quedará como registro auditable del proceso; no podrás cambiarla después.
         </p>
-        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-4 flex items-center justify-end gap-2">
           <button onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
           <button
@@ -111,19 +111,19 @@ export function ConformidadNota({ cicloId, estado, fecha, observacion, notaAcept
           rows={4}
           autoFocus
           placeholder="Ej: mi logro del objetivo X quedó registrado en 70% pero la meta acordada con mi jefe se cumplió al 100% según…"
-          className="mt-3 w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none transition focus:border-hunter"
+          className="mt-3 w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none transition focus:border-marca"
         />
         <p className="mt-2 rounded-lg bg-hueso-2 px-3 py-2 text-xs text-gris">
           Tus comentarios son únicos y quedarán como registro auditable; no podrás cambiarlos después. El resultado final dependerá de la calibración y el cierre del ciclo.
         </p>
-        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-4 flex items-center justify-end gap-2">
           <button onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
           <button
             onClick={enviarObservacion}
             disabled={pendiente || comentario.trim().length < 10}
             title={comentario.trim().length < 10 ? 'Escribe al menos 10 caracteres' : undefined}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:cursor-not-allowed disabled:opacity-60"
           >
             {pendiente ? 'Enviando…' : 'Enviar comentarios →'}
           </button>

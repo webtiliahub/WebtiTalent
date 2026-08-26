@@ -25,7 +25,7 @@ export type AvisoPush = {
 
 const clavePublica = process.env.VAPID_PUBLIC_KEY
 const clavePrivada = process.env.VAPID_PRIVATE_KEY
-const asunto = process.env.VAPID_SUBJECT ?? 'mailto:Evaluacion360@hunter.com.pe'
+const asunto = process.env.VAPID_SUBJECT ?? 'mailto:Evaluacion360@marca.com.pe'
 
 let configurado = false
 function configurar(): boolean {

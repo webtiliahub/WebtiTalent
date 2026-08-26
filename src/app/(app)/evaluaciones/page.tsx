@@ -11,7 +11,7 @@ const TIPO_DESC: Record<string, string> = {
 }
 
 const CHIP_MODALIDAD: Record<string, { etiqueta: string; clase: string }> = {
-  AUTO: { etiqueta: 'AUTO', clase: 'bg-red-50 text-hunter-dark' },
+  AUTO: { etiqueta: 'AUTO', clase: 'bg-blue-50 text-marca-dark' },
   PAR: { etiqueta: 'PAR', clase: 'bg-violet-50 text-violet-700' },
   ASCENDENTE: { etiqueta: 'ASCENDENTE', clase: 'bg-orange-50 text-orange-700' },
 }
@@ -67,7 +67,7 @@ export default async function MisEvaluacionesPage({ searchParams }: { searchPara
               const mod = CHIP_MODALIDAD[a.tipo]
               const avance = avancePorAsignacion.get(a.id)
               const avatar = esAuto
-                ? <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-hunter font-display text-[10px] font-extrabold text-white">YO</span>
+                ? <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-marca font-display text-[10px] font-extrabold text-white">YO</span>
                 : <Avatar nombre={nombre} />
               return (
                 // En móvil TODA la card navega (Link superpuesto); en escritorio se mantiene la
@@ -109,7 +109,7 @@ export default async function MisEvaluacionesPage({ searchParams }: { searchPara
                     {a.estado === 'PENDIENTE' && <Chip tono="pendiente">Pendiente</Chip>}
                     <Link
                       href={`/evaluaciones/${a.id}`}
-                      className="rounded-xl bg-hunter px-4 py-2 font-display text-xs font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark"
+                      className="rounded-xl bg-marca px-4 py-2 font-display text-xs font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark"
                     >
                       {a.estado === 'ENVIADA' ? 'Ver' : 'Responder'}
                     </Link>

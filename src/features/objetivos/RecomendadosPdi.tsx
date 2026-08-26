@@ -35,9 +35,9 @@ export function RecomendadosPdi({ periodoId, disponible, origen, acciones }: {
   const [prellenado, setPrellenado] = useState<PrellenadoObjetivo | null>(null)
 
   return (
-    <div className="rounded-2xl border border-dashed border-hunter/35 bg-hunter/[0.03] p-5">
+    <div className="rounded-2xl border border-dashed border-marca/35 bg-marca/[0.03] p-5">
       <p className="flex items-center gap-1.5 text-sm font-bold">
-        <Sparkles size={14} className="text-hunter" /> Recomendados de tu plan de desarrollo
+        <Sparkles size={14} className="text-marca" /> Recomendados de tu plan de desarrollo
       </p>
       <p className="mt-0.5 text-xs text-gris">
         Tu jefe registró {acciones.length === 1 ? 'este desafío' : 'estos desafíos'} en la sesión de feedback de <b className="text-negro">{origen}</b>. Puedes proponerlos como objetivos de desarrollo de este período.
@@ -53,7 +53,7 @@ export function RecomendadosPdi({ periodoId, disponible, origen, acciones }: {
               onClick={() => setPrellenado({ titulo: a.titulo, tipo: 'DESARROLLO', metaFecha: aMes(a.fechaObjetivo) })}
               disabled={disponible <= 0}
               title={disponible <= 0 ? 'Ya no tienes peso disponible: tus objetivos suman 100%' : undefined}
-              className="rounded-lg border border-hunter/40 px-3 py-1.5 text-xs font-bold text-hunter transition hover:bg-hunter hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg border border-marca/40 px-3 py-1.5 text-xs font-bold text-marca transition hover:bg-marca hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               Proponer como objetivo →
             </button>

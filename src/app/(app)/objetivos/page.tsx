@@ -83,7 +83,7 @@ export default async function MisObjetivosPage() {
                 aplastaba el título a 3-4 líneas); escritorio: la fila de siempre vía order */}
             {transversales.map((o) => (
               <li key={o.id} className="flex flex-wrap items-start gap-x-4 gap-y-1.5 rounded-xl border border-gris-claro px-4 py-3 md:flex-nowrap">
-                <span className="order-1 self-center font-display text-2xl font-extrabold tracking-tight text-hunter md:w-20 md:shrink-0 md:text-center">{o.peso}%</span>
+                <span className="order-1 self-center font-display text-2xl font-extrabold tracking-tight text-marca md:w-20 md:shrink-0 md:text-center">{o.peso}%</span>
                 <span className="order-2 ml-auto self-center md:order-3 md:ml-0"><Chip tono="ok">Activo</Chip></span>
                 <div className="order-3 w-full min-w-0 md:order-2 md:w-auto md:flex-1">
                   <p className="text-sm font-semibold">{o.titulo} <Chip tono="azul">{TIPO_LABEL[o.tipo]}</Chip></p>
@@ -94,7 +94,7 @@ export default async function MisObjetivosPage() {
             ))}
             {individuales.map((o) => (
               <li key={o.id} className="flex flex-wrap items-start gap-x-4 gap-y-1.5 rounded-xl border border-gris-claro px-4 py-3 md:flex-nowrap">
-                <span className="order-1 self-center font-display text-2xl font-extrabold tracking-tight text-hunter md:w-20 md:shrink-0 md:text-center">{o.peso}%</span>
+                <span className="order-1 self-center font-display text-2xl font-extrabold tracking-tight text-marca md:w-20 md:shrink-0 md:text-center">{o.peso}%</span>
                 <div className="order-3 w-full min-w-0 md:order-2 md:w-auto md:flex-1">
                   <p className="text-sm font-semibold">{o.titulo} <Chip>{TIPO_LABEL[o.tipo]}</Chip></p>
                   {o.descripcion && <p className="mt-0.5 text-xs text-gris">{o.descripcion}</p>}

@@ -39,7 +39,7 @@ export function FormModeloCompetencias({ dimensiones, puedeGestionar = true }: {
           const abierta = abiertas.has(d.id)
           return (
             <div key={d.id} className="rounded-xl border border-gris-claro/70 p-4">
-              <div className="flex items-start gap-2 font-display text-[13px] font-bold uppercase tracking-wide text-hunter-dark">
+              <div className="flex items-start gap-2 font-display text-[13px] font-bold uppercase tracking-wide text-marca-dark">
                 <button
                   onClick={() => alternar(d.id)}
                   // La flecha medía 7 px de ancho: en móvil se le da un área de 36 px

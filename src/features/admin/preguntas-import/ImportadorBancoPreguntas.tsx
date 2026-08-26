@@ -96,14 +96,14 @@ export function ImportadorBancoPreguntas({ catalogos }: { catalogos: Catalogos }
           <button
             disabled={!puedeAplicar || pendiente}
             onClick={aplicar}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
           >
             {pendiente ? 'Aplicando…' : `Aplicar carga (${totalNuevas(plan)} pregunta${totalNuevas(plan) === 1 ? '' : 's'}) →`}
           </button>
         )}
       </div>
 
-      {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-alerta-dark">{error}</p>}
 
       {plan && (
         <div className="space-y-4">
@@ -119,7 +119,7 @@ export function ImportadorBancoPreguntas({ catalogos }: { catalogos: Catalogos }
 
           {plan.errores.length > 0 && (
             <div className="rounded-xl border border-red-200 bg-red-50/60 px-4 py-3">
-              <p className="mb-1.5 text-[13px] font-bold text-hunter-dark">✕ {plan.errores.length} error(es) — corrígelos en el archivo y vuelve a analizar</p>
+              <p className="mb-1.5 text-[13px] font-bold text-marca-dark">✕ {plan.errores.length} error(es) — corrígelos en el archivo y vuelve a analizar</p>
               <ul className="max-h-64 space-y-0.5 overflow-y-auto text-xs text-negro/80">
                 {plan.errores.map((e, i) => <li key={i}>{e}</li>)}
               </ul>

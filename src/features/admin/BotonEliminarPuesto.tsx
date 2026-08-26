@@ -28,9 +28,9 @@ export function BotonEliminarPuesto({ puestoId, nombre, enUso }: { puestoId: str
         onClick={onClick}
         disabled={pendiente || enUso}
         title={enUso ? 'Tiene colaboradores asignados: reasígnalos primero' : 'Eliminar puesto'}
-        className="inline-grid h-7 w-7 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-hunter disabled:cursor-not-allowed disabled:opacity-30"
+        className="inline-grid h-7 w-7 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-alerta disabled:cursor-not-allowed disabled:opacity-30"
       >✕</button>
-      {error && <span onClick={(e) => e.stopPropagation()} className="ml-1 text-[10px] text-hunter-dark">{error}</span>}
+      {error && <span onClick={(e) => e.stopPropagation()} className="ml-1 text-[10px] text-marca-dark">{error}</span>}
     </>
   )
 }

@@ -56,7 +56,7 @@ function Expandible({ etiqueta, children }: { etiqueta: string; children: React.
       <button
         type="button"
         onClick={() => setAbierto((a) => !a)}
-        className="flex items-center gap-1 text-xs font-bold text-hunter hover:text-hunter-dark"
+        className="flex items-center gap-1 text-xs font-bold text-marca hover:text-marca-dark"
       >
         {abierto ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
         {etiqueta}
@@ -86,7 +86,7 @@ function SeccionNiveles({ plan }: { plan: PlanMaestro }) {
                 <tr key={n.nombre}>
                   <td className={`${tdCls} font-semibold`}>{n.nombre}</td>
                   <td className={tdCls}>{n.compPctAntes}%</td>
-                  <td className={`${tdCls} font-bold text-hunter`}>{n.compPctDespues}%</td>
+                  <td className={`${tdCls} font-bold text-marca`}>{n.compPctDespues}%</td>
                 </tr>
               ))}
             </tbody>
@@ -121,7 +121,7 @@ function SeccionPuestos({ plan }: { plan: PlanMaestro }) {
             {plan.puestosRehomologados.map((p) => (
               <li key={p.nombre} className="rounded-lg bg-hueso px-3 py-1.5">
                 <b>{p.nombre}</b> <span className="text-gris">— {p.nivelAntes} → </span>
-                <span className="font-bold text-hunter">{p.nivelDespues}</span>
+                <span className="font-bold text-marca">{p.nivelDespues}</span>
               </li>
             ))}
           </ul>
@@ -146,7 +146,7 @@ function SeccionCompetencias({ plan }: { plan: PlanMaestro }) {
             {primeros20.map((c) => (
               <li key={c.puesto} className="rounded-lg bg-hueso px-3 py-1.5">
                 <b>{c.puesto}</b> <span className="text-gris">— {c.antes} → </span>
-                <span className="font-bold text-hunter">{c.despues}</span> competencia(s)
+                <span className="font-bold text-marca">{c.despues}</span> competencia(s)
               </li>
             ))}
           </ul>
@@ -290,14 +290,14 @@ export function CargaMaestra({ puedeGestionar, catalogos }: { puedeGestionar: bo
             disabled={!puedeAplicar || pendiente}
             onClick={aplicar}
             title={plan.bloqueadoPorCiclo ? 'Hay un ciclo ACTIVO: la aplicación queda bloqueada hasta que cierre' : undefined}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
           >
             {pendiente ? 'Aplicando…' : `Aplicar carga (${totalCambios(plan)} cambio(s)) →`}
           </button>
         )}
       </div>
 
-      {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-alerta-dark">{error}</p>}
 
       {plan && (
         <div className="space-y-4">
@@ -306,14 +306,14 @@ export function CargaMaestra({ puedeGestionar, catalogos }: { puedeGestionar: bo
           )}
 
           {plan.bloqueadoPorCiclo && !aplicado && (
-            <p className="rounded-xl border border-red-200 bg-red-50/60 px-4 py-3 text-sm font-bold text-hunter-dark">
+            <p className="rounded-xl border border-red-200 bg-red-50/60 px-4 py-3 text-sm font-bold text-alerta-dark">
               Hay un ciclo activo: puedes revisar el análisis pero no aplicar.
             </p>
           )}
 
           {plan.errores.length > 0 && (
             <div className="rounded-xl border border-red-200 bg-red-50/60 px-4 py-3">
-              <p className="mb-1.5 text-[13px] font-bold text-hunter-dark">✕ {plan.errores.length} error(es) — corrígelos en el archivo y vuelve a analizar</p>
+              <p className="mb-1.5 text-[13px] font-bold text-marca-dark">✕ {plan.errores.length} error(es) — corrígelos en el archivo y vuelve a analizar</p>
               <ul className="max-h-64 space-y-0.5 overflow-y-auto text-xs text-negro/80">
                 {acotarRender(plan.errores).map((e, i) => <li key={i}>{e}</li>)}
               </ul>

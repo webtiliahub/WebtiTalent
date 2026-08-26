@@ -26,11 +26,11 @@ export function BotonEliminarObjetivo({ objetivoId, titulo }: { objetivoId: stri
             else toast('Objetivo eliminado: puedes volver a crearlo')
           })
         }}
-        className="rounded-lg border border-gris-claro p-2 text-gris transition hover:border-hunter hover:text-hunter disabled:opacity-50"
+        className="rounded-lg border border-gris-claro p-2 text-gris transition hover:border-marca hover:text-marca disabled:opacity-50"
       >
         <Trash2 size={14} />
       </button>
-      {error && <span className="max-w-52 text-right text-[11px] text-hunter-dark">{error}</span>}
+      {error && <span className="max-w-52 text-right text-[11px] text-marca-dark">{error}</span>}
     </span>
   )
 }
@@ -55,11 +55,11 @@ export function BotonDesaprobar({ objetivoId, titulo }: { objetivoId: string; ti
             else toast('Objetivo devuelto a propuesto')
           })
         }}
-        className="flex items-center gap-1.5 rounded-lg border border-gris-claro px-2.5 py-1.5 text-[11px] font-bold text-gris transition hover:border-hunter hover:text-hunter disabled:opacity-50"
+        className="flex items-center gap-1.5 rounded-lg border border-gris-claro px-2.5 py-1.5 text-[11px] font-bold text-gris transition hover:border-marca hover:text-marca disabled:opacity-50"
       >
         <Undo2 size={12} /> Devolver a propuesto
       </button>
-      {error && <span className="max-w-52 text-right text-[11px] text-hunter-dark">{error}</span>}
+      {error && <span className="max-w-52 text-right text-[11px] text-marca-dark">{error}</span>}
     </span>
   )
 }

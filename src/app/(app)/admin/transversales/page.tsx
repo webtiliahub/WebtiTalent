@@ -64,12 +64,12 @@ export default async function TransversalesPage() {
                   // columna de una palabra. Escritorio: la fila de siempre.
                   <li key={o.id} className="rounded-xl border border-gris-claro px-4 py-3 md:flex md:flex-wrap md:items-center md:gap-4">
                     <span className="flex items-center gap-2 md:hidden">
-                      <span className="font-display text-2xl font-extrabold tracking-tight text-hunter">{o.peso}%</span>
+                      <span className="font-display text-2xl font-extrabold tracking-tight text-marca">{o.peso}%</span>
                       <span className="ml-auto flex flex-wrap justify-end gap-1">
                         {foco.length === 0 ? <Chip tono="azul">Toda la organización</Chip> : foco.map((f) => <Chip key={f}>{f}</Chip>)}
                       </span>
                     </span>
-                    <span className="hidden w-20 shrink-0 self-center text-center font-display text-2xl font-extrabold tracking-tight text-hunter md:block">{o.peso}%</span>
+                    <span className="hidden w-20 shrink-0 self-center text-center font-display text-2xl font-extrabold tracking-tight text-marca md:block">{o.peso}%</span>
                     <div className="mt-1.5 min-w-0 flex-1 md:mt-0">
                       <p className="text-sm font-semibold">{o.titulo}</p>
                       <p className="text-xs text-gris">{o.descripcion}</p>

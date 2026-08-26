@@ -53,7 +53,7 @@ export default async function ResultadosEquipoPage() {
               )
               const metricas: [string, ReactNode][] = [
                 ['Competencias', <Nota key="c" valor={r?.notaCompetencias} />],
-                ['Objetivos', <b key="o" className="font-display text-hunter">{r?.cumplimientoObjetivos != null ? `${Math.round(r.cumplimientoObjetivos)}%` : <span className="font-sans font-bold text-gris-claro">—</span>}</b>],
+                ['Objetivos', <b key="o" className="font-display text-marca">{r?.cumplimientoObjetivos != null ? `${Math.round(r.cumplimientoObjetivos)}%` : <span className="font-sans font-bold text-gris-claro">—</span>}</b>],
                 ['Nota final', <Nota key="n" valor={r ? (r.notaCalibrada ?? r.notaFinal) : null} />],
               ]
               return (

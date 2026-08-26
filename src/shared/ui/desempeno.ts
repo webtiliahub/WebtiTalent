@@ -6,7 +6,7 @@ export function badgeNota(nota: number): string {
   if (nota >= 3.5) return 'bg-emerald-600 text-white' // Superior
   if (nota >= 2.5) return 'bg-sky-600 text-white' // Competente
   if (nota >= 1.5) return 'bg-amber-50 text-amber-800' // En desarrollo
-  return 'bg-red-50 text-hunter-dark' // Insuficiente
+  return 'bg-red-50 text-marca-dark' // Insuficiente
 }
 
 /** Tarjeta animada por nivel: oro (excepcional), verde (destacado), azul (sólido); sin efecto hacia abajo. */

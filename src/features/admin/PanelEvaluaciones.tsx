@@ -30,8 +30,8 @@ type Ev = {
 type PotencialDisponible = { id: string; texto: string }
 
 const MODALIDADES: Modalidad[] = ['JEFE', 'PAR', 'ASCENDENTE', 'AUTO']
-const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
-const btnRojo = 'rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60'
+const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
+const btnRojo = 'rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60'
 
 /** Puestos que caen dentro del alcance de una evaluación (los del nivel, o el puesto de la excepción). */
 function puestosDelAlcance(ev: Pick<Ev, 'nivelId' | 'puestoId'>, niveles: NivelW[]): PuestoW[] {
@@ -143,7 +143,7 @@ export function PanelEvaluaciones({ evaluaciones, dimensiones, niveles, potencia
                       </p>
                       {puedeGestionar && (
                         <div className="mt-auto flex items-center gap-2 border-t border-gris-claro pt-3">
-                          <button onClick={() => setEditando(ev)} className="flex-1 rounded-lg bg-hunter/10 px-3 py-2 text-xs font-bold text-hunter-dark transition hover:bg-hunter/20">
+                          <button onClick={() => setEditando(ev)} className="flex-1 rounded-lg bg-marca/10 px-3 py-2 text-xs font-bold text-marca-dark transition hover:bg-marca/20">
                             Editar preguntas →
                           </button>
                           {/* Móvil: siempre visibles (el hover no existe en táctil y no había forma
@@ -161,7 +161,7 @@ export function PanelEvaluaciones({ evaluaciones, dimensiones, niveles, potencia
                               if (!(await confirmar(`¿Eliminar la evaluación "${ev.nombre}"? Esta acción no se puede deshacer.`, { titulo: 'Eliminar evaluación', textoAceptar: 'Eliminar' }))) return
                               startTransition(async () => { const r = await eliminarEvaluacion(ev.id); if (r.ok) { toast('Evaluación eliminada') } else { toast(r.error) } router.refresh() })
                             }}
-                            title="Eliminar (solo si nunca se usó en un ciclo)" className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-hunter"><Trash2 size={14} /></button>
+                            title="Eliminar (solo si nunca se usó en un ciclo)" className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-alerta"><Trash2 size={14} /></button>
                           </span>
                         </div>
                       )}
@@ -185,7 +185,7 @@ export function PanelEvaluaciones({ evaluaciones, dimensiones, niveles, potencia
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold">{ev.nombre}
                     {ev.puestoId && <span className="ml-2 rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700">Excepción · {nombrePuesto.get(ev.puestoId)}</span>}
-                    {!ev.puestoId && !ev.nivelId && <span className="ml-2 rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-bold text-hunter-dark">sin alcance</span>}
+                    {!ev.puestoId && !ev.nivelId && <span className="ml-2 rounded-full bg-red-50 px-2 py-0.5 text-[10px] font-bold text-alerta-dark">sin alcance</span>}
                   </p>
                   <p className="text-[11px] text-gris">{ev.preguntas.length} pregunta{ev.preguntas.length === 1 ? '' : 's'} · usada en {ev.ciclos} ciclo{ev.ciclos === 1 ? '' : 's'}</p>
                 </div>
@@ -201,7 +201,7 @@ export function PanelEvaluaciones({ evaluaciones, dimensiones, niveles, potencia
                       if (!(await confirmar(`¿Eliminar la evaluación "${ev.nombre}"? Esta acción no se puede deshacer.`, { titulo: 'Eliminar evaluación', textoAceptar: 'Eliminar' }))) return
                       startTransition(async () => { const r = await eliminarEvaluacion(ev.id); if (r.ok) { toast('Evaluación eliminada') } else { toast(r.error) } router.refresh() })
                     }}
-                    title="Eliminar" className="grid h-8 w-8 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-hunter"><Trash2 size={14} /></button>
+                    title="Eliminar" className="grid h-8 w-8 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-alerta"><Trash2 size={14} /></button>
                 )}
               </li>
             ))}
@@ -223,12 +223,12 @@ export function PanelEvaluaciones({ evaluaciones, dimensiones, niveles, potencia
             <div>
               <span className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-gris">Alcance</span>
               <div className="mb-2 flex gap-2">
-                <label className={`flex flex-1 cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-[13px] ${alcance === 'nivel' ? 'border-hunter/50 bg-red-50/40' : 'border-gris-claro'}`}>
-                  <input type="radio" checked={alcance === 'nivel'} onChange={() => setAlcance('nivel')} className="h-4 w-4 accent-[#f0163e]" />
+                <label className={`flex flex-1 cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-[13px] ${alcance === 'nivel' ? 'border-marca/50 bg-blue-50/40' : 'border-gris-claro'}`}>
+                  <input type="radio" checked={alcance === 'nivel'} onChange={() => setAlcance('nivel')} className="h-4 w-4 accent-[#0067ff]" />
                   Nivel jerárquico <span className="text-[11px] text-gris">(vía rápida)</span>
                 </label>
-                <label className={`flex flex-1 cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-[13px] ${alcance === 'puesto' ? 'border-hunter/50 bg-red-50/40' : 'border-gris-claro'}`}>
-                  <input type="radio" checked={alcance === 'puesto'} onChange={() => setAlcance('puesto')} className="h-4 w-4 accent-[#f0163e]" />
+                <label className={`flex flex-1 cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-[13px] ${alcance === 'puesto' ? 'border-marca/50 bg-blue-50/40' : 'border-gris-claro'}`}>
+                  <input type="radio" checked={alcance === 'puesto'} onChange={() => setAlcance('puesto')} className="h-4 w-4 accent-[#0067ff]" />
                   Puesto <span className="text-[11px] text-gris">(excepción)</span>
                 </label>
               </div>
@@ -246,7 +246,7 @@ export function PanelEvaluaciones({ evaluaciones, dimensiones, niveles, potencia
               {alcance === 'puesto' && <p className="mt-1 text-[11px] text-gris">La evaluación de puesto reemplaza por completo a la del nivel para ese puesto en el ciclo.</p>}
             </div>
           )}
-          {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+          {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
           <div className="flex items-center justify-end gap-2 pt-1">
             <button type="button" onClick={() => setModal(null)} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
             <button disabled={pendiente} className={btnRojo}>
@@ -378,7 +378,7 @@ function EditorPreguntas({ evaluacion, dimensiones, niveles, potencial, onVolver
         {seleccionadas.length === 0 ? (
           <p className="mb-2 rounded-xl border border-dashed border-gris-claro px-3.5 py-2.5 text-[12.5px] text-gris">
             Sin preguntas en el formulario.
-            <button type="button" onClick={() => setSelector(c)} className="ml-2 font-bold text-hunter hover:underline">＋ Agregar del banco{disponibles.length > 0 ? ` (${disponibles.length})` : ''}</button>
+            <button type="button" onClick={() => setSelector(c)} className="ml-2 font-bold text-marca hover:underline">＋ Agregar del banco{disponibles.length > 0 ? ` (${disponibles.length})` : ''}</button>
           </p>
         ) : (
           <>
@@ -386,15 +386,15 @@ function EditorPreguntas({ evaluacion, dimensiones, niveles, potencial, onVolver
               {seleccionadas.map((p) => {
                 indice += 1
                 return (
-                  <li key={p.id} className="flex items-start gap-2.5 rounded-xl border border-hunter/30 bg-red-50/40 px-3.5 py-2 text-[13px]">
-                    <span className="mt-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-hunter text-[10px] font-bold text-white">{indice}</span>
+                  <li key={p.id} className="flex items-start gap-2.5 rounded-xl border border-marca/30 bg-blue-50/40 px-3.5 py-2 text-[13px]">
+                    <span className="mt-0.5 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-marca text-[10px] font-bold text-white">{indice}</span>
                     <span className="min-w-0 flex-1">{p.texto}</span>
-                    <button type="button" onClick={() => alternar(p.id)} title="Quitar del formulario" className="shrink-0 px-1 font-bold text-gris transition hover:text-hunter">✕</button>
+                    <button type="button" onClick={() => alternar(p.id)} title="Quitar del formulario" className="shrink-0 px-1 font-bold text-gris transition hover:text-marca">✕</button>
                   </li>
                 )
               })}
             </ul>
-            <button type="button" onClick={() => setSelector(c)} className="mb-2 rounded-xl border border-dashed border-hunter/40 px-3.5 py-1.5 text-[12px] font-bold text-hunter-dark transition hover:bg-red-50/40">
+            <button type="button" onClick={() => setSelector(c)} className="mb-2 rounded-xl border border-dashed border-marca/40 px-3.5 py-1.5 text-[12px] font-bold text-marca-dark transition hover:bg-blue-50/40">
               ＋ Agregar del banco{disponibles.length > 0 ? ` (${disponibles.length} disponibles)` : ' (crear nuevas en la pestaña Banco)'}
             </button>
           </>
@@ -420,13 +420,13 @@ function EditorPreguntas({ evaluacion, dimensiones, niveles, potencial, onVolver
       <div className="flex gap-2">
         <button
           onClick={() => setVista('preguntas')}
-          className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${vista === 'preguntas' ? 'bg-hunter text-white shadow-md shadow-hunter/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
+          className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${vista === 'preguntas' ? 'bg-marca text-white shadow-md shadow-marca/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
         >
           ✏️ Preguntas
         </button>
         <button
           onClick={() => setVista('metricas')}
-          className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${vista === 'metricas' ? 'bg-hunter text-white shadow-md shadow-hunter/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
+          className={`rounded-xl px-4 py-2 text-[13px] font-bold transition ${vista === 'metricas' ? 'bg-marca text-white shadow-md shadow-marca/30' : 'border border-gris-claro bg-white text-gris hover:text-negro'}`}
         >
           📊 Métricas del formulario
         </button>
@@ -449,24 +449,24 @@ function EditorPreguntas({ evaluacion, dimensiones, niveles, potencial, onVolver
               <button
                 key={m}
                 onClick={() => setModalidad(m)}
-                className={`rounded-full px-3.5 py-1.5 text-[12px] font-bold transition ${modalidad === m ? 'bg-hunter text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
+                className={`rounded-full px-3.5 py-1.5 text-[12px] font-bold transition ${modalidad === m ? 'bg-marca text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
               >
                 {ETIQUETA_MODALIDAD[m]} · {seleccion[m].size}
               </button>
             ))}
             <button
               onClick={() => setModalidad('POTENCIAL')}
-              className={`rounded-full px-3.5 py-1.5 text-[12px] font-bold transition ${modalidad === 'POTENCIAL' ? 'bg-hunter text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
+              className={`rounded-full px-3.5 py-1.5 text-[12px] font-bold transition ${modalidad === 'POTENCIAL' ? 'bg-marca text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
             >
               📈 Potencial · {seleccionPotencial.size}
             </button>
           </div>
-          <button type="button" onClick={recomendar} className="shrink-0 text-xs font-bold text-hunter hover:underline">
+          <button type="button" onClick={recomendar} className="shrink-0 text-xs font-bold text-marca hover:underline">
             <Zap size={12} className="inline -translate-y-px" /> Usar recomendadas ({modalidad === 'POTENCIAL' ? 'Potencial' : ETIQUETA_MODALIDAD[modalidad]})
           </button>
         </div>
 
-        <p className="rounded-xl bg-red-50/60 px-4 py-2.5 text-[12.5px] text-hunter-dark">
+        <p className="rounded-xl bg-red-50/60 px-4 py-2.5 text-[12.5px] text-alerta-dark">
           {modalidad === 'JEFE' && <>Preguntas que responde el <b>jefe directo</b> sobre cada colaborador. Cada evaluado ve solo las de las competencias de su puesto.</>}
           {modalidad === 'PAR' && <>Preguntas que responden los <b>pares</b>. El manual sugiere limitarlas a las dimensiones Operativa y Liderazgo (así las marca &ldquo;Usar recomendadas&rdquo;).</>}
           {modalidad === 'ASCENDENTE' && <>Preguntas que responde el <b>equipo sobre su jefe</b> (&ldquo;Mi jefe…&rdquo;). El evaluado es el jefe: por eso se configuran aquí, en el formulario del alcance del jefe, y las responde su equipo venga del puesto que venga, sin filtro.</>}
@@ -541,11 +541,11 @@ function EditorPreguntas({ evaluacion, dimensiones, niveles, potencial, onVolver
                 const activa = seleccionPotencial.has(p.id)
                 return (
                   <li key={p.id}>
-                    <label className={`flex cursor-pointer items-start gap-2.5 rounded-xl border px-3 py-2 text-[13px] transition ${activa ? 'border-hunter/40 bg-red-50/40' : 'border-gris-claro hover:bg-hueso'}`}>
+                    <label className={`flex cursor-pointer items-start gap-2.5 rounded-xl border px-3 py-2 text-[13px] transition ${activa ? 'border-marca/40 bg-blue-50/40' : 'border-gris-claro hover:bg-hueso'}`}>
                       <input
                         type="checkbox" checked={activa}
                         onChange={() => setSeleccionPotencial((sp) => { const n = new Set(sp); if (n.has(p.id)) n.delete(p.id); else n.add(p.id); return n })}
-                        className="mt-0.5 h-4 w-4 accent-[#f0163e]"
+                        className="mt-0.5 h-4 w-4 accent-[#0067ff]"
                       />
                       <span>{p.texto}</span>
                     </label>
@@ -718,7 +718,7 @@ function MetricasFormulario({ evaluacion, seleccion, dimensiones, puestos, onAgr
                 <button
                   type="button"
                   onClick={() => onAgregarPreguntas(comp, 'JEFE')}
-                  className="shrink-0 rounded-xl border border-dashed border-hunter/50 px-3 py-1.5 text-[12px] font-bold text-hunter-dark transition hover:bg-red-50/50"
+                  className="shrink-0 rounded-xl border border-dashed border-marca/50 px-3 py-1.5 text-[12px] font-bold text-marca-dark transition hover:bg-blue-50/50"
                 >
                   ＋ Agregar preguntas{comp.preguntas.filter((q) => q.modalidades.includes('JEFE')).length === 0 ? ' (banco vacío)' : ''}
                 </button>
@@ -733,7 +733,7 @@ function MetricasFormulario({ evaluacion, seleccion, dimensiones, puestos, onAgr
         <div className="rounded-2xl border border-amber-200 bg-white p-5">
           <div className="mb-1 flex flex-wrap items-baseline justify-between gap-2">
             <h4 className="font-display text-sm font-bold">Descuadres del catálogo de puestos</h4>
-            <Link href="/admin/puestos" className="text-xs font-bold text-hunter hover:underline">Ir a Puestos y niveles →</Link>
+            <Link href="/admin/puestos" className="text-xs font-bold text-marca hover:underline">Ir a Puestos y niveles →</Link>
           </div>
           <p className="mb-3 text-xs text-gris">No se arreglan en este formulario: un peso sin competencias deja ese porcentaje de la nota sin nada que lo mida.</p>
           <ul className="space-y-2">
@@ -786,7 +786,7 @@ function MetricasFormulario({ evaluacion, seleccion, dimensiones, puestos, onAgr
                           type="button"
                           title={`Ver qué se evalúa en la modalidad ${ETIQUETA_MODALIDAD[m]} para este puesto`}
                           onClick={() => abrirEn(p.id, m)}
-                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold transition ${abierto && modalidad === m ? 'bg-hunter text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
+                          className={`rounded-full px-2.5 py-0.5 text-[11px] font-bold transition ${abierto && modalidad === m ? 'bg-marca text-white' : 'bg-hueso-2 text-gris hover:text-negro'}`}
                         >
                           {ETIQUETA_MODALIDAD[m]} {n}
                         </button>
@@ -922,7 +922,7 @@ function FichaPuestoModalidad({ puesto, modalidad, dimensiones, nPreguntas, onAg
               </div>
               {modalidad === 'JEFE' && !sinCompetencias && (
                 <div className="relative mb-2 h-2 overflow-hidden rounded-full bg-hueso-2">
-                  <div className="absolute inset-y-0 left-0 rounded-full bg-hunter/70" style={{ width: `${Math.min(100, pctPreguntas)}%` }} />
+                  <div className="absolute inset-y-0 left-0 rounded-full bg-marca/70" style={{ width: `${Math.min(100, pctPreguntas)}%` }} />
                   <div className="absolute inset-y-0 w-0.5 bg-negro/50" style={{ left: `${Math.min(100, d.peso)}%` }} title={`Peso de la dimensión en este puesto: ${d.peso}%`} />
                 </div>
               )}
@@ -978,7 +978,7 @@ function SelectorPreguntas({ competencia, modalidad, seleccionadas, onAplicar, o
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           placeholder="Buscar en el banco de esta competencia…"
-          className="w-full rounded-xl border border-gris-claro bg-hueso py-2.5 pl-9 pr-3.5 text-sm outline-none focus:border-hunter"
+          className="w-full rounded-xl border border-gris-claro bg-hueso py-2.5 pl-9 pr-3.5 text-sm outline-none focus:border-marca"
         />
       </div>
       {visibles.length === 0 ? (
@@ -989,11 +989,11 @@ function SelectorPreguntas({ competencia, modalidad, seleccionadas, onAplicar, o
             const activa = marcadas.has(p.id)
             return (
               <li key={p.id}>
-                <label className={`flex cursor-pointer items-start gap-2.5 rounded-xl border px-3.5 py-2 text-[13px] transition ${activa ? 'border-hunter/40 bg-red-50/40' : 'border-gris-claro hover:bg-hueso'}`}>
+                <label className={`flex cursor-pointer items-start gap-2.5 rounded-xl border px-3.5 py-2 text-[13px] transition ${activa ? 'border-marca/40 bg-blue-50/40' : 'border-gris-claro hover:bg-hueso'}`}>
                   <input
                     type="checkbox" checked={activa}
                     onChange={() => setMarcadas((s) => { const n = new Set(s); if (n.has(p.id)) n.delete(p.id); else n.add(p.id); return n })}
-                    className="mt-0.5 h-4 w-4 accent-[#f0163e]"
+                    className="mt-0.5 h-4 w-4 accent-[#0067ff]"
                   />
                   <span>{p.texto}</span>
                 </label>
@@ -1003,7 +1003,7 @@ function SelectorPreguntas({ competencia, modalidad, seleccionadas, onAplicar, o
         </ul>
       )}
       <div className="mt-4 flex items-center justify-between gap-2">
-        <button type="button" onClick={() => setMarcadas(new Set(disponibles.map((p) => p.id)))} className="text-xs font-bold text-hunter hover:underline">✓ Marcar todas</button>
+        <button type="button" onClick={() => setMarcadas(new Set(disponibles.map((p) => p.id)))} className="text-xs font-bold text-marca hover:underline">✓ Marcar todas</button>
         <div className="flex gap-2">
           <button type="button" onClick={onCerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
           <button type="button" onClick={() => onAplicar([...marcadas])} className={btnRojo}>Aplicar ({marcadas.size}) ✓</button>

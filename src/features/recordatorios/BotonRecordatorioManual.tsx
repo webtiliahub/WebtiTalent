@@ -25,7 +25,7 @@ export function BotonRecordatorioManual({ cicloId }: { cicloId: string }) {
           }, () => router.refresh())
         }}
         disabled={pendiente}
-        className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+        className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
       >
         {pendiente ? 'Enviando…' : 'Enviar recordatorio ahora'}
       </button>

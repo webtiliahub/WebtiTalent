@@ -12,13 +12,13 @@ const MODS = [
 ] as const
 
 const COLORES: Record<string, string> = {
-  JEFE: 'var(--color-hunter)',
+  JEFE: 'var(--color-marca)',
   PAR: 'var(--color-negro)',
   ASCENDENTE: 'var(--color-gris)',
   AUTO: 'var(--color-gris-claro)',
 }
 
-const inputPctCls = 'w-20 rounded-lg border border-gris-claro bg-white px-3 py-1.5 text-right text-sm font-bold outline-none focus:border-hunter'
+const inputPctCls = 'w-20 rounded-lg border border-gris-claro bg-white px-3 py-1.5 text-right text-sm font-bold outline-none focus:border-marca'
 
 function BarraPesos({ pesos }: { pesos: Record<string, number> }) {
   return (
@@ -113,19 +113,19 @@ function SeccionPesos({ titulo, descripcion, inicial, clave, puedeGestionar }: {
         </ul>
         <div className="mt-4 flex items-center gap-3">
           <BarraPesos pesos={mods} />
-          <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold ${totalMods === 100 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-hunter-dark'}`}>
+          <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold ${totalMods === 100 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-alerta-dark'}`}>
             Total: {totalMods}%{totalMods !== 100 && ' · debe sumar 100'}
           </span>
         </div>
         <div className="mt-4 flex items-center justify-end gap-2">
           <button onClick={() => setEditando(false)} className={btnMiniCls}>Cancelar</button>
-          <button disabled={pendiente || totalMods !== 100} onClick={guardar} className="rounded-xl bg-hunter px-6 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50">
+          <button disabled={pendiente || totalMods !== 100} onClick={guardar} className="rounded-xl bg-marca px-6 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50">
             {pendiente ? 'Guardando…' : 'Guardar configuración ✓'}
           </button>
         </div>
       </Desplegable>
 
-      {aviso && <p className={`mt-3 rounded-lg px-4 py-2.5 text-sm ${aviso.includes('✓') ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-hunter-dark'}`}>{aviso}</p>}
+      {aviso && <p className={`mt-3 rounded-lg px-4 py-2.5 text-sm ${aviso.includes('✓') ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-alerta-dark'}`}>{aviso}</p>}
     </section>
   )
 }

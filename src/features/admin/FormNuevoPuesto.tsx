@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { crearPuesto } from './acciones'
 import { Combobox } from '@/shared/ui/Combobox'
 
-const inputCls = 'rounded-lg border border-gris-claro bg-white px-3 py-2 text-sm outline-none focus:border-hunter'
+const inputCls = 'rounded-lg border border-gris-claro bg-white px-3 py-2 text-sm outline-none focus:border-marca'
 
 export function FormNuevoPuesto({ areas, niveles }: { areas: { id: string; nombre: string }[]; niveles: { id: string; nombre: string }[] }) {
   const [abierto, setAbierto] = useState(false)
@@ -15,7 +15,7 @@ export function FormNuevoPuesto({ areas, niveles }: { areas: { id: string; nombr
 
   if (!abierto) {
     return (
-      <button onClick={() => setAbierto(true)} className="w-full rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark md:w-auto">
+      <button onClick={() => setAbierto(true)} className="w-full rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark md:w-auto">
         ＋ Crear puesto
       </button>
     )
@@ -47,13 +47,13 @@ export function FormNuevoPuesto({ areas, niveles }: { areas: { id: string; nombr
           ÁREA
           <div className="mt-1 font-normal"><Combobox name="areaId" opciones={areas} textoVacio="Sin área" /></div>
         </label>
-        <button type="submit" disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50">
+        <button type="submit" disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50">
           {pendiente ? 'Creando…' : 'Crear y abrir descriptor →'}
         </button>
         <button type="button" onClick={() => setAbierto(false)} className="rounded-xl px-3 py-2.5 text-[13px] font-bold text-gris hover:text-negro">Cancelar</button>
       </div>
       <p className="mt-2 text-[11px] text-gris">Al crearlo se abre el descriptor para asociar competencias y definir los pesos por dimensión.</p>
-      {aviso && <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-hunter-dark">{aviso}</p>}
+      {aviso && <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-alerta-dark">{aviso}</p>}
     </form>
   )
 }

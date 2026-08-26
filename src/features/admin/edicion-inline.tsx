@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useTransition, type ReactNode } from 'react'
 
-export const inputCls = 'rounded-lg border border-gris-claro bg-white px-3 py-1.5 text-sm outline-none focus:border-hunter'
+export const inputCls = 'rounded-lg border border-gris-claro bg-white px-3 py-1.5 text-sm outline-none focus:border-marca'
 // min-h/min-w solo en móvil: estos botones son iconos de ~26 px, imposibles de acertar con el
 // dedo. En escritorio (md+) conservan su tamaño compacto de siempre.
 export const btnMiniCls = 'inline-flex min-h-9 min-w-9 items-center justify-center rounded-lg px-2 py-1 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro md:min-h-0 md:min-w-0'
@@ -50,7 +50,7 @@ export function Desplegable({ abierto, children }: { abierto: boolean; children:
 
 export function Aviso({ texto }: { texto: string | null }) {
   if (!texto) return null
-  return <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-hunter-dark">{texto}</p>
+  return <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-alerta-dark">{texto}</p>
 }
 
 // ── Fila editable (nombre + descripción opcional, con renombrar/eliminar al hover) ──
@@ -85,7 +85,7 @@ export function FilaEditable({ nombre, descripcion, enUso, conDescripcion, mostr
         >
           <input name="nombre" defaultValue={nombre} className={`${inputCls} flex-1 min-w-40`} autoFocus />
           {conDescripcion && <input name="descripcion" defaultValue={descripcion ?? ''} placeholder="Descripción (opcional)" className={`${inputCls} flex-1 min-w-40`} />}
-          <button type="submit" className="rounded-lg bg-hunter px-3 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark">Guardar</button>
+          <button type="submit" className="rounded-lg bg-marca px-3 py-1.5 text-xs font-bold text-white hover:bg-marca-dark">Guardar</button>
           <button type="button" onClick={() => setEditando(false)} className={btnMiniCls}>Cancelar</button>
         </form>
       </Desplegable>
@@ -120,7 +120,7 @@ export function FormAgregar({ etiqueta, placeholder, onCrear, pendiente, conDesc
   return (
     <>
       <Desplegable abierto={!abierto}>
-        <button onClick={() => setAbierto(true)} className="mt-2 rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter">
+        <button onClick={() => setAbierto(true)} className="mt-2 rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-marca hover:text-marca">
           ＋ {etiqueta}
         </button>
       </Desplegable>
@@ -128,7 +128,7 @@ export function FormAgregar({ etiqueta, placeholder, onCrear, pendiente, conDesc
         <form className="mt-2 flex flex-wrap gap-2" action={onCrear}>
           <input name="nombre" placeholder={placeholder} className={`${inputCls} flex-1 min-w-44`} required minLength={2} autoFocus />
           {conDescripcion && <input name="descripcion" placeholder="Descripción (opcional)" className={`${inputCls} flex-[2] min-w-56`} />}
-          <button type="submit" disabled={pendiente} className="rounded-lg border border-hunter px-3 py-1.5 text-xs font-bold text-hunter transition hover:bg-hunter hover:text-white disabled:opacity-50">
+          <button type="submit" disabled={pendiente} className="rounded-lg border border-marca px-3 py-1.5 text-xs font-bold text-marca transition hover:bg-marca hover:text-white disabled:opacity-50">
             ＋ Agregar
           </button>
           <button type="button" onClick={() => setAbierto(false)} className={btnMiniCls}>Cancelar</button>

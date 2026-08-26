@@ -175,7 +175,7 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               <Chip>{r.usuarios} usuario{r.usuarios === 1 ? '' : 's'}</Chip>
             </div>
-            {avisoFila[r.id] && <p className="mt-1.5 text-[11.5px] text-hunter-dark">{avisoFila[r.id]}</p>}
+            {avisoFila[r.id] && <p className="mt-1.5 text-[11.5px] text-marca-dark">{avisoFila[r.id]}</p>}
             <div className="mt-2.5 flex gap-2 border-t border-hueso-2 pt-2.5">
               <button
                 onClick={() => abrirPermisos(r)}
@@ -185,7 +185,7 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
                 <button
                   onClick={() => eliminar(r)}
                   disabled={pendiente}
-                  className="flex min-h-9 flex-1 items-center justify-center gap-1.5 rounded-xl border border-red-200 bg-white text-[11.5px] font-bold text-hunter disabled:opacity-40"
+                  className="flex min-h-9 flex-1 items-center justify-center gap-1.5 rounded-xl border border-red-200 bg-white text-[11.5px] font-bold text-alerta disabled:opacity-40"
                 ><Trash2 size={13} /> Eliminar</button>
               )}
             </div>
@@ -212,7 +212,7 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
                     {r.nombre}
                   </p>
                   {r.descripcion && <p className="mt-0.5 text-[11px] text-gris">{r.descripcion}</p>}
-                  {avisoFila[r.id] && <p className="mt-1 text-[11px] text-hunter-dark">{avisoFila[r.id]}</p>}
+                  {avisoFila[r.id] && <p className="mt-1 text-[11px] text-marca-dark">{avisoFila[r.id]}</p>}
                 </td>
                 <td className={tdCls}>
                   {r.esSistema ? <Chip tono="ok">Sistema</Chip> : <Chip tono="pendiente">Personalizado</Chip>}
@@ -230,7 +230,7 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
                           onClick={() => eliminar(r)}
                           disabled={pendiente}
                           title="Eliminar rol"
-                          className="grid h-8 w-8 place-items-center rounded-lg text-gris opacity-0 transition-all duration-200 hover:bg-red-50 hover:text-hunter group-hover:opacity-100 focus-visible:opacity-100"
+                          className="grid h-8 w-8 place-items-center rounded-lg text-gris opacity-0 transition-all duration-200 hover:bg-red-50 hover:text-alerta group-hover:opacity-100 focus-visible:opacity-100"
                         ><Trash2 size={14} /></button>
                       )}
                     </span>
@@ -244,7 +244,7 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
 
       {puedeGestionar && (
         <div className="mt-4 border-t border-gris-claro/50 pt-3">
-          <button onClick={abrirCrear} className="w-full rounded-xl border border-dashed border-gris-claro px-3 py-2.5 text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter md:w-auto md:rounded-lg md:py-1.5">
+          <button onClick={abrirCrear} className="w-full rounded-xl border border-dashed border-gris-claro px-3 py-2.5 text-xs font-bold text-gris transition hover:border-marca hover:text-marca md:w-auto md:rounded-lg md:py-1.5">
             ＋ Crear rol
           </button>
         </div>
@@ -274,14 +274,14 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
               deshabilitado={pendiente || abierto.rol.esSistema || !puedeGestionar}
               fijoGestionar={abierto.rol.esSistema}
             />
-            {aviso && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+            {aviso && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
             <div className="mt-4 flex items-center justify-end gap-2">
               <button onClick={cerrar} className={btnMiniCls}>Cerrar</button>
               {!abierto.rol.esSistema && puedeGestionar && (
                 <button
                   onClick={guardar}
                   disabled={pendiente || !hayCambios}
-                  className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+                  className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
                 >
                   {pendiente ? 'Guardando…' : 'Guardar cambios ✓'}
                 </button>
@@ -305,14 +305,14 @@ export function TablaRoles({ roles, puedeGestionar }: { roles: RolFila[]; puedeG
               deshabilitado={pendiente}
               fijoGestionar={false}
             />
-            {aviso && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+            {aviso && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
             <div className="mt-4 flex items-center justify-end gap-2">
               <button onClick={cerrar} className={btnMiniCls}>Cancelar</button>
               <button
                 onClick={crear}
                 disabled={pendiente || nombre.trim().length < 3 || Object.values(canonico(valores)).length === 0}
                 title={nombre.trim().length < 3 ? 'Escribe el nombre del rol (mínimo 3 caracteres)' : Object.values(canonico(valores)).length === 0 ? 'Otorga acceso a al menos una sección' : undefined}
-                className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+                className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
               >
                 {pendiente ? 'Creando…' : 'Crear rol ✓'}
               </button>

@@ -50,7 +50,7 @@ export async function CardRecordatorios({ proceso, referencia, deadline, childre
           <p>
             <span className="font-semibold">{ultimo.hito === 'MANUAL' ? 'Último manual:' : 'Último automático:'}</span>{' '}
             {formatoFecha(ultimo.fecha)} · hito <Chip tono="azul">{etiquetaHito(ultimo.hito)}</Chip> · {ultimo.enviados} enviado{ultimo.enviados === 1 ? '' : 's'}
-            {ultimo.fallidos > 0 && <span className="text-hunter-dark">, {ultimo.fallidos} fallido{ultimo.fallidos === 1 ? '' : 's'}</span>}
+            {ultimo.fallidos > 0 && <span className="text-marca-dark">, {ultimo.fallidos} fallido{ultimo.fallidos === 1 ? '' : 's'}</span>}
           </p>
         ) : (
           <p className="text-gris">Aún sin envíos automáticos.</p>

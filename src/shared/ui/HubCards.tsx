@@ -4,7 +4,7 @@ import type { ItemNav } from '../lib/navegacion'
 
 /** Grid de cards de los hubs móviles: icono en chip de color + categoría + acción.
  * Paleta rotativa determinista (mismo criterio visual del mock aprobado). */
-const TONOS = ['bg-red-50 text-hunter', 'bg-sky-50 text-sky-700', 'bg-emerald-50 text-emerald-700', 'bg-amber-50 text-amber-700', 'bg-purple-50 text-purple-700', 'bg-teal-50 text-teal-700']
+const TONOS = ['bg-blue-50 text-marca', 'bg-sky-50 text-sky-700', 'bg-emerald-50 text-emerald-700', 'bg-amber-50 text-amber-700', 'bg-purple-50 text-purple-700', 'bg-teal-50 text-teal-700']
 
 export function HubCards({ items }: { items: ItemNav[] }) {
   return (

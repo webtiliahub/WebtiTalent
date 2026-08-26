@@ -15,7 +15,7 @@ const COLUMNAS = ['codigo', 'documento', 'nombres', 'apellidos', 'email', 'telef
 export function hojasPlantillaPadron(catalogos: CatalogosPadron): HojaXlsx[] {
   const datos: HojaXlsx = {
     nombre: 'Padrón',
-    filas: [COLUMNAS, ['PER-001', '40967470', 'Nombre', 'Apellido', 'correo@hunter.com', '+51 999 999 999', catalogos.paises[0] ?? 'Perú', catalogos.areas[0] ?? 'Área', 'Cargo', catalogos.niveles[0] ?? 'Apoyo', '', '', '2024-01-15']],
+    filas: [COLUMNAS, ['PER-001', '40967470', 'Nombre', 'Apellido', 'correo@marca.com', '+51 999 999 999', catalogos.paises[0] ?? 'Perú', catalogos.areas[0] ?? 'Área', 'Cargo', catalogos.niveles[0] ?? 'Apoyo', '', '', '2024-01-15']],
   }
   const cat: (string | number)[][] = [['Países válidos', ...catalogos.paises], ['Niveles válidos', ...catalogos.niveles]]
   return [datos, { nombre: 'Catálogos', filas: cat }]
@@ -82,14 +82,14 @@ export function ImportadorPadron({ catalogos }: { catalogos: CatalogosPadron }) 
           <button
             disabled={pendiente}
             onClick={() => correr(true)}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
           >
             {pendiente ? 'Importando…' : `Aplicar importación (${resumen.filas} filas) →`}
           </button>
         )}
       </div>
 
-      {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-alerta-dark">{error}</p>}
 
       {resumen && (
         <div className="space-y-4">
@@ -106,7 +106,7 @@ export function ImportadorPadron({ catalogos }: { catalogos: CatalogosPadron }) 
 
           {resumen.errores.length > 0 && (
             <div className="rounded-xl border border-red-200 bg-red-50/60 px-4 py-3">
-              <p className="mb-1.5 text-[13px] font-bold text-hunter-dark">✕ {resumen.errores.length} error(es) — corrígelos en el archivo y vuelve a simular</p>
+              <p className="mb-1.5 text-[13px] font-bold text-marca-dark">✕ {resumen.errores.length} error(es) — corrígelos en el archivo y vuelve a simular</p>
               <ul className="max-h-64 space-y-0.5 overflow-y-auto text-xs text-negro/80">
                 {resumen.errores.map((e, i) => <li key={i}>{e}</li>)}
               </ul>

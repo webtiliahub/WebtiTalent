@@ -148,7 +148,7 @@ export function Combobox({ name, opciones, valorInicial = '', textoVacio = 'Sin 
         // paneo era lo que descolocaba la lista hacia arriba al abrir el teclado
         // Las dos variantes se escriben COMPLETAS y se elige una: mezclar `rounded-lg` con
         // `rounded-xl` en el mismo atributo no decide nada — gana la que va después en la hoja
-        className={`w-full border border-gris-claro bg-white pr-8 text-base outline-none focus:border-hunter md:text-sm ${
+        className={`w-full border border-gris-claro bg-white pr-8 text-base outline-none focus:border-marca md:text-sm ${
           tamano === 'campo' ? 'rounded-xl px-3 py-2.5 sm:py-2' : 'rounded-lg px-3 py-1.5'
         } ${seleccionada && !abierto ? '' : 'placeholder:text-gris'}`}
       />
@@ -157,7 +157,7 @@ export function Combobox({ name, opciones, valorInicial = '', textoVacio = 'Sin 
           type="button"
           onClick={() => elegir('')}
           title="Quitar selección"
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded px-1 text-sm font-bold text-gris hover:text-hunter"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded px-1 text-sm font-bold text-gris hover:text-marca"
         >✕</button>
       ) : (
         <span className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-gris">⌄</span>
@@ -176,7 +176,7 @@ export function Combobox({ name, opciones, valorInicial = '', textoVacio = 'Sin 
                 type="button"
                 onClick={() => elegir(o.id)}
                 onMouseEnter={() => setActivo(i)}
-                className={`w-full px-3 py-1.5 text-left text-sm transition ${i === activo ? 'bg-hueso' : ''} ${o.id === valorEfectivo ? 'font-bold text-hunter' : ''}`}
+                className={`w-full px-3 py-1.5 text-left text-sm transition ${i === activo ? 'bg-hueso' : ''} ${o.id === valorEfectivo ? 'font-bold text-marca' : ''}`}
               >
                 {o.nombre}
                 {o.detalle && <span className="ml-1.5 text-xs text-gris">{o.detalle}</span>}

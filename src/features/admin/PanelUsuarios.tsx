@@ -43,7 +43,7 @@ function descargarCsv(credenciales: Credencial[]) {
   const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
   const a = document.createElement('a')
   a.href = url
-  a.download = `credenciales-hunter-${new Date().toISOString().slice(0, 10)}.csv`
+  a.download = `credenciales-marca-${new Date().toISOString().slice(0, 10)}.csv`
   a.click()
   URL.revokeObjectURL(url)
 }
@@ -118,7 +118,7 @@ function PanelCredenciales({ credenciales, contexto, onCerrar }: {
         ))}
       </ul>
       <div className="mt-3 flex items-center gap-2">
-        <button onClick={() => descargarCsv(credenciales)} className="rounded-lg bg-hunter px-3 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark">
+        <button onClick={() => descargarCsv(credenciales)} className="rounded-lg bg-marca px-3 py-1.5 text-xs font-bold text-white hover:bg-marca-dark">
           <Download size={13} className="mr-1 inline -translate-y-px" />Descargar CSV
         </button>
         <button onClick={onCerrar} className={btnMiniCls}>Cerrar</button>
@@ -179,7 +179,7 @@ function TarjetaUsuario({ usuario, paises, roles, esYo, onResultado, puedeGestio
             onClick={() => ejecutar(() => alternarActivoUsuario(usuario.id))}
             disabled={pendiente || esYo}
             title={esYo ? 'No puedes desactivar tu propia cuenta' : undefined}
-            className={`${btnAcc} ${usuario.activo ? 'border-red-200 text-hunter' : 'border-emerald-200 text-emerald-700'}`}
+            className={`${btnAcc} ${usuario.activo ? 'border-red-200 text-alerta' : 'border-emerald-200 text-emerald-700'}`}
           >{usuario.activo ? '⏻ Baja' : '↩ Reactivar'}</button>
         </div>
       )}
@@ -202,7 +202,7 @@ function TarjetaUsuario({ usuario, paises, roles, esYo, onResultado, puedeGestio
                 rolAdminInicial={usuario.rolAdminId}
               />
               <div className="flex gap-2">
-                <button type="submit" disabled={pendiente} className="flex-1 rounded-xl bg-hunter px-3 py-2.5 text-xs font-bold text-white hover:bg-hunter-dark disabled:opacity-50">Guardar</button>
+                <button type="submit" disabled={pendiente} className="flex-1 rounded-xl bg-marca px-3 py-2.5 text-xs font-bold text-white hover:bg-marca-dark disabled:opacity-50">Guardar</button>
                 <button type="button" onClick={() => setEditando(false)} className="flex-1 rounded-xl border border-gris-claro bg-white px-3 py-2.5 text-xs font-bold">Cancelar</button>
               </div>
             </form>
@@ -272,7 +272,7 @@ function FilaUsuario({ usuario, paises, roles, esYo, onResultado, puedeGestionar
                   paisInicial={usuario.alcancePaisId}
                   rolAdminInicial={usuario.rolAdminId}
                 />
-                <button type="submit" disabled={pendiente} className="rounded-lg bg-hunter px-3 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark disabled:opacity-50">Guardar</button>
+                <button type="submit" disabled={pendiente} className="rounded-lg bg-marca px-3 py-1.5 text-xs font-bold text-white hover:bg-marca-dark disabled:opacity-50">Guardar</button>
                 <button type="button" onClick={() => setEditando(false)} className={btnMiniCls}>Cancelar</button>
               </form>
             </Desplegable>
@@ -361,7 +361,7 @@ export function PanelUsuarios({ usuarios, sinCuenta, paises, roles, miUsuarioId,
           onChange={(e) => setQ(e.target.value)}
           placeholder="Buscar por nombre, correo, rol o alcance…"
           aria-label="Buscar usuario"
-          className="w-full min-w-0 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none transition focus:border-hunter md:ml-auto md:w-72 md:py-2"
+          className="w-full min-w-0 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none transition focus:border-marca md:ml-auto md:w-72 md:py-2"
         />
       </div>
       {visibles.length === 0 && (
@@ -418,13 +418,13 @@ export function PanelUsuarios({ usuarios, sinCuenta, paises, roles, miUsuarioId,
             <button
               onClick={() => setCreando(true)}
               disabled={sinCuenta.length === 0}
-              className="rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter disabled:cursor-not-allowed disabled:opacity-40"
+              className="rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-marca hover:text-marca disabled:cursor-not-allowed disabled:opacity-40"
               title={sinCuenta.length === 0 ? 'Todos los colaboradores activos ya tienen cuenta' : undefined}
             >
               ＋ Crear usuario
             </button>
             {conCorreo.length > 0 && (
-              <button onClick={aprovisionar} disabled={pendiente} className="rounded-lg border border-hunter px-3 py-1.5 text-xs font-bold text-hunter transition hover:bg-hunter hover:text-white disabled:opacity-50">
+              <button onClick={aprovisionar} disabled={pendiente} className="rounded-lg border border-marca px-3 py-1.5 text-xs font-bold text-marca transition hover:bg-marca hover:text-white disabled:opacity-50">
                 {pendiente ? 'Creando cuentas…' : <><Zap size={13} className="mr-1 inline -translate-y-px" />Crear cuentas faltantes ({conCorreo.length})</>}
               </button>
             )}
@@ -445,12 +445,12 @@ export function PanelUsuarios({ usuarios, sinCuenta, paises, roles, miUsuarioId,
               />
             </div>
             <input
-              name="email" type="email" required placeholder="correo@hunter.com.pe"
+              name="email" type="email" required placeholder="correo@marca.com.pe"
               value={email} onChange={(e) => setEmail(e.target.value)}
               className={`${inputCls} min-w-56 flex-1`}
             />
             <CamposAcceso paises={paises} roles={roles} />
-            <button type="submit" disabled={pendiente} className="rounded-lg bg-hunter px-3 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark disabled:opacity-50">
+            <button type="submit" disabled={pendiente} className="rounded-lg bg-marca px-3 py-1.5 text-xs font-bold text-white hover:bg-marca-dark disabled:opacity-50">
               {pendiente ? 'Creando…' : 'Crear cuenta'}
             </button>
             <button type="button" onClick={() => setCreando(false)} className={btnMiniCls}>Cancelar</button>

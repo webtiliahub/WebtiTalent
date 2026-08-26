@@ -64,7 +64,7 @@ export function ConfirmacionHost() {
             type="button"
             autoFocus
             onClick={() => responder(true)}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark"
           >
             {solicitud.textoAceptar ?? 'Confirmar'}
           </button>

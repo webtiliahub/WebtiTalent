@@ -26,7 +26,7 @@ export async function BotonDescargarPdf({ colaboradorId, cicloId }: { colaborado
   return (
     <a
       href={`/api/resultado-pdf?colaborador=${colaboradorId}${cicloId ? `&ciclo=${cicloId}` : ''}`}
-      className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-gris-claro bg-white px-3.5 py-2 text-xs font-bold text-negro transition hover:border-hunter/40 hover:text-hunter"
+      className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-gris-claro bg-white px-3.5 py-2 text-xs font-bold text-negro transition hover:border-marca/40 hover:text-marca"
     >
       <Download size={13} /> Descargar PDF
     </a>
@@ -137,7 +137,7 @@ export async function DetalleResultado({ resultado, propio, preview = false }: {
             <p className="mt-2.5 text-sm text-gris">Sin objetivos en este ciclo</p>
           ) : (
             <>
-              <p className="mt-2 font-display text-3xl font-extrabold text-hunter">
+              <p className="mt-2 font-display text-3xl font-extrabold text-marca">
                 {resultado.cumplimientoObjetivos === null ? '—' : `${Math.round(resultado.cumplimientoObjetivos)}%`}
               </p>
               <p className="mt-2.5 text-xs text-gris">Cumplimiento ponderado de {propio ? 'tus objetivos' : 'sus objetivos'} del ciclo.</p>
@@ -189,7 +189,7 @@ export async function DetalleResultado({ resultado, propio, preview = false }: {
                   })}
                   <div className="flex items-center py-2">
                     <span className="flex-1 text-[13px] font-bold">Nota de competencias</span>
-                    <span className="text-right font-display text-base font-extrabold text-hunter">{resultado.notaCompetencias?.toFixed(2) ?? '—'}</span>
+                    <span className="text-right font-display text-base font-extrabold text-marca">{resultado.notaCompetencias?.toFixed(2) ?? '—'}</span>
                   </div>
                 </div>
               )}
@@ -224,7 +224,7 @@ export async function DetalleResultado({ resultado, propio, preview = false }: {
                     ))}
                     <tr>
                       <td className="py-2 pr-3 text-[13px] font-bold" colSpan={2}>Cumplimiento ponderado</td>
-                      <td className="py-2 text-right font-display text-base font-extrabold text-hunter">
+                      <td className="py-2 text-right font-display text-base font-extrabold text-marca">
                         {resultado.cumplimientoObjetivos === null ? '—' : `${Math.round(resultado.cumplimientoObjetivos)}%`}
                         {notaObjetivos !== null && <span className="ml-1 text-xs font-semibold text-gris">({notaObjetivos.toFixed(2)}/5)</span>}
                       </td>
@@ -236,7 +236,7 @@ export async function DetalleResultado({ resultado, propio, preview = false }: {
           </div>
           {sinObjetivos && resultado.notaFinal !== null && resultado.notaCompetencias !== null && (
             <p className="mt-4 rounded-xl bg-hueso-2 px-4 py-3 text-center text-sm">
-              {resultado.notaCompetencias.toFixed(2)} × 100% <span className="text-gris">(competencias)</span> = <b className="font-display text-base text-hunter">{resultado.notaFinal.toFixed(2)}</b>
+              {resultado.notaCompetencias.toFixed(2)} × 100% <span className="text-gris">(competencias)</span> = <b className="font-display text-base text-marca">{resultado.notaFinal.toFixed(2)}</b>
               {resultado.notaCalibrada !== null && resultado.notaCalibrada !== resultado.notaFinal && (
                 <span className="ml-2 text-xs text-gris">· ajustada por calibración a <b className="text-negro">{resultado.notaCalibrada.toFixed(2)}</b></span>
               )}
@@ -244,7 +244,7 @@ export async function DetalleResultado({ resultado, propio, preview = false }: {
           )}
           {!sinObjetivos && resultado.notaFinal !== null && resultado.notaCompetencias !== null && notaObjetivos !== null && (
             <p className="mt-4 rounded-xl bg-hueso-2 px-4 py-3 text-center text-sm">
-              {resultado.notaCompetencias.toFixed(2)} × {combinacion.comp}% <span className="text-gris">(competencias)</span> + {notaObjetivos.toFixed(2)} × {combinacion.obj}% <span className="text-gris">(objetivos)</span> = <b className="font-display text-base text-hunter">{resultado.notaFinal.toFixed(2)}</b>
+              {resultado.notaCompetencias.toFixed(2)} × {combinacion.comp}% <span className="text-gris">(competencias)</span> + {notaObjetivos.toFixed(2)} × {combinacion.obj}% <span className="text-gris">(objetivos)</span> = <b className="font-display text-base text-marca">{resultado.notaFinal.toFixed(2)}</b>
               {resultado.notaCalibrada !== null && resultado.notaCalibrada !== resultado.notaFinal && (
                 <span className="ml-2 text-xs text-gris">· ajustada por calibración a <b className="text-negro">{resultado.notaCalibrada.toFixed(2)}</b></span>
               )}
@@ -335,7 +335,7 @@ export async function ResultadoColaborador({ colaboradorId, cicloParam, hrefBase
             <div className="rounded-xl bg-hueso-2 px-4 py-2.5 text-sm">
               <p>Estás viendo el histórico de <b>{ultimo.ciclo.nombre}</b>.</p>
               {/* En línea propia: inline se partía a mitad del enlace en móvil */}
-              <Link href={hrefBase} className="mt-0.5 inline-block whitespace-nowrap font-bold text-hunter hover:underline">Volver al más reciente →</Link>
+              <Link href={hrefBase} className="mt-0.5 inline-block whitespace-nowrap font-bold text-marca hover:underline">Volver al más reciente →</Link>
             </div>
           )}
           <DetalleResultado resultado={ultimo} propio={propio} />

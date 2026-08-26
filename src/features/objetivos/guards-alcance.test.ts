@@ -67,7 +67,7 @@ const prismaMock = vi.mocked(prisma, true)
 
 const SESION_COLABORADOR: SesionUsuario = {
   id: 'usuario-colab-1',
-  email: 'colaborador@hunter.test',
+  email: 'colaborador@marca.test',
   name: 'Colaborador De Prueba',
   rol: 'COLABORADOR',
   colaboradorId: 'colab-1',
@@ -79,7 +79,7 @@ const SESION_COLABORADOR: SesionUsuario = {
 
 const SESION_JEFE: SesionUsuario = {
   id: 'usuario-jefe-1',
-  email: 'jefe@hunter.test',
+  email: 'jefe@marca.test',
   name: 'Jefe De Prueba',
   rol: 'COLABORADOR',
   colaboradorId: 'colab-jefe-1',

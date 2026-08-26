@@ -46,7 +46,7 @@ const HOJAS_MINIMAS = {
   '8. Padrón': [
     ['Padrón de colaboradores'], ['leyenda'],
     ['codigo', 'documento', 'nombres', 'apellidos', 'email', 'telefono', 'pais', 'area', 'cargo', 'nivel_jerarquico', 'codigo_jefe', 'nivel_liderazgo', 'fecha_ingreso', '⚠ Observación (no se carga)'],
-    ['PER-001', '123', 'Ana', 'Pérez', 'ana@hunter.com.pe', '', 'Perú', 'DIRECCIÓN', 'GERENTE GENERAL', 'Gerencial', '', 'N2', '2020-01-15'],
+    ['PER-001', '123', 'Ana', 'Pérez', 'ana@marca.com.pe', '', 'Perú', 'DIRECCIÓN', 'GERENTE GENERAL', 'Gerencial', '', 'N2', '2020-01-15'],
   ],
 }
 
@@ -88,7 +88,7 @@ describe('parseMaestro', () => {
     ])
     expect(r.pesosPuesto).toEqual([{ puesto: 'GERENTE GENERAL', nivel: 'Gerencial', pesosDim: [20, 15, 15, 30, 20] }])
     expect(r.padron).toHaveLength(1)
-    expect(r.padron[0]).toMatchObject({ linea: 4, codigo: 'PER-001', cargo: 'GERENTE GENERAL', nivel: 'Gerencial', email: 'ana@hunter.com.pe' })
+    expect(r.padron[0]).toMatchObject({ linea: 4, codigo: 'PER-001', cargo: 'GERENTE GENERAL', nivel: 'Gerencial', email: 'ana@marca.com.pe' })
   })
   it('identifica hojas por nombre normalizado aunque cambie el prefijo', () => {
     const hojas = Object.fromEntries(Object.entries(HOJAS_MINIMAS).map(([k, v]) => [k.replace(/^\d+\. /, 'Hoja - '), v]))

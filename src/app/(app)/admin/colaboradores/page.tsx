@@ -143,7 +143,7 @@ export default async function ColaboradoresPage({ searchParams }: {
                       <Link
                         href={`/admin/colaboradores/${c.id}`}
                         title="Abrir hoja de vida"
-                        className="inline-grid h-7 w-7 place-items-center rounded-lg text-gris transition hover:bg-hueso-2 hover:text-hunter"
+                        className="inline-grid h-7 w-7 place-items-center rounded-lg text-gris transition hover:bg-hueso-2 hover:text-marca"
                       ><ArrowRight size={16} /></Link>
                     </td>
                   </FilaEnlace>

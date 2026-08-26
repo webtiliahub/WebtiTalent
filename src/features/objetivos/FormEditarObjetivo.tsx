@@ -7,7 +7,7 @@ import { editarObjetivo } from './acciones'
 import { Modal } from '@/shared/ui/Modal'
 import { toast } from '@/shared/ui/Toast'
 
-const inputCls = 'rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+const inputCls = 'rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
 
 export type ObjetivoEditable = {
   id: string
@@ -59,7 +59,7 @@ export function BotonEditarObjetivo({ objetivo, maxPeso, nota }: { objetivo: Obj
         type="button"
         onClick={() => setAbierto(true)}
         title="Editar este objetivo"
-        className="rounded-lg border border-gris-claro p-2 text-gris transition hover:border-hunter hover:text-hunter"
+        className="rounded-lg border border-gris-claro p-2 text-gris transition hover:border-marca hover:text-marca"
       >
         <Pencil size={14} />
       </button>
@@ -109,10 +109,10 @@ export function BotonEditarObjetivo({ objetivo, maxPeso, nota }: { objetivo: Obj
             </label>
           </div>
 
-          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
           <div className="flex items-center justify-end gap-2">
             <button type="button" onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
-            <button disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Guardando…' : 'Guardar cambios'}
             </button>
           </div>

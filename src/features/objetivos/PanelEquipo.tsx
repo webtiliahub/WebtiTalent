@@ -10,7 +10,7 @@ import { toast } from '@/shared/ui/Toast'
 type ObjetivoPendiente = { id: string; titulo: string; descripcion: string; peso: number; colaborador: string; tipo: string; metrica: string | null; metaFecha: string | null }
 type Miembro = { id: string; nombre: string; disponible: number }
 
-const inputCls = 'rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+const inputCls = 'rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
 
 const MESES_ASIGNAR = [
   ['01', 'Enero'], ['02', 'Febrero'], ['03', 'Marzo'], ['04', 'Abril'], ['05', 'Mayo'], ['06', 'Junio'],
@@ -18,7 +18,7 @@ const MESES_ASIGNAR = [
 ] as const
 
 function PildoraSmart({ texto }: { texto: string }) {
-  return <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-[11px] font-bold text-hunter-dark">{texto}</span>
+  return <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-[11px] font-bold text-alerta-dark">{texto}</span>
 }
 
 const TOTAL_PASOS_ASIGNAR = 4
@@ -109,7 +109,7 @@ export function FormAsignar({ periodoId, miembros }: { periodoId: string; miembr
         onClick={() => setAbierto(true)}
         disabled={miembros.length === 0}
         title={miembros.length === 0 ? 'No tienes equipo directo a cargo' : undefined}
-        className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:cursor-not-allowed disabled:opacity-50"
+        className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:cursor-not-allowed disabled:opacity-50"
       >
         ＋ Asignar objetivo
       </button>
@@ -117,7 +117,7 @@ export function FormAsignar({ periodoId, miembros }: { periodoId: string; miembr
       <Modal titulo="Asignar objetivo a tu equipo" abierto={abierto} onCerrar={cerrar} hoja>
         <div className="mb-5 flex gap-1.5" aria-label={`Paso ${paso} de ${TOTAL_PASOS_ASIGNAR}`}>
           {Array.from({ length: TOTAL_PASOS_ASIGNAR }, (_, i) => (
-            <span key={i} className={`h-1 flex-1 rounded-full transition-colors ${i < paso ? 'bg-hunter' : 'bg-hueso-2'}`} />
+            <span key={i} className={`h-1 flex-1 rounded-full transition-colors ${i < paso ? 'bg-marca' : 'bg-hueso-2'}`} />
           ))}
         </div>
 
@@ -149,7 +149,7 @@ export function FormAsignar({ periodoId, miembros }: { periodoId: string; miembr
               <label htmlFor="as-desc" className="text-[13px] font-bold">¿Por qué es relevante y a quién impacta?</label>
               <textarea
                 id="as-desc" rows={3} value={descripcion} onChange={(e) => setDescripcion(e.target.value)}
-                placeholder="Qué incluye, a quién impacta y cómo aporta a su rol y a Hunter"
+                placeholder="Qué incluye, a quién impacta y cómo aporta a su rol y a Webtilia"
                 className={`${inputCls} mt-1.5 w-full`}
               />
               <p className="mt-1 text-[11px] text-gris">Esto cubre la A y la R de SMART: alcanzable con sus recursos y relevante para el negocio.</p>
@@ -201,13 +201,13 @@ export function FormAsignar({ periodoId, miembros }: { periodoId: string; miembr
                 <button
                   type="button" onClick={() => setPeso((p) => Math.max(5, p - 5))} disabled={peso <= 5}
                   aria-label="Bajar peso 5%"
-                  className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-hunter transition active:scale-95 disabled:opacity-30"
+                  className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-marca transition active:scale-95 disabled:opacity-30"
                 >−</button>
                 <span className="min-w-[4.5rem] text-center font-display text-2xl font-extrabold">{peso}%</span>
                 <button
                   type="button" onClick={() => setPeso((p) => Math.min(pesoMax, p + 5))} disabled={peso >= pesoMax}
                   aria-label="Subir peso 5%"
-                  className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-hunter transition active:scale-95 disabled:opacity-30"
+                  className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-marca transition active:scale-95 disabled:opacity-30"
                 >+</button>
               </div>
               <p className="mt-1.5 text-[11px] text-gris">De 5% en 5%, hasta el {pesoMax}% disponible de {elegido?.nombre ?? 'tu colaborador'}.</p>
@@ -240,7 +240,7 @@ export function FormAsignar({ periodoId, miembros }: { periodoId: string; miembr
           </div>
         )}
 
-        {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
 
         <div className="mt-6 flex items-center gap-2">
           {paso > 1 ? (
@@ -253,11 +253,11 @@ export function FormAsignar({ periodoId, miembros }: { periodoId: string; miembr
             </button>
           )}
           {paso < TOTAL_PASOS_ASIGNAR ? (
-            <button type="button" onClick={avanzar} className="flex-1 rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark">
+            <button type="button" onClick={avanzar} className="flex-1 rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark">
               Siguiente →
             </button>
           ) : (
-            <button type="button" onClick={asignar} disabled={pendiente} className="flex-1 rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button type="button" onClick={asignar} disabled={pendiente} className="flex-1 rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Asignando…' : 'Asignar objetivo →'}
             </button>
           )}
@@ -286,7 +286,7 @@ export function PanelObjetivosEquipo({ pendientes }: { pendientes: ObjetivoPendi
 
   return (
     <div className="space-y-5">
-      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">{error}</p>}
 
       <section className="rounded-2xl border border-gris-claro bg-white">
         <header className="flex justify-between border-b border-gris-claro px-5 py-3.5">
@@ -329,11 +329,11 @@ function PropuestaFila({ o, onDecidir, deshabilitado }: {
           <input
             type="number" min={5} max={100} value={peso} disabled={deshabilitado}
             onChange={(e) => setPeso(Number(e.target.value))}
-            className="w-20 rounded-xl border border-gris-claro px-3 py-2.5 text-right text-sm font-bold outline-none focus:border-hunter"
+            className="w-20 rounded-xl border border-gris-claro px-3 py-2.5 text-right text-sm font-bold outline-none focus:border-marca"
           />%
         </label>
         <div className="grid w-full grid-cols-2 gap-2 md:ml-auto md:flex md:w-auto">
-          <button type="button" disabled={deshabilitado} onClick={() => onDecidir(o.id, 'APROBADO', peso)} className="rounded-xl bg-hunter px-4 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+          <button type="button" disabled={deshabilitado} onClick={() => onDecidir(o.id, 'APROBADO', peso)} className="rounded-xl bg-marca px-4 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
             Aprobar ✓
           </button>
           <AjustarYAprobar o={o} deshabilitado={deshabilitado} />
@@ -378,7 +378,7 @@ function AjustarYAprobar({ o, deshabilitado }: { o: ObjetivoPendiente; deshabili
 
   return (
     <>
-      <button type="button" disabled={deshabilitado} onClick={() => setAbierto(true)} className="rounded-xl border border-hunter/40 px-4 py-2.5 text-[13px] font-bold text-hunter transition hover:bg-hunter/5 disabled:opacity-60">
+      <button type="button" disabled={deshabilitado} onClick={() => setAbierto(true)} className="rounded-xl border border-marca/40 px-4 py-2.5 text-[13px] font-bold text-marca transition hover:bg-marca/5 disabled:opacity-60">
         ✎ Ajustar y aprobar
       </button>
 
@@ -423,10 +423,10 @@ function AjustarYAprobar({ o, deshabilitado }: { o: ObjetivoPendiente; deshabili
               <input name="peso" type="number" min={5} max={100} required defaultValue={o.peso} className={inputCls} />
             </label>
           </div>
-          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+          {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
           <div className="flex items-center justify-end gap-2">
             <button type="button" onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
-            <button disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Aprobando…' : 'Aprobar esta versión ✓'}
             </button>
           </div>

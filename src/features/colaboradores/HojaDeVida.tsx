@@ -220,7 +220,7 @@ export async function HojaDeVida({ colaboradorId, verComoGestor = false, origenG
                       <span className="shrink-0 rounded-full bg-hueso-2 px-2 py-0.5 text-[10px] font-bold text-gris">sin publicar</span>
                     </div>
                   ) : (
-                    <Link href={href} className="group flex items-center gap-4 rounded-xl border border-gris-claro px-4 py-3 transition hover:border-hunter/40 hover:bg-hueso">
+                    <Link href={href} className="group flex items-center gap-4 rounded-xl border border-gris-claro px-4 py-3 transition hover:border-marca/40 hover:bg-hueso">
                       {contenido}
                       <span className="text-gris transition group-hover:translate-x-0.5 group-hover:text-negro">→</span>
                     </Link>

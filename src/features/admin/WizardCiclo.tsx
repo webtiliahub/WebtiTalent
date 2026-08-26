@@ -51,7 +51,7 @@ export function SelectorEvaluaciones({ niveles, porNivel, setPorNivel, porPuesto
             <select
               value={porNivel[n.id] ?? ''}
               onChange={(e) => setPorNivel((s) => ({ ...s, [n.id]: e.target.value }))}
-              className="min-w-0 flex-1 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter"
+              className="min-w-0 flex-1 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca"
             >
               <option value="">— Este nivel no se evalúa —</option>
               {n.evaluaciones.map((e) => <option key={e.id} value={e.id}>{e.nombre} · {e.totalPreguntas} preguntas</option>)}
@@ -74,7 +74,7 @@ export function SelectorEvaluaciones({ niveles, porNivel, setPorNivel, porPuesto
                     if (e.target.value) nuevo[ex.puestoId] = e.target.value; else delete nuevo[ex.puestoId]
                     return nuevo
                   })}
-                  className="min-w-0 flex-1 rounded-xl border border-gris-claro bg-white px-3.5 py-2 text-[13px] outline-none focus:border-hunter"
+                  className="min-w-0 flex-1 rounded-xl border border-gris-claro bg-white px-3.5 py-2 text-[13px] outline-none focus:border-marca"
                 >
                   <option value="">— Usa la evaluación del nivel —</option>
                   {ex.evaluaciones.map((e) => <option key={e.id} value={e.id}>{e.nombre} · {e.totalPreguntas} preguntas</option>)}
@@ -209,7 +209,7 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
 
   // min-w-0: los inputs type="date" tienen un ancho mínimo intrínseco en Chromium que ignora
   // w-full y empujaba el grid (y con él toda la página) más allá del viewport en móvil
-  const inputCls = 'w-full min-w-0 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+  const inputCls = 'w-full min-w-0 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
   const pasos = ['Datos', 'Alcance', 'Evaluaciones', 'Revisión']
   const nombreEvaluacion = new Map(niveles.flatMap((n) => [...n.evaluaciones, ...n.excepciones.flatMap((p) => p.evaluaciones)]).map((e) => [e.id, e] as const))
 
@@ -228,9 +228,9 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
               type="button"
               disabled={!navegable}
               onClick={() => navegable && setPaso(n)}
-              className={`flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2 text-center text-[11px] font-bold leading-tight md:flex-none md:flex-row md:gap-2 md:px-4 md:py-2.5 md:text-[13px] ${paso === n ? 'bg-red-50 text-hunter-dark ring-1 ring-hunter/30' : paso > n ? 'bg-emerald-50 text-emerald-700' : 'bg-hueso-2 text-gris'} ${navegable ? '' : 'cursor-default opacity-60'}`}
+              className={`flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2 text-center text-[11px] font-bold leading-tight md:flex-none md:flex-row md:gap-2 md:px-4 md:py-2.5 md:text-[13px] ${paso === n ? 'bg-blue-50 text-marca-dark ring-1 ring-marca/30' : paso > n ? 'bg-emerald-50 text-emerald-700' : 'bg-hueso-2 text-gris'} ${navegable ? '' : 'cursor-default opacity-60'}`}
             >
-              <span className={`grid h-5 w-5 shrink-0 place-items-center rounded-full text-[10px] ${paso === n ? 'bg-hunter text-white' : paso > n ? 'bg-emerald-500 text-white' : 'bg-gris-claro text-gris'}`}>
+              <span className={`grid h-5 w-5 shrink-0 place-items-center rounded-full text-[10px] ${paso === n ? 'bg-marca text-white' : paso > n ? 'bg-emerald-500 text-white' : 'bg-gris-claro text-gris'}`}>
                 {paso > n ? '✓' : n}
               </span>
               {p}
@@ -253,11 +253,11 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
             <fieldset className="md:col-span-2 space-y-1.5">
               <legend className="text-xs font-bold uppercase tracking-wide text-gris">¿Este ciclo evalúa objetivos?</legend>
               <label className="flex items-center gap-2 text-sm">
-                <input type="radio" name="evaluaObjetivos" checked={conObjetivos} onChange={() => setConObjetivos(true)} className="accent-[#f0163e]" />
+                <input type="radio" name="evaluaObjetivos" checked={conObjetivos} onChange={() => setConObjetivos(true)} className="accent-[#0067ff]" />
                 Sí — se elige un período de objetivos
               </label>
               <label className="flex items-center gap-2 text-sm">
-                <input type="radio" name="evaluaObjetivos" checked={!conObjetivos} onChange={() => setConObjetivos(false)} className="accent-[#f0163e]" />
+                <input type="radio" name="evaluaObjetivos" checked={!conObjetivos} onChange={() => setConObjetivos(false)} className="accent-[#0067ff]" />
                 No — la nota final se calculará 100% con competencias
               </label>
             </fieldset>
@@ -271,7 +271,7 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
                   ))}
                 </select>
                 {periodos.find((p) => p.id === periodoId)?.estado === 'CARGA_ABIERTA' && (
-                  <span className="mt-1 block text-[11px] text-hunter-dark">La carga de este período sigue abierta: idealmente ciérrala antes de lanzar el ciclo para congelar los objetivos.</span>
+                  <span className="mt-1 block text-[11px] text-marca-dark">La carga de este período sigue abierta: idealmente ciérrala antes de lanzar el ciclo para congelar los objetivos.</span>
                 )}
               </label>
             )}
@@ -367,7 +367,7 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
                     const redundante = preview !== null && !preview.excluidos.some((e) => e.id === id)
                     return (
                       <button key={id} type="button" onClick={() => setExcluirIds((xs) => xs.filter((x) => x !== id))}
-                        className={`rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-bold text-hunter-dark hover:bg-red-100 ${redundante ? 'opacity-60' : ''}`}
+                        className={`rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-bold text-alerta-dark hover:bg-red-100 ${redundante ? 'opacity-60' : ''}`}
                         title={redundante ? 'Ya no está en el alcance' : 'Quitar ajuste'}>
                         {colaboradores.find((c) => c.id === id)?.nombre ?? id} · excluido{redundante ? ' (ya no está en el alcance)' : ''} ✕
                       </button>
@@ -387,7 +387,7 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
                     <span className="font-display text-2xl font-bold">{preview.total}</span> evaluado{preview.total === 1 ? '' : 's'}
                     {preview.porPais.length > 1 && <span className="text-gris"> · {preview.porPais.map((p) => `${p.pais} ${p.total}`).join(' · ')}</span>}
                   </p>
-                  {preview.total === 0 && <p className="mt-1 text-xs text-hunter-dark">Con estos filtros nadie queda en el ciclo: no se podrá lanzar.</p>}
+                  {preview.total === 0 && <p className="mt-1 text-xs text-marca-dark">Con estos filtros nadie queda en el ciclo: no se podrá lanzar.</p>}
                   {preview.rechazados.length > 0 && (
                     <p className="mt-1 rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-800">
                       No entrarán aunque los agregaste: {preview.rechazados.map((r) => `${r.nombre} (${r.motivo === 'INACTIVO' ? 'inactivo' : r.motivo === 'FUERA_DE_PAIS' ? 'fuera de los países del alcance' : 'menos de 6 meses de antigüedad'})`).join(' · ')}
@@ -415,7 +415,7 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
 
         {paso === 3 && (
           <div className="space-y-3">
-            <p className="rounded-xl bg-red-50/60 px-4 py-2.5 text-sm text-hunter-dark">
+            <p className="rounded-xl bg-red-50/60 px-4 py-2.5 text-sm text-alerta-dark">
               Cada <b>nivel jerárquico</b> aplica su propia evaluación (sus preguntas se copian al ciclo como una foto). Dentro del nivel, cada colaborador responde solo lo de las competencias de su puesto y la modalidad. Las evaluaciones se arman en <b>Diseñar evaluación</b>.
             </p>
             <SelectorEvaluaciones niveles={niveles} porNivel={porNivel} setPorNivel={setPorNivel} porPuesto={porPuesto} setPorPuesto={setPorPuesto} conteos={preview?.porNivel} />
@@ -457,7 +457,7 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
         )}
       </div>
 
-      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">{error}</p>}
 
       {/* El mensaje «Falta:» va a lo ancho ENCIMA de los botones; los dos botones quedan
           alineados en una fila (Anterior a la izquierda, Siguiente/Crear a la derecha). */}
@@ -478,11 +478,11 @@ export function WizardCiclo({ niveles, paises, periodos, areas, nivelesCatalogo,
             ← Anterior
           </button>
           {paso < 4 ? (
-            <button type="button" disabled={!puedeAvanzar} onClick={() => setPaso((p) => { const n = p + 1; setMaxPaso((m) => Math.max(m, n)); return n })} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50">
+            <button type="button" disabled={!puedeAvanzar} onClick={() => setPaso((p) => { const n = p + 1; setMaxPaso((m) => Math.max(m, n)); return n })} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50">
               Siguiente →
             </button>
           ) : (
-            <button type="button" disabled={pendiente} onClick={crear} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button type="button" disabled={pendiente} onClick={crear} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? (edicion ? 'Guardando…' : 'Creando…') : edicion ? 'Guardar cambios ✓' : 'Crear ciclo ✓'}
             </button>
           )}

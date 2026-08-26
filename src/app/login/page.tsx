@@ -17,7 +17,7 @@ const BIENVENIDA_MIN_MS = 1200
 const BIENVENIDA_MAX_MS = 2500
 const esperar = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-const inputCls = 'h-11 w-full rounded-[11px] border border-gris-claro bg-white pl-10 pr-10 text-sm text-negro outline-none transition-all placeholder:text-gris/70 focus:border-hunter focus:ring-4 focus:ring-hunter/15'
+const inputCls = 'h-11 w-full rounded-[11px] border border-gris-claro bg-white pl-10 pr-10 text-sm text-negro outline-none transition-all placeholder:text-gris/70 focus:border-marca focus:ring-4 focus:ring-marca/15'
 
 /** Sección que se expande/colapsa con transición de grid. Libera el overflow al terminar
  *  de expandirse para que el glow del focus y la sombra del hover no queden recortados. */
@@ -34,7 +34,7 @@ function Reveal({ open, children }: { open: boolean; children: React.ReactNode }
   )
 }
 
-/** Isotipo de Hunter (halcón) con halo pulsante y anillo girando. */
+/** Isotipo de Webtilia (la W) con halo pulsante y anillo girando. */
 function AuthLogo() {
   return (
     <div className="flex justify-center">
@@ -42,7 +42,7 @@ function AuthLogo() {
         <div className="auth-logo-halo" />
         <div className="auth-logo-ring" />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo/hunter-iso-black.png" alt="Hunter" className="auth-logo-iso" />
+        <img src="/logo/webtilia-w.png" alt="Webtilia" className="auth-logo-iso" />
       </div>
     </div>
   )
@@ -66,7 +66,7 @@ function AuthBackground() {
       <div className="auth-particle" style={{ left: '84%', width: 4, height: 4, animationDuration: '20s', animationDelay: '1.5s' }} />
       <div className="auth-particle" style={{ left: '48%', width: 3, height: 3, animationDuration: '22s', animationDelay: '9s' }} />
       <p className="auth-slogan auth-stagger auth-s6 fixed bottom-6 left-0 right-0 z-[5] text-center font-display text-[13px] font-semibold tracking-wide text-negro/45">
-        Evaluación de Desempeño <b className="font-bold text-hunter">360</b>
+        Evaluación de Desempeño <b className="font-bold text-marca">360</b>
       </p>
       {/* Velo superior: la franja de estado del sistema se pinta #f6f4f1 (manifest) y las capas
           decorativas rosas llegaban al borde creando una costura — este fundido hace que el tope
@@ -188,9 +188,9 @@ export default function LoginPage() {
         </div>
         <div className="auth-stagger auth-s2 mb-7 mt-3 text-center">
           <h1 className="font-display text-[23px] font-extrabold tracking-tight text-negro">
-            Talent <span className="text-hunter">Hub</span>
+            Talent <span className="text-marca">Hub</span>
           </h1>
-          <p className="mt-1 text-[13.5px] text-gris">Plataforma de talento — Hunter</p>
+          <p className="mt-1 text-[13.5px] text-gris">Plataforma de talento — Webtilia</p>
         </div>
 
         {recuperando ? (
@@ -200,7 +200,7 @@ export default function LoginPage() {
               <p className="mt-2 text-[13px] text-gris">Si la cuenta existe, enviamos un enlace para cambiar tu contraseña a:</p>
               <p className="mt-1.5 break-all text-[13.5px] font-semibold text-negro">{email.trim()}</p>
               <p className="mt-1.5 text-[12.5px] text-gris/80">El enlace es válido por 30 minutos.</p>
-              <button type="button" onClick={volverAlLogin} className="mt-5 text-[13px] font-semibold text-hunter hover:underline">
+              <button type="button" onClick={volverAlLogin} className="mt-5 text-[13px] font-semibold text-marca hover:underline">
                 ← Volver a iniciar sesión
               </button>
             </div>
@@ -214,14 +214,14 @@ export default function LoginPage() {
                 <input
                   id="email-rec" type="email" autoComplete="username" required autoFocus value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nombre@hunter.com.pe"
+                  placeholder="nombre@marca.com.pe"
                   className={inputCls}
                 />
               </div>
-              {error && <p className="mt-3 rounded-xl bg-red-50 px-3.5 py-2 text-[13px] text-hunter-dark">{error}</p>}
+              {error && <p className="mt-3 rounded-xl bg-red-50 px-3.5 py-2 text-[13px] text-alerta-dark">{error}</p>}
               <button
                 type="submit" disabled={cargando || !emailValido}
-                className="mt-4 h-[46px] w-full rounded-[11px] bg-gradient-to-r from-hunter-dark to-hunter font-display text-[15px] font-bold text-white transition-all hover:-translate-y-0.5 disabled:opacity-60"
+                className="mt-4 h-[46px] w-full rounded-[11px] bg-gradient-to-r from-marca-dark to-marca font-display text-[15px] font-bold text-white transition-all hover:-translate-y-0.5 disabled:opacity-60"
               >
                 {cargando ? 'Enviando…' : 'Enviar enlace'}
               </button>
@@ -239,12 +239,12 @@ export default function LoginPage() {
                 <input
                   id="email" name="email" type="email" autoComplete="username" required autoFocus value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nombre@hunter.com.pe"
+                  placeholder="nombre@marca.com.pe"
                   className={inputCls}
                 />
                 <Check
                   aria-hidden
-                  className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-hunter transition-all duration-300 ${emailValido ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
+                  className={`pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-marca transition-all duration-300 ${emailValido ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`}
                 />
               </div>
             </div>
@@ -282,7 +282,7 @@ export default function LoginPage() {
                 <button
                   type="submit" disabled={cargando}
                   tabIndex={mostrarBoton ? undefined : -1}
-                  className="auth-btn-shine h-[46px] w-full rounded-[11px] bg-gradient-to-r from-hunter-dark to-hunter font-display text-[15px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(240,22,62,0.4)] disabled:opacity-60"
+                  className="auth-btn-shine h-[46px] w-full rounded-[11px] bg-gradient-to-r from-marca-dark to-marca font-display text-[15px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(240,22,62,0.4)] disabled:opacity-60"
                 >
                   {cargando ? 'Verificando…' : 'Continuar →'}
                 </button>
@@ -292,7 +292,7 @@ export default function LoginPage() {
               </div>
             </Reveal>
 
-            {error && <p className="pt-4 text-center text-sm text-hunter-dark">{error}</p>}
+            {error && <p className="pt-4 text-center text-sm text-marca-dark">{error}</p>}
           </form>
         ) : (
           <form onSubmit={verificarCodigo}>
@@ -304,20 +304,20 @@ export default function LoginPage() {
                 inputMode="numeric" pattern="[0-9]{6}" maxLength={6} required autoFocus value={codigo}
                 onChange={(e) => setCodigo(e.target.value.replace(/\D/g, ''))}
                 placeholder="000000"
-                className="h-14 w-full rounded-[11px] border border-gris-claro bg-white text-center font-display text-2xl font-bold tracking-[0.5em] text-negro outline-none transition-all placeholder:text-gris/40 focus:border-hunter focus:ring-4 focus:ring-hunter/15"
+                className="h-14 w-full rounded-[11px] border border-gris-claro bg-white text-center font-display text-2xl font-bold tracking-[0.5em] text-negro outline-none transition-all placeholder:text-gris/40 focus:border-marca focus:ring-4 focus:ring-marca/15"
               />
             </div>
             <Reveal open={codigo.length === 6}>
               <div className="pt-4">
                 <button
                   type="submit" disabled={cargando || codigo.length !== 6}
-                  className="auth-btn-shine h-[46px] w-full rounded-[11px] bg-gradient-to-r from-hunter-dark to-hunter font-display text-[15px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(240,22,62,0.4)] disabled:opacity-60"
+                  className="auth-btn-shine h-[46px] w-full rounded-[11px] bg-gradient-to-r from-marca-dark to-marca font-display text-[15px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_26px_rgba(240,22,62,0.4)] disabled:opacity-60"
                 >
                   {cargando ? 'Ingresando…' : 'Ingresar ✓'}
                 </button>
               </div>
             </Reveal>
-            {error && <p className="pt-4 text-center text-sm text-hunter-dark">{error}</p>}
+            {error && <p className="pt-4 text-center text-sm text-marca-dark">{error}</p>}
             <div className="auth-stagger auth-s3 pt-4">
               <button
                 type="button"

@@ -6,7 +6,7 @@ export default async function MiHojaDeVidaPage() {
   const sesion = await requiereSesion()
   return (
     <>
-      <Titulo sub="Tu información, competencias y trayectoria en Hunter">Mi hoja de vida</Titulo>
+      <Titulo sub="Tu información, competencias y trayectoria en Webtilia">Mi hoja de vida</Titulo>
       {/* Cuenta sin colaborador vinculado (p. ej. tras una purga de carga inicial, antes de
       re-vincular por correo): no hay ficha propia que mostrar. */}
       {sesion.colaboradorId

@@ -110,7 +110,7 @@ export function SelectorMultiple({ etiqueta, opciones, seleccion, onCambio, text
           aria-label={etiqueta}
           aria-haspopup="listbox"
           aria-expanded={abierto}
-          className={`flex w-full items-center justify-between rounded-xl border border-gris-claro bg-hueso py-2.5 pl-3.5 pr-2.5 text-left text-sm outline-none transition focus:border-hunter ${nombres.length === 0 ? 'text-gris' : 'font-semibold text-negro'}`}
+          className={`flex w-full items-center justify-between rounded-xl border border-gris-claro bg-hueso py-2.5 pl-3.5 pr-2.5 text-left text-sm outline-none transition focus:border-marca ${nombres.length === 0 ? 'text-gris' : 'font-semibold text-negro'}`}
         >
           <span className="truncate">{resumen}</span>
           <ChevronDown size={15} className={`shrink-0 text-gris transition-transform ${abierto ? 'rotate-180' : ''}`} />
@@ -135,7 +135,7 @@ export function SelectorMultiple({ etiqueta, opciones, seleccion, onCambio, text
               value={filtro}
               onChange={(e) => setFiltro(e.target.value)}
               placeholder={`Buscar en ${etiqueta.toLowerCase()}…`}
-              className="mb-1 shrink-0 rounded-lg border border-gris-claro bg-white px-2.5 py-2 text-base outline-none focus:border-hunter md:text-sm"
+              className="mb-1 shrink-0 rounded-lg border border-gris-claro bg-white px-2.5 py-2 text-base outline-none focus:border-marca md:text-sm"
             />
           )}
           <div className="min-h-0 overflow-y-auto">
@@ -149,7 +149,7 @@ export function SelectorMultiple({ etiqueta, opciones, seleccion, onCambio, text
                       type="checkbox"
                       checked={activa}
                       onChange={() => onCambio(activa ? seleccion.filter((x) => x !== o.id) : [...seleccion, o.id])}
-                      className="h-4 w-4 shrink-0 accent-[#f0163e]"
+                      className="h-4 w-4 shrink-0 accent-[#0067ff]"
                     />
                     {o.nombre}
                   </label>

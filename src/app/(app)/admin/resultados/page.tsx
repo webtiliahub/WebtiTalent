@@ -80,7 +80,7 @@ export default async function Resultados9BoxPage({ searchParams }: {
                   href={`?${filtrosBase}&cuadrante=${encodeURIComponent(nombre)}`}
                   // Móvil: cuadrado con la cifra al centro. `border` sin color propio hereda el
                   // pastel de TONO_CUADRANTE (no usar el atajo con color: lo pisaría).
-                  className={`flex aspect-square flex-col rounded-xl border p-2 transition hover:shadow-md md:aspect-auto md:min-h-24 md:block md:p-3 ${TONO_CUADRANTE[nombre]} ${cuadrante === nombre ? 'ring-2 ring-hunter' : ''}`}
+                  className={`flex aspect-square flex-col rounded-xl border p-2 transition hover:shadow-md md:aspect-auto md:min-h-24 md:block md:p-3 ${TONO_CUADRANTE[nombre]} ${cuadrante === nombre ? 'ring-2 ring-marca' : ''}`}
                 >
                   {/* Alto fijo de dos líneas: los nueve números quedan alineados en su reja */}
                   <p className="line-clamp-2 h-[2.3em] text-[10.5px] font-bold leading-tight md:h-auto md:text-xs">{nombre}</p>
@@ -114,7 +114,7 @@ export default async function Resultados9BoxPage({ searchParams }: {
 
       {/* Detalle del cuadrante */}
       {cuadrante && (
-        <Card titulo={<span>Colaboradores · <span className="text-hunter">{cuadrante}</span></span>} extra={`${seleccion.length} en el cuadrante`} className="mt-5">
+        <Card titulo={<span>Colaboradores · <span className="text-marca">{cuadrante}</span></span>} extra={`${seleccion.length} en el cuadrante`} className="mt-5">
           {seleccion.length === 0 ? (
             <Vacio>No hay colaboradores en este cuadrante con los filtros aplicados.</Vacio>
           ) : (
@@ -138,7 +138,7 @@ export default async function Resultados9BoxPage({ searchParams }: {
                         de cifras quedaba pegado al borde de arriba */}
                     <div className="flex shrink-0 gap-3 self-center text-right">
                       <p className="leading-none">
-                        <span className="font-display text-[15px] font-extrabold text-hunter">{(r.notaCalibrada ?? r.notaFinal)?.toFixed(1) ?? '—'}</span>
+                        <span className="font-display text-[15px] font-extrabold text-marca">{(r.notaCalibrada ?? r.notaFinal)?.toFixed(1) ?? '—'}</span>
                         <span className="mt-0.5 block text-[8.5px] font-bold uppercase tracking-wide text-gris">desem.</span>
                       </p>
                       <p className="leading-none">

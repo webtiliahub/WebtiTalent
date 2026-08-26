@@ -1,7 +1,7 @@
 /**
- * Seed de la Plataforma 360 Hunter — DATOS SIMULADOS (cumple SGSI: nunca datos reales en dev).
- * Org canónica del demo + universo simulado por país, banco de preguntas, ciclo 2026 activo.
- * Credenciales demo: <email> / Hunter2026!
+ * Seed demo de WebtiTalent — DATOS SIMULADOS (cumple SGSI: nunca datos reales en dev).
+ * Org simulada del demo (estructura heredada del desarrollo original) + universo simulado por país, banco de preguntas, ciclo 2026 activo.
+ * Credenciales demo: <email> / Demo2026!
  */
 import 'dotenv/config'
 import { PrismaClient, RolSistema, AlcanceRrhh, TipoEvaluacion, TipoObjetivo, EstadoObjetivo, EstadoCiclo } from '../src/generated/prisma/client'
@@ -14,10 +14,10 @@ exigirBaseLocal('seed')
 
 const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) })
 
-const PASSWORD_DEMO = 'Hunter2026!'
+const PASSWORD_DEMO = 'Demo2026!'
 
 async function main() {
-  console.log('🌱 Seed Hunter 360 — datos simulados')
+  console.log('🌱 Seed demo WebtiTalent — datos simulados')
   const hash = await bcrypt.hash(PASSWORD_DEMO, 10)
 
   // ── Países ──
@@ -104,7 +104,7 @@ async function main() {
     puestos[p.nombre] = { id: creado.id, nivel: p.nivel }
   }
 
-  // ── Org canónica del demo ──
+  // ── Org simulada del demo (estructura heredada del desarrollo original) ──
   type ColabDef = {
     key: string; nombres: string; apellidos: string; doc: string; pais: typeof pe
     area: string; puesto: string; jefeKey?: string

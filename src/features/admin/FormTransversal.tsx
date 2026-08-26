@@ -43,7 +43,7 @@ export function FormTransversal({ periodoId, areas, niveles, paises, puestos }: 
     <>
       <button
         onClick={() => setAbierto(true)}
-        className="w-full rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark md:w-auto"
+        className="w-full rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark md:w-auto"
       >
         ＋ Añadir objetivo transversal
       </button>
@@ -52,9 +52,9 @@ export function FormTransversal({ periodoId, areas, niveles, paises, puestos }: 
         <form action={enviar}>
           <input type="hidden" name="periodoId" value={periodoId} />
           <div className="grid gap-3 md:grid-cols-3">
-            <input name="titulo" required placeholder="Título del objetivo…" autoFocus className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter md:col-span-2" />
-            <input name="peso" type="number" min={5} max={100} required placeholder="Peso (%)" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter" />
-            <textarea name="descripcion" rows={2} placeholder="Descripción…" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter md:col-span-2" />
+            <input name="titulo" required placeholder="Título del objetivo…" autoFocus className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca md:col-span-2" />
+            <input name="peso" type="number" min={5} max={100} required placeholder="Peso (%)" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca" />
+            <textarea name="descripcion" rows={2} placeholder="Descripción…" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca md:col-span-2" />
             <label className="flex flex-col gap-1">
               <span className="text-[10px] font-bold uppercase tracking-wide text-gris">Fecha meta (opcional)</span>
               <input name="metaFecha" type="month" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none" />
@@ -71,10 +71,10 @@ export function FormTransversal({ periodoId, areas, niveles, paises, puestos }: 
             <SelectorMultiple etiqueta="Puestos" opciones={puestos} seleccion={puestoIds} onCambio={setPuestoIds} textoVacio="Todos los puestos" />
           </div>
 
-          {aviso && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+          {aviso && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
           <div className="mt-5 flex items-center justify-end gap-2">
             <button type="button" onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
-            <button disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Creando…' : 'Crear transversal →'}
             </button>
           </div>
@@ -151,7 +151,7 @@ export function AccionesTransversal({ objetivo, areas, niveles, paises, puestos,
         onClick={eliminar}
         disabled={pendiente || tieneLogros || congelado}
         title={congelado ? 'El ciclo que evaluó este período ya cerró: es historial' : tieneLogros ? 'Ya tiene logros cargados: no se puede eliminar' : 'Eliminar transversal'}
-        className="grid h-8 w-8 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-hunter disabled:cursor-not-allowed disabled:opacity-30"
+        className="grid h-8 w-8 place-items-center rounded-lg text-gris transition hover:bg-red-50 hover:text-alerta disabled:cursor-not-allowed disabled:opacity-30"
       ><Trash2 size={14} /></button>
 
       <Modal titulo="Editar objetivo transversal" abierto={abierto} onCerrar={cerrar}>
@@ -161,9 +161,9 @@ export function AccionesTransversal({ objetivo, areas, niveles, paises, puestos,
         </p>
         <form action={guardar}>
           <div className="grid gap-3 md:grid-cols-3">
-            <input name="titulo" required defaultValue={objetivo.titulo} placeholder="Título del objetivo…" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter md:col-span-2" />
-            <input name="peso" type="number" min={5} max={100} required defaultValue={objetivo.peso} placeholder="Peso (%)" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter" />
-            <textarea name="descripcion" rows={2} defaultValue={objetivo.descripcion ?? ''} placeholder="Descripción…" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter md:col-span-2" />
+            <input name="titulo" required defaultValue={objetivo.titulo} placeholder="Título del objetivo…" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca md:col-span-2" />
+            <input name="peso" type="number" min={5} max={100} required defaultValue={objetivo.peso} placeholder="Peso (%)" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca" />
+            <textarea name="descripcion" rows={2} defaultValue={objetivo.descripcion ?? ''} placeholder="Descripción…" className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca md:col-span-2" />
             <label className="flex flex-col gap-1">
               <span className="text-[10px] font-bold uppercase tracking-wide text-gris">Fecha meta (opcional)</span>
               <input name="metaFecha" type="month" defaultValue={objetivo.metaFecha ?? ''} className="rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none" />
@@ -180,10 +180,10 @@ export function AccionesTransversal({ objetivo, areas, niveles, paises, puestos,
             <SelectorMultiple etiqueta="Puestos" opciones={puestos} seleccion={puestoIds} onCambio={setPuestoIds} textoVacio="Todos los puestos" />
           </div>
 
-          {aviso && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+          {aviso && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
           <div className="mt-5 flex items-center justify-end gap-2">
             <button type="button" onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
-            <button disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Guardando…' : 'Guardar cambios →'}
             </button>
           </div>
@@ -239,7 +239,7 @@ export function CargarLogro({ objetivoId, logroActual, habilitado = true, motivo
         type="number" min={0} max={100} value={valor}
         onChange={(e) => setValor(e.target.value === '' ? '' : Number(e.target.value))}
         placeholder="—"
-        className="w-16 rounded-lg border border-gris-claro px-2 py-1 text-right text-sm font-bold outline-none focus:border-hunter"
+        className="w-16 rounded-lg border border-gris-claro px-2 py-1 text-right text-sm font-bold outline-none focus:border-marca"
       />
       <span className="text-xs font-bold">%</span>
       <button
@@ -253,7 +253,7 @@ export function CargarLogro({ objetivoId, logroActual, habilitado = true, motivo
       >
         {pendiente ? '…' : 'Cargar'}
       </button>
-      {aviso && <span className={aviso === '✓' ? 'text-emerald-600' : 'text-hunter'}>{aviso}</span>}
+      {aviso && <span className={aviso === '✓' ? 'text-emerald-600' : 'text-marca'}>{aviso}</span>}
       </span>
     </span>
   )

@@ -27,7 +27,7 @@ export function PanelAreas({ areas, puedeGestionar = true }: { areas: Area[]; pu
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
           placeholder={`Buscar entre ${areas.length} áreas…`}
-          className="w-full max-w-md flex-1 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2 text-sm outline-none focus:border-hunter"
+          className="w-full max-w-md flex-1 rounded-xl border border-gris-claro bg-hueso px-3.5 py-2 text-sm outline-none focus:border-marca"
         />
         {puedeGestionar && (
           <div className="[&>*]:mt-0">

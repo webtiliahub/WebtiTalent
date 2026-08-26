@@ -39,7 +39,7 @@ export function Ayuda({ texto }: { texto: string }) {
         onFocus={() => setAbierto(true)}
         onBlur={() => setAbierto(false)}
         onClick={() => setAbierto((v) => !v)}
-        className="inline-grid h-5 w-5 place-items-center rounded-full text-gris transition hover:text-negro focus:outline-none focus-visible:ring-1 focus-visible:ring-hunter"
+        className="inline-grid h-5 w-5 place-items-center rounded-full text-gris transition hover:text-negro focus:outline-none focus-visible:ring-1 focus-visible:ring-marca"
       >
         <HelpCircle size={14} />
       </button>

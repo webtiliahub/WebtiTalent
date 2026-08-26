@@ -7,7 +7,7 @@ import type { ObjetivoEditable } from './FormEditarObjetivo'
 const ESTADO_CHIP: Record<string, { label: string; cls: string }> = {
   APROBADO: { label: 'Aprobado', cls: 'bg-emerald-50 text-emerald-700' },
   PROPUESTO: { label: 'Propuesto', cls: 'bg-amber-50 text-amber-700' },
-  RECHAZADO: { label: 'Rechazado', cls: 'bg-red-50 text-hunter-dark' },
+  RECHAZADO: { label: 'Rechazado', cls: 'bg-red-50 text-alerta-dark' },
 }
 
 function Campo({ label, children, ancho }: { label: string; children: React.ReactNode; ancho?: boolean }) {
@@ -57,7 +57,7 @@ export function DetalleObjetivo({ objetivo, estado, abierto, onCerrar }: {
         <div className="grid gap-3 md:grid-cols-3">
           <Campo label="Fecha meta">{mesLegible(objetivo.metaFecha) || '—'}</Campo>
           <Campo label="Tipo">{objetivo.tipo === 'DESARROLLO' ? 'Desarrollo — profesional' : 'Individual — del negocio'}</Campo>
-          <Campo label="Peso en su nota"><b className="text-hunter">{objetivo.peso}%</b></Campo>
+          <Campo label="Peso en su nota"><b className="text-marca">{objetivo.peso}%</b></Campo>
         </div>
 
         <div className="flex justify-end">

@@ -67,7 +67,7 @@ function filaPadron(overrides: Partial<MaestroParseado['padron'][number]> = {}):
     documento: '123',
     nombres: 'Ana',
     apellidos: 'Pérez',
-    email: 'ana@hunter.com.pe',
+    email: 'ana@marca.com.pe',
     telefono: '',
     pais: 'Perú',
     area: '',

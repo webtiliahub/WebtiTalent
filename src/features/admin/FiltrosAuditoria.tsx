@@ -47,7 +47,7 @@ export function FiltrosAuditoria({ acciones, usuarios, accionSel, usuarioSel, de
     router.push(`${ruta}?${query.toString()}`)
   }
 
-  const campo = 'w-full min-w-0 rounded-xl border border-gris-claro bg-white px-3 py-2.5 text-sm outline-none transition focus:border-hunter sm:py-2'
+  const campo = 'w-full min-w-0 rounded-xl border border-gris-claro bg-white px-3 py-2.5 text-sm outline-none transition focus:border-marca sm:py-2'
   const rotulo = 'text-[10.5px] font-bold uppercase tracking-wide text-gris'
 
   return (
@@ -95,7 +95,7 @@ export function FiltrosAuditoria({ acciones, usuarios, accionSel, usuarioSel, de
       {hayFiltros && (
         <a
           href="?tab=auditoria"
-          className="col-span-2 rounded-xl border border-gris-claro px-3 py-2.5 text-center text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter sm:col-span-1 sm:w-auto sm:py-2"
+          className="col-span-2 rounded-xl border border-gris-claro px-3 py-2.5 text-center text-xs font-bold text-gris transition hover:border-marca hover:text-marca sm:col-span-1 sm:w-auto sm:py-2"
         >
           Limpiar filtros
         </a>

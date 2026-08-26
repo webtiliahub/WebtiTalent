@@ -387,7 +387,7 @@ export default async function CicloDetallePage({ params }: { params: Promise<{ i
                   <span className="text-gris">{m.enviadas} de {m.total} enviadas · {pct}%</span>
                 </div>
                 <div className="h-2 overflow-hidden rounded-full bg-hueso-2">
-                  <div className="h-full rounded-full bg-hunter/70" style={{ width: `${pct}%` }} />
+                  <div className="h-full rounded-full bg-marca/70" style={{ width: `${pct}%` }} />
                 </div>
               </li>
             )
@@ -406,7 +406,7 @@ export default async function CicloDetallePage({ params }: { params: Promise<{ i
               <p className="text-[10.5px] leading-tight text-gris sm:text-[11px]">con sus 2 pares nominados</p>
             </div>
             <div className="rounded-xl bg-hueso px-3 py-2.5 sm:px-4 sm:py-3">
-              <p className={`font-display text-lg font-bold sm:text-xl ${sinNingunPar > 0 ? 'text-hunter' : 'text-emerald-700'}`}>{sinNingunPar}</p>
+              <p className={`font-display text-lg font-bold sm:text-xl ${sinNingunPar > 0 ? 'text-alerta' : 'text-emerald-700'}`}>{sinNingunPar}</p>
               <p className="text-[10.5px] leading-tight text-gris sm:text-[11px]">sin ningún par asignado</p>
             </div>
             <div className="rounded-xl bg-hueso px-3 py-2.5 sm:px-4 sm:py-3">
@@ -626,7 +626,7 @@ export default async function CicloDetallePage({ params }: { params: Promise<{ i
             <p className="text-xs text-gris">{m.puesto}</p>
           </div>
           <p className="shrink-0 text-right leading-none">
-            <span className={`font-display text-xl font-extrabold ${sinNota ? 'text-gris' : 'text-hunter'}`}>{sinNota ? '—' : nota.toFixed(1)}</span>
+            <span className={`font-display text-xl font-extrabold ${sinNota ? 'text-gris' : 'text-marca'}`}>{sinNota ? '—' : nota.toFixed(1)}</span>
             <span className="mt-1 block text-[9.5px] font-bold uppercase tracking-wide text-gris">{sinNota ? 'sin nota' : 'nota'}</span>
           </p>
         </div>
@@ -895,7 +895,7 @@ export default async function CicloDetallePage({ params }: { params: Promise<{ i
               const valor = (v: number) => esObjetivo ? `${Math.round(v)}%` : v.toFixed(2)
               return (
                 <li key={c.id} className="rounded-lg bg-hueso px-3 py-2">
-                  <b>{c.colaborador}</b> · {etiqueta}: {valor(c.de)} → <b className="text-hunter">{valor(c.a)}</b> · “{c.motivo}” —{' '}
+                  <b>{c.colaborador}</b> · {etiqueta}: {valor(c.de)} → <b className="text-marca">{valor(c.a)}</b> · “{c.motivo}” —{' '}
                   <span className="text-gris">{c.por}, {c.fecha.toLocaleString('es-PE')}</span>
                 </li>
               )
@@ -916,7 +916,7 @@ export default async function CicloDetallePage({ params }: { params: Promise<{ i
               ? (
                   <Link
                     href={`/admin/ciclos/${ciclo.id}/editar`}
-                    className="rounded-xl border border-gris-claro bg-white px-4 py-2.5 text-[13px] font-bold transition hover:border-hunter hover:text-hunter"
+                    className="rounded-xl border border-gris-claro bg-white px-4 py-2.5 text-[13px] font-bold transition hover:border-marca hover:text-marca"
                   >
                     ✎ Editar ciclo
                   </Link>

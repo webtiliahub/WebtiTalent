@@ -9,7 +9,7 @@ export async function POST() {
   const sesion = await requiereSesion()
   const r = await enviarPush([sesion.id], {
     titulo: 'Notificaciones activas',
-    cuerpo: 'Así se verán los avisos de Talent Hub en este dispositivo.',
+    cuerpo: 'Así se verán los avisos de WebtiTalent en este dispositivo.',
     ruta: '/hoja-de-vida',
     etiqueta: 'prueba',
   })

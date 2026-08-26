@@ -69,7 +69,7 @@ const prismaMock = vi.mocked(prisma, true)
 
 const SESION_JEFE: SesionUsuario = {
   id: 'usuario-jefe-1',
-  email: 'jefe@hunter.test',
+  email: 'jefe@marca.test',
   name: 'Jefe De Prueba',
   rol: 'COLABORADOR',
   colaboradorId: 'colab-jefe-1',
@@ -141,7 +141,7 @@ describe('resolverObjetivo → correo de objetivos aprobados', () => {
     const objetivo = objetivoBase()
     prismaMock.objetivo.findUnique.mockResolvedValue(objetivo as never)
     prismaMock.usuario.findFirst.mockResolvedValue({
-      email: 'colaborador@hunter.test',
+      email: 'colaborador@marca.test',
       colaborador: { nombres: 'Ana', apellidos: 'Pérez' },
     } as never)
 
@@ -154,7 +154,7 @@ describe('resolverObjetivo → correo de objetivos aprobados', () => {
     })
     expect(enviarObjetivosAprobados).toHaveBeenCalledTimes(1)
     expect(enviarObjetivosAprobados).toHaveBeenCalledWith(
-      'colaborador@hunter.test',
+      'colaborador@marca.test',
       'Ana Pérez',
       'Periodo Q3',
       [{ titulo: 'Título original', peso: 20 }],
@@ -167,7 +167,7 @@ describe('resolverObjetivo → correo de objetivos aprobados', () => {
     const objetivo = objetivoBase()
     prismaMock.objetivo.findUnique.mockResolvedValue(objetivo as never)
     prismaMock.usuario.findFirst.mockResolvedValue({
-      email: 'colaborador@hunter.test',
+      email: 'colaborador@marca.test',
       colaborador: { nombres: 'Ana', apellidos: 'Pérez' },
     } as never)
     prismaMock.$transaction.mockResolvedValue([{}, {}] as never)
@@ -180,7 +180,7 @@ describe('resolverObjetivo → correo de objetivos aprobados', () => {
     expect(prismaMock.$transaction).toHaveBeenCalledTimes(1)
     expect(enviarObjetivoReemplazado).toHaveBeenCalledTimes(1)
     expect(enviarObjetivoReemplazado).toHaveBeenCalledWith(
-      'colaborador@hunter.test',
+      'colaborador@marca.test',
       'Ana Pérez',
       'Periodo Q3',
       'Título original',
@@ -193,7 +193,7 @@ describe('resolverObjetivo → correo de objetivos aprobados', () => {
     const objetivo = objetivoBase()
     prismaMock.objetivo.findUnique.mockResolvedValue(objetivo as never)
     prismaMock.usuario.findFirst.mockResolvedValue({
-      email: 'colaborador@hunter.test',
+      email: 'colaborador@marca.test',
       colaborador: { nombres: 'Ana', apellidos: 'Pérez' },
     } as never)
     vi.mocked(enviarObjetivosAprobados).mockRejectedValue(new Error('SMTP caído'))
@@ -266,7 +266,7 @@ describe('asignarObjetivo → correo de objetivo asignado', () => {
     prismaMock.colaborador.findUnique.mockResolvedValue(colaboradorBase() as never)
     prismaMock.objetivo.create.mockResolvedValue({} as never)
     prismaMock.usuario.findFirst.mockResolvedValue({
-      email: 'colaborador@hunter.test',
+      email: 'colaborador@marca.test',
       colaborador: { nombres: 'Ana', apellidos: 'Pérez' },
     } as never)
 
@@ -283,7 +283,7 @@ describe('asignarObjetivo → correo de objetivo asignado', () => {
     })
     expect(enviarObjetivoAsignado).toHaveBeenCalledTimes(1)
     expect(enviarObjetivoAsignado).toHaveBeenCalledWith(
-      'colaborador@hunter.test',
+      'colaborador@marca.test',
       'Ana Pérez',
       'Periodo Q3',
       'Objetivo asignado por el jefe',
@@ -308,7 +308,7 @@ describe('asignarObjetivo → correo de objetivo asignado', () => {
     prismaMock.colaborador.findUnique.mockResolvedValue(colaboradorBase() as never)
     prismaMock.objetivo.create.mockResolvedValue({} as never)
     prismaMock.usuario.findFirst.mockResolvedValue({
-      email: 'colaborador@hunter.test',
+      email: 'colaborador@marca.test',
       colaborador: { nombres: 'Ana', apellidos: 'Pérez' },
     } as never)
     vi.mocked(enviarObjetivoAsignado).mockRejectedValue(new Error('SMTP caído'))

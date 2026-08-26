@@ -3,11 +3,11 @@
  * pág. 2 = radar por dimensión + sesión de feedback y PDI.
  * Se renderiza en el servidor con @react-pdf/renderer (route handler). */
 import { Document, Page, View, Text, Image, StyleSheet, Svg, Polygon, Line, Circle, Text as SvgText, Tspan } from '@react-pdf/renderer'
-import { ISOTIPO_HUNTER } from './isotipo'
+import { ISOTIPO_WEBTILIA } from './isotipo'
 import type { DatosInforme } from './datos'
 
 const C = {
-  hunter: '#f0163e',
+  marca: '#0067ff',
   negro: '#2a2623',
   gris: '#8a857f',
   grisClaro: '#e5e1dc',
@@ -20,7 +20,7 @@ const C = {
 const s = StyleSheet.create({
   pagina: { paddingTop: 36, paddingBottom: 48, paddingHorizontal: 42, fontFamily: 'Helvetica', fontSize: 9.5, color: C.negro },
   // Encabezado
-  cabecera: { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 2.5, borderBottomColor: C.hunter, paddingBottom: 10, marginBottom: 14 },
+  cabecera: { flexDirection: 'row', alignItems: 'center', borderBottomWidth: 2.5, borderBottomColor: C.marca, paddingBottom: 10, marginBottom: 14 },
   marca: { fontFamily: 'Helvetica-Bold', fontSize: 15 },
   sub: { fontSize: 8, color: C.gris, marginTop: 2 },
   tituloInforme: { fontFamily: 'Helvetica-Bold', fontSize: 14, textAlign: 'right' },
@@ -35,12 +35,12 @@ const s = StyleSheet.create({
   kpis: { flexDirection: 'row', gap: 12, marginTop: 12 },
   kpi: { flex: 1, borderWidth: 1, borderColor: C.grisClaro, borderRadius: 8, paddingVertical: 12, paddingHorizontal: 10, alignItems: 'center' },
   kpiLabel: { fontFamily: 'Helvetica-Bold', fontSize: 7.5, color: C.gris, letterSpacing: 0.8, marginBottom: 5 },
-  kpiValor: { fontFamily: 'Helvetica-Bold', fontSize: 22, color: C.hunter },
+  kpiValor: { fontFamily: 'Helvetica-Bold', fontSize: 22, color: C.marca },
   kpiNota: { fontSize: 7.5, color: C.gris, textAlign: 'center', marginTop: 5 },
   pill: { borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2.5, fontFamily: 'Helvetica-Bold', fontSize: 7.5, color: '#ffffff', marginTop: 5 },
   // Secciones
   seccion: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 16, marginBottom: 8 },
-  seccionBarra: { width: 3.5, height: 12, backgroundColor: C.hunter, borderRadius: 2 },
+  seccionBarra: { width: 3.5, height: 12, backgroundColor: C.marca, borderRadius: 2 },
   seccionTitulo: { fontFamily: 'Helvetica-Bold', fontSize: 11.5 },
   // Tablas del cálculo
   columnas: { flexDirection: 'row', gap: 18 },
@@ -53,7 +53,7 @@ const s = StyleSheet.create({
   compTexto: { fontSize: 8, color: C.gris },
   totalFila: { flexDirection: 'row', paddingVertical: 5, alignItems: 'center' },
   totalLabel: { fontFamily: 'Helvetica-Bold', fontSize: 9 },
-  totalValor: { fontFamily: 'Helvetica-Bold', fontSize: 11, color: C.hunter },
+  totalValor: { fontFamily: 'Helvetica-Bold', fontSize: 11, color: C.marca },
   formula: { backgroundColor: C.hueso2, borderRadius: 8, paddingVertical: 8, paddingHorizontal: 10, marginTop: 12, textAlign: 'center', fontSize: 9 },
   // Feedback / PDI
   feedbackCaja: { borderWidth: 1, borderColor: C.grisClaro, borderRadius: 8, padding: 12 },
@@ -66,7 +66,7 @@ function colorEtiqueta(nota: number): string {
   if (nota >= 3.5) return C.verde // Excepcional / Superior
   if (nota >= 2.5) return '#2563eb' // Competente
   if (nota >= 1.5) return C.ambar // En desarrollo
-  return C.hunter // Insuficiente
+  return C.marca // Insuficiente
 }
 
 const n2 = (v: number) => v.toFixed(2)
@@ -74,9 +74,9 @@ const n2 = (v: number) => v.toFixed(2)
 function Cabecera({ datos, mini }: { datos: DatosInforme; mini?: boolean }) {
   return (
     <View style={s.cabecera}>
-      <Image src={ISOTIPO_HUNTER} style={{ width: mini ? 13 : 18, height: mini ? 19 : 26, marginRight: 8 }} />
+      <Image src={ISOTIPO_WEBTILIA} style={{ width: mini ? 14 : 20, height: mini ? 14 : 20, marginRight: 8 }} />
       <View>
-        <Text style={[s.marca, mini ? { fontSize: 11 } : {}]}>CENIT</Text>
+        <Text style={[s.marca, mini ? { fontSize: 11 } : {}]}>WebtiTalent</Text>
         {!mini && <Text style={s.sub}>Evaluación de Desempeño 360</Text>}
       </View>
       <View style={{ marginLeft: 'auto' }}>
@@ -105,7 +105,7 @@ function Seccion({ titulo }: { titulo: string }) {
 function Pie({ datos }: { datos: DatosInforme }) {
   return (
     <View style={s.pie} fixed>
-      <Text style={s.pieTexto}>CENIT · Talent Hub — Informe confidencial · {datos.colaborador.nombre} · {datos.ciclo.nombre}</Text>
+      <Text style={s.pieTexto}>WebtiTalent — Informe confidencial · {datos.colaborador.nombre} · {datos.ciclo.nombre}</Text>
       <Text style={s.pieTexto} render={({ pageNumber, totalPages }) => `Página ${pageNumber} de ${totalPages}`} />
     </View>
   )
@@ -144,18 +144,18 @@ function Radar({ dims }: { dims: DatosInforme['radar'] }) {
         return <Line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke={C.grisClaro} strokeWidth={0.6} />
       })}
       <Polygon points={poligono((i) => radioDe(dims[i].esperado))} fill="#8a857f" fillOpacity={0.14} stroke="#8a857f" strokeWidth={1.3} strokeDasharray="3 2" />
-      <Polygon points={poligono((i) => radioDe(dims[i].valor))} fill={C.hunter} fillOpacity={0.15} stroke={C.hunter} strokeWidth={1.5} />
+      <Polygon points={poligono((i) => radioDe(dims[i].valor))} fill={C.marca} fillOpacity={0.15} stroke={C.marca} strokeWidth={1.5} />
       {dims.map((d, i) => {
         if (d.valor === null) return null
         const [x, y] = punto(i, radioDe(d.valor))
-        return <Circle key={i} cx={x} cy={y} r={2.6} fill={C.hunter} stroke="#ffffff" strokeWidth={1} />
+        return <Circle key={i} cx={x} cy={y} r={2.6} fill={C.marca} stroke="#ffffff" strokeWidth={1} />
       })}
       {dims.map((d, i) => {
         const [x, y] = punto(i, R + 16)
         const cos = Math.cos(-Math.PI / 2 + (2 * Math.PI * i) / n)
         const anchor = Math.abs(cos) < 0.35 ? 'middle' : cos > 0 ? 'start' : 'end'
         const lineas = envolver(d.nombre)
-        const colorValor = d.valor === null ? C.gris : d.valor >= d.esperado - 0.005 ? C.verde : C.hunter
+        const colorValor = d.valor === null ? C.gris : d.valor >= d.esperado - 0.005 ? C.verde : C.marca
         return lineas.map((linea, j) => {
           const ultima = j === lineas.length - 1
           return (
@@ -174,7 +174,7 @@ export function InformePdf({ datos }: { datos: DatosInforme }) {
   const { colaborador, ciclo, notas, dimensiones, objetivos, radar, feedback } = datos
   const sinObjetivos = ciclo.periodo === null
   return (
-    <Document title={`Informe de resultados · ${colaborador.nombre} · ${ciclo.nombre}`} author="CENIT · Talent Hub">
+    <Document title={`Informe de resultados · ${colaborador.nombre} · ${ciclo.nombre}`} author="WebtiTalent">
       {/* ── Página 1: identificación, KPIs y desglose del cálculo ── */}
       <Page size="A4" style={s.pagina}>
         <Cabecera datos={datos} />
@@ -294,14 +294,14 @@ export function InformePdf({ datos }: { datos: DatosInforme }) {
         {sinObjetivos && notas.final !== null && notas.competencias !== null && (
           <Text style={s.formula}>
             {n2(notas.competencias)} × 100% (competencias) = {' '}
-            <Text style={{ fontFamily: 'Helvetica-Bold', color: C.hunter }}>{n2(notas.calibrada ?? notas.final)}</Text>
+            <Text style={{ fontFamily: 'Helvetica-Bold', color: C.marca }}>{n2(notas.calibrada ?? notas.final)}</Text>
             {notas.calibrada !== null ? '  · ajustada por calibración' : ''}
           </Text>
         )}
         {!sinObjetivos && notas.final !== null && notas.competencias !== null && notas.notaObjetivos !== null && (
           <Text style={s.formula}>
             {n2(notas.competencias)} × {ciclo.combinacion.comp}% (competencias) + {n2(notas.notaObjetivos)} × {ciclo.combinacion.obj}% (objetivos) = {' '}
-            <Text style={{ fontFamily: 'Helvetica-Bold', color: C.hunter }}>{n2(notas.calibrada ?? notas.final)}</Text>
+            <Text style={{ fontFamily: 'Helvetica-Bold', color: C.marca }}>{n2(notas.calibrada ?? notas.final)}</Text>
             {notas.calibrada !== null ? '  · ajustada por calibración' : ''}
           </Text>
         )}
@@ -323,7 +323,7 @@ export function InformePdf({ datos }: { datos: DatosInforme }) {
                 <Text style={{ fontSize: 8, color: C.gris }}>Perfil esperado del puesto</Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                <View style={{ width: 20, height: 6, backgroundColor: '#fcd9e0', borderWidth: 1, borderColor: C.hunter }} />
+                <View style={{ width: 20, height: 6, backgroundColor: '#fcd9e0', borderWidth: 1, borderColor: C.marca }} />
                 <Text style={{ fontSize: 8, color: C.gris }}>Obtenido · {ciclo.nombre}</Text>
               </View>
             </View>

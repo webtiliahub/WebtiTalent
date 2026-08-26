@@ -38,7 +38,7 @@ export function HistogramaInteractivo({ bins, personasPorBin, curva, curvaRef = 
             <rect x={x(b.desde)} y={12} width={anchoBin + 4} height={H - 30} fill="transparent" />
             <rect
               x={x(b.desde) + 2} y={y(b.n)} width={anchoBin} height={H - (movil ? 24 : 18) - y(b.n)} rx={4}
-              className={`transition ${activo === i ? 'fill-hunter/50' : 'fill-hunter/25'} ${b.n > 0 ? 'hover:fill-hunter/40' : ''}`}
+              className={`transition ${activo === i ? 'fill-marca/50' : 'fill-marca/25'} ${b.n > 0 ? 'hover:fill-marca/40' : ''}`}
             />
             {b.n > 0 && <text x={x(b.desde) + 2 + anchoBin / 2} y={y(b.n) - 4} textAnchor="middle" className={`fill-negro font-bold ${fsConteo}`}>{b.n}</text>}
           </g>
@@ -57,8 +57,8 @@ export function HistogramaInteractivo({ bins, personasPorBin, curva, curvaRef = 
         )}
         {notaMedia !== null && (
           <g className="pointer-events-none">
-            <line x1={x(notaMedia)} x2={x(notaMedia)} y1={12} y2={H - (movil ? 24 : 18)} className="stroke-hunter" strokeWidth={1.4} strokeDasharray="4 3" />
-            {!movil && <text x={x(notaMedia)} y={9} textAnchor="middle" className="fill-hunter text-[9.5px] font-bold">x̄ {notaMedia.toFixed(2)}{sigma ? ` · σ ${sigma.toFixed(2)}` : ''}</text>}
+            <line x1={x(notaMedia)} x2={x(notaMedia)} y1={12} y2={H - (movil ? 24 : 18)} className="stroke-marca" strokeWidth={1.4} strokeDasharray="4 3" />
+            {!movil && <text x={x(notaMedia)} y={9} textAnchor="middle" className="fill-marca text-[9.5px] font-bold">x̄ {notaMedia.toFixed(2)}{sigma ? ` · σ ${sigma.toFixed(2)}` : ''}</text>}
           </g>
         )}
         {[1, 2, 3, 4, 5].map((v) => (
@@ -75,7 +75,7 @@ export function HistogramaInteractivo({ bins, personasPorBin, curva, curvaRef = 
       {/* Móvil: los datos que vivían dentro del dibujo, como texto real */}
       {notaMedia !== null && (
         <p className="mt-2 flex flex-wrap gap-x-2.5 gap-y-1 border-t border-hueso-2 pt-2 text-[11px] text-gris md:hidden">
-          <span className="font-bold text-hunter">x̄ {notaMedia.toFixed(2)}</span>
+          <span className="font-bold text-marca">x̄ {notaMedia.toFixed(2)}</span>
           {sigma !== null && <span>· σ <b className="text-negro">{sigma.toFixed(2)}</b></span>}
           {mediaRef !== null && <span>· empresa <b className="text-negro">{mediaRef.toFixed(2)}</b></span>}
         </p>
@@ -96,7 +96,7 @@ export function HistogramaInteractivo({ bins, personasPorBin, curva, curvaRef = 
             {personas.map((p) => (
               <li key={p.nombre} className="flex items-center justify-between gap-2 border-b border-hueso-2 py-1 text-[12.5px]">
                 <span className="truncate font-semibold">{p.nombre}</span>
-                <span className="shrink-0 font-bold text-hunter">{p.nota.toFixed(2)}</span>
+                <span className="shrink-0 font-bold text-marca">{p.nota.toFixed(2)}</span>
               </li>
             ))}
           </ul>

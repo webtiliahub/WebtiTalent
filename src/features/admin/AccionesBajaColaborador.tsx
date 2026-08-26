@@ -36,7 +36,7 @@ export function ZonaBajaColaborador({ colaboradorId, nombre, equipo, cicloActivo
     <div className="mt-5 flex justify-end">
       <button
         onClick={() => setAbierto(true)}
-        className="inline-flex items-center gap-1.5 rounded-xl border border-gris-claro px-3.5 py-2 text-xs font-bold text-gris transition hover:border-hunter/40 hover:text-hunter"
+        className="inline-flex items-center gap-1.5 rounded-xl border border-gris-claro px-3.5 py-2 text-xs font-bold text-gris transition hover:border-marca/40 hover:text-marca"
       >
         <UserX size={13} /> Dar de baja
       </button>
@@ -54,13 +54,13 @@ export function ZonaBajaColaborador({ colaboradorId, nombre, equipo, cicloActivo
           )}
         </ul>
         <p className="mt-3 rounded-lg bg-hueso-2 px-3 py-2 text-xs text-gris">Su historial (evaluaciones, resultados, objetivos) se conserva completo. La baja queda auditada.</p>
-        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-4 flex items-center justify-end gap-2">
           <button onClick={() => { setAbierto(false); setError(null) }} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
           <button
             onClick={confirmar}
             disabled={pendiente}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60"
           >
             {pendiente ? 'Dando de baja…' : 'Confirmar baja'}
           </button>
@@ -103,7 +103,7 @@ export function BotonReactivar({ colaboradorId, nombre }: { colaboradorId: strin
           <li className="rounded-lg bg-amber-50 px-3 py-2 text-amber-900">Su equipo anterior <b>NO vuelve a colgar de esta persona</b>: si vuelve a ser jefe, reasigna a su gente editándola (quedaron «sin jefe directo» con la baja).</li>
           <li className="rounded-lg bg-hueso px-3 py-2">Su cuenta de acceso sigue desactivada: se reactiva en <b>Configuración → Usuarios con acceso</b>.</li>
         </ul>
-        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-4 flex items-center justify-end gap-2">
           <button onClick={() => { setAbierto(false); setError(null) }} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
           <button

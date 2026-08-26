@@ -49,7 +49,7 @@ function Pildora({ item }: { item: ToastItem }) {
       role="status"
       className={`rounded-full px-6 py-3 font-display text-sm font-bold text-white shadow-xl transition-all duration-300 ease-out ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
-      } ${item.tono === 'ok' ? 'bg-emerald-600' : 'bg-hunter'}`}
+      } ${item.tono === 'ok' ? 'bg-emerald-600' : 'bg-alerta'}`}
     >
       {item.tono === 'ok' ? '✓ ' : '✕ '}{item.mensaje}
     </div>

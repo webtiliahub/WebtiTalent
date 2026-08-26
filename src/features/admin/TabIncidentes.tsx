@@ -75,7 +75,7 @@ function ResolverInsumo({ insumo, cicloId, evaluadoId, ejecutar, pendiente }: {
         </div>
         <button disabled={pendiente || !nuevoId}
           onClick={() => ejecutar(() => reasignarEvaluador(insumo.asignacionId, nuevoId), 'Evaluación reasignada ✓')}
-          className="rounded-lg bg-hunter px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-hunter-dark disabled:opacity-50">
+          className="rounded-lg bg-marca px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-marca-dark disabled:opacity-50">
           {pendiente ? 'Reasignando…' : 'Reasignar ✓'}
         </button>
         <button onClick={() => cambiarModo('menu')} className={btnMiniCls}>Cancelar</button>
@@ -93,14 +93,14 @@ function ResolverInsumo({ insumo, cicloId, evaluadoId, ejecutar, pendiente }: {
       )}
       <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} rows={2} disabled={pendiente}
         placeholder={esInvalidar ? 'Motivo de la invalidación (auditado): sesgo por par único…' : 'Motivo (auditado): evaluador dado de baja, modalidad no aplica…'}
-        className="w-full rounded-lg border border-gris-claro bg-white px-3 py-2 text-xs outline-none focus:border-hunter" />
+        className="w-full rounded-lg border border-gris-claro bg-white px-3 py-2 text-xs outline-none focus:border-marca" />
       <p className="text-[10px] text-gris">
         Motivo obligatorio (mínimo 10 caracteres) · queda en el log de auditoría
         {motivo.trim().length > 0 && motivo.trim().length < 10 && <b className="text-amber-800"> · faltan {10 - motivo.trim().length}</b>}
       </p>
       {esInvalidar && insumo.hermanaEnviada && (
         <label className="flex cursor-pointer items-start gap-2 rounded-lg border border-amber-300 bg-amber-50/60 px-3 py-2 text-[11px] text-amber-900">
-          <input type="checkbox" checked={confirmo} onChange={(e) => setConfirmo(e.target.checked)} disabled={pendiente} className="mt-0.5 accent-hunter" />
+          <input type="checkbox" checked={confirmo} onChange={(e) => setConfirmo(e.target.checked)} disabled={pendiente} className="mt-0.5 accent-marca" />
           <span>Entiendo que se <b>invalida la evaluación ya respondida</b> de {insumo.hermanaEnviada.evaluador}. Podré revertirlo desde esta pestaña <b>solo mientras el ciclo siga activo</b>; tras el cierre del país queda definitivo.</span>
         </label>
       )}
@@ -123,7 +123,7 @@ function ResolverInsumo({ insumo, cicloId, evaluadoId, ejecutar, pendiente }: {
               ejecutar(() => cancelarAsignacion(insumo.asignacionId, motivo), 'Evaluación cancelada: no aplica ✓')
             }
           }}
-          className="rounded-lg bg-hunter px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-hunter-dark disabled:opacity-50">
+          className="rounded-lg bg-marca px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-marca-dark disabled:opacity-50">
           {pendiente ? 'Aplicando…' : esInvalidar ? 'Cancelar pendiente + invalidar ✓' : 'Confirmar: no aplica ✓'}
         </button>
         <button onClick={() => cambiarModo('menu')} className={btnMiniCls}>Volver</button>
@@ -174,7 +174,7 @@ export function TabIncidentes({ cicloId, bajas, incidentes, invalidadas, puedeGe
       <p className="rounded-xl bg-amber-50 px-3.5 py-2.5 text-xs text-amber-800">
         El padrón cambió desde el lanzamiento y el ciclo quedó impactado. Resuelve cada incidente: al <b>reasignar</b>, <b>marcar que no aplica</b> (con motivo auditado) o <b>retirar</b>, el incidente desaparece. El cambio de jefe con el anterior activo no es un incidente: él responde la evaluación de este ciclo.
       </p>
-      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">{error}</p>}
       {pendiente && <p className="rounded-lg bg-sky-50 px-4 py-2.5 text-xs font-bold text-sky-700">Aplicando cambios y actualizando la lista…</p>}
 
       <div className={pendiente ? 'pointer-events-none space-y-5 opacity-60 transition-opacity' : 'space-y-5 transition-opacity'}>
@@ -203,7 +203,7 @@ export function TabIncidentes({ cicloId, bajas, incidentes, invalidadas, puedeGe
                     </button>
                     <button disabled={pendiente || b.enviadasSobreEl === 0} title={b.enviadasSobreEl === 0 ? 'Sin evaluaciones recibidas no hay insumos para una nota' : undefined}
                       onClick={() => ejecutar(() => retirarDelCiclo(cicloId, b.colaboradorId, true), 'Retirado con nota de salida')}
-                      className="rounded-lg bg-hunter px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-hunter-dark disabled:opacity-50">
+                      className="rounded-lg bg-marca px-3 py-1.5 text-[11px] font-bold text-white transition hover:bg-marca-dark disabled:opacity-50">
                       Retirar CON nota de salida{b.logrosFaltantes > 0 ? ` (⚠ ${b.logrosFaltantes} logros sin cargar)` : ''}
                     </button>
                     <button onClick={() => setRetiro(null)} className={btnMiniCls}>Cancelar</button>

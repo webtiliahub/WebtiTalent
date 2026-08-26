@@ -35,7 +35,7 @@ export function BotonCrearPeriodo() {
     <Link
       href="/admin/periodos/nuevo"
       // px-4 py-2: mismo tamaño que «Crear ciclo» (BotonLink) — antes era más alto
-      className="rounded-xl bg-hunter px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark"
+      className="rounded-xl bg-marca px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark"
     >
       ＋ Crear período
     </Link>
@@ -81,7 +81,7 @@ export function PanelPeriodos({ periodos, puedeGestionar = true }: { periodos: P
                     </p>
                     <div className="mt-2.5">
                       <div className="h-2 rounded-full bg-hueso-2">
-                        <div className={`h-2 rounded-full ${pct >= 100 ? 'bg-emerald-500' : 'bg-hunter'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
+                        <div className={`h-2 rounded-full ${pct >= 100 ? 'bg-emerald-500' : 'bg-marca'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
                       </div>
                       <div className="mt-0.5 flex justify-between text-[11px] text-gris">
                         <span>{p.cobertura ? `${pct}%` : '—'}</span><span>{derecha}</span>
@@ -100,7 +100,7 @@ export function PanelPeriodos({ periodos, puedeGestionar = true }: { periodos: P
                   <span className={`hidden rounded-full px-2.5 py-0.5 text-[11px] font-bold md:inline ${chip.cls}`}>{chip.label}</span>
                   <div className="hidden w-36 shrink-0 md:block">
                     <div className="h-2 rounded-full bg-hueso-2">
-                      <div className={`h-2 rounded-full ${pct >= 100 ? 'bg-emerald-500' : 'bg-hunter'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
+                      <div className={`h-2 rounded-full ${pct >= 100 ? 'bg-emerald-500' : 'bg-marca'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
                     </div>
                     <div className="mt-0.5 flex justify-between text-[11px] text-gris">
                       <span>{p.cobertura ? `${pct}%` : '—'}</span><span>{derecha}</span>
@@ -120,7 +120,7 @@ export function PanelPeriodos({ periodos, puedeGestionar = true }: { periodos: P
                       if (ok) ejecutar(() => eliminarPeriodo(p.id))
                     }}
                     title="Eliminar borrador"
-                    className="mr-2 rounded-lg p-1.5 text-gris transition hover:bg-red-50 hover:text-hunter"
+                    className="mr-2 rounded-lg p-1.5 text-gris transition hover:bg-red-50 hover:text-alerta"
                   >
                     <Trash2 size={15} />
                   </button>
@@ -159,7 +159,7 @@ export function AccionesPeriodo({ periodo }: {
               })
             }}
             disabled={pendiente}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
           >
             {pendiente ? 'Abriendo…' : 'Abrir carga y notificar'}
           </button>
@@ -184,7 +184,7 @@ export function AccionesPeriodo({ periodo }: {
         >
           <span className="text-xs font-bold text-gris">Nueva fecha límite:</span>
           <input type="date" name="fechaLimiteCarga" defaultValue={periodo.fechaLimiteCarga} required className={inputCls} autoFocus />
-          <button type="submit" disabled={pendiente} className="rounded-lg bg-hunter px-3 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark disabled:opacity-50">Guardar</button>
+          <button type="submit" disabled={pendiente} className="rounded-lg bg-marca px-3 py-1.5 text-xs font-bold text-white hover:bg-marca-dark disabled:opacity-50">Guardar</button>
           <button type="button" onClick={() => setExtendiendo(false)} className={btnMiniCls}>Cancelar</button>
         </form>
       )}
@@ -300,10 +300,10 @@ function FormularioAlcancePeriodo({ periodoId, alcanceActual, paises, areas, niv
         excluirIds={excluirIds} setExcluirIds={setExcluirIds}
         preview={preview}
       />
-      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">{error}</p>}
       <div className="flex justify-end gap-2">
         <button type="button" onClick={onCerrar} className={btnMiniCls}>Cancelar</button>
-        <button type="button" disabled={pendiente} onClick={guardar} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+        <button type="button" disabled={pendiente} onClick={guardar} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
           {pendiente ? 'Guardando…' : 'Guardar alcance ✓'}
         </button>
       </div>
@@ -332,7 +332,7 @@ export function BotonEnviarRecordatoriosPeriodo({ periodoId, pendientes }: {
           }, () => router.refresh())
         }}
         disabled={pendiente || pendientes === 0}
-        className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50"
+        className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50"
       >
         {pendiente ? 'Enviando…' : `Enviar recordatorios ahora (${pendientes})`}
       </button>
@@ -388,7 +388,7 @@ export function ExtensionIndividual({ periodoId, colaboradorId, nombre, extensio
           </label>
           <div className="flex items-center gap-2 self-end">
             <button type="button" onClick={cerrar} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
-            <button type="submit" disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50">
+            <button type="submit" disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50">
               {pendiente ? 'Guardando…' : 'Extender plazo'}
             </button>
           </div>
@@ -451,7 +451,7 @@ export function AvanceAreas({ grupos }: { grupos: GrupoArea[] }) {
                 <span className="text-xs text-gris">{g.completos}/{g.total} · {pct}%</span>
               </div>
               <div className="h-2 rounded-full bg-hueso-2">
-                <div className={`h-2 rounded-full ${pct >= 100 ? 'bg-emerald-500' : 'bg-hunter'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
+                <div className={`h-2 rounded-full ${pct >= 100 ? 'bg-emerald-500' : 'bg-marca'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
               </div>
             </button>
             <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${abierta ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
@@ -473,7 +473,7 @@ export function AvanceAreas({ grupos }: { grupos: GrupoArea[] }) {
 const ESTADO_CHIP: Record<string, { label: string; cls: string }> = {
   APROBADO: { label: 'Aprobado', cls: 'bg-emerald-50 text-emerald-700' },
   PROPUESTO: { label: 'Propuesto', cls: 'bg-amber-50 text-amber-700' },
-  RECHAZADO: { label: 'Rechazado', cls: 'bg-red-50 text-hunter-dark' },
+  RECHAZADO: { label: 'Rechazado', cls: 'bg-red-50 text-alerta-dark' },
 }
 
 /** Modal con los objetivos de un integrante del período: RR.HH. aprueba/rechaza propuestas de
@@ -538,7 +538,7 @@ function ModalObjetivosIntegrante({ integrante: i, abierto, onCerrar }: {
                   title="Ver el detalle completo del objetivo (con su descripción)"
                   className="flex cursor-pointer items-center gap-3 rounded-xl border border-gris-claro px-4 py-3 transition hover:bg-hueso"
                 >
-                  <span className="w-12 shrink-0 text-center font-display text-lg font-extrabold tracking-tight text-hunter">{o.peso}%</span>
+                  <span className="w-12 shrink-0 text-center font-display text-lg font-extrabold tracking-tight text-marca">{o.peso}%</span>
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold">{o.titulo}</p>
                     <p className="text-[11px] text-gris">
@@ -549,7 +549,7 @@ function ModalObjetivosIntegrante({ integrante: i, abierto, onCerrar }: {
                   <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold ${chip.cls}`}>{chip.label}</span>
                   {i.puedeResolver && o.estado === 'PROPUESTO' && (
                     <span className="flex shrink-0 items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
-                      <button type="button" disabled={pendiente} onClick={() => resolver(o.id, 'APROBADO')} className="rounded-lg bg-hunter px-2.5 py-1.5 text-[11px] font-bold text-white transition hover:bg-hunter-dark disabled:opacity-60">
+                      <button type="button" disabled={pendiente} onClick={() => resolver(o.id, 'APROBADO')} className="rounded-lg bg-marca px-2.5 py-1.5 text-[11px] font-bold text-white transition hover:bg-marca-dark disabled:opacity-60">
                         Aprobar ✓
                       </button>
                       <button type="button" disabled={pendiente} onClick={() => resolver(o.id, 'RECHAZADO')} className="rounded-lg border border-gris-claro px-2.5 py-1.5 text-[11px] font-bold transition hover:bg-hueso disabled:opacity-60">
@@ -567,7 +567,7 @@ function ModalObjetivosIntegrante({ integrante: i, abierto, onCerrar }: {
                         maxPeso={Math.min(100, 100 - i.total + (o.estado === 'APROBADO' ? o.peso : 0))}
                         nota="Estás gestionando este objetivo como RR.HH.: conservará su estado con los cambios que guardes."
                       />
-                      <button type="button" disabled={pendiente} onClick={() => eliminar(o)} title="Eliminar este objetivo" className="rounded-lg border border-gris-claro p-2 text-gris transition hover:border-hunter hover:text-hunter disabled:opacity-50">
+                      <button type="button" disabled={pendiente} onClick={() => eliminar(o)} title="Eliminar este objetivo" className="rounded-lg border border-gris-claro p-2 text-gris transition hover:border-alerta hover:text-alerta disabled:opacity-50">
                         <Trash2 size={14} />
                       </button>
                     </span>
@@ -577,7 +577,7 @@ function ModalObjetivosIntegrante({ integrante: i, abierto, onCerrar }: {
             })}
           </ul>
         )}
-        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         {(() => {
           const o = i.objetivos.find((x) => x.id === detalleId)
           return o ? <DetalleObjetivo objetivo={o} estado={o.estado} abierto onCerrar={() => setDetalleId(null)} /> : null
@@ -603,7 +603,7 @@ function IntegrantePeriodo({ integrante: i }: { integrante: GrupoArea['integrant
             ? <span className="ml-2 text-[11px] text-gris">reporta a {i.jefe}</span>
             : <span className="ml-2 text-[11px] font-semibold text-amber-700">sin jefe directo</span>}
         </span>
-        <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${i.total >= 100 ? 'bg-emerald-50 text-emerald-700' : i.total > 0 ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-hunter-dark'}`}>
+        <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${i.total >= 100 ? 'bg-emerald-50 text-emerald-700' : i.total > 0 ? 'bg-amber-50 text-amber-700' : 'bg-red-50 text-alerta-dark'}`}>
           {i.total}%
         </span>
       </button>

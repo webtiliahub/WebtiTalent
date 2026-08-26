@@ -6,7 +6,7 @@ import type { AnalisisCiclo } from './analisis'
 export function SwitcherResultados({ activo, query = '' }: { activo: '9box' | 'analisis'; query?: string }) {
   // Móvil: dos pastillas de media pantalla (como los tabs del ciclo); escritorio: ancho natural
   const pill = (on: boolean) =>
-    `rounded-full px-4 py-2 text-center text-[13px] font-bold transition md:py-1.5 ${on ? 'bg-hunter text-white shadow-md shadow-hunter/30' : 'border border-gris-claro bg-white hover:bg-hueso'}`
+    `rounded-full px-4 py-2 text-center text-[13px] font-bold transition md:py-1.5 ${on ? 'bg-marca text-white shadow-md shadow-marca/30' : 'border border-gris-claro bg-white hover:bg-hueso'}`
   return (
     <div className="mb-4 grid grid-cols-2 gap-2 md:flex md:items-center">
       <Link href={`/admin/resultados${query}`} className={pill(activo === '9box')}>🎯 9-Box</Link>
@@ -23,7 +23,7 @@ export function DeltaChip({ actual, anterior, dec = 2, invertir = false }: { act
   if (Math.abs(d) < 0.005) return <span className="text-[11px] font-bold text-gris">= igual</span>
   const positivo = invertir ? d < 0 : d > 0
   return (
-    <span className={`text-[11px] font-bold ${positivo ? 'text-emerald-700' : 'text-hunter'}`}>
+    <span className={`text-[11px] font-bold ${positivo ? 'text-emerald-700' : 'text-alerta'}`}>
       {d > 0 ? '↑' : '↓'} {Math.abs(d).toFixed(dec)} vs anterior
     </span>
   )
@@ -54,10 +54,10 @@ export function EvolucionChart({ serie, alto = 170, ancho = 560, movil = false, 
       className={anchoFijo ? undefined : 'w-full'}
       style={anchoFijo ? { width: W, maxWidth: 'none' } : undefined}
     >
-      <polyline points={serie.map((s, i) => `${x(i)},${y(s.promedio)}`).join(' ')} fill="none" className="stroke-hunter" strokeWidth={movil ? 2.5 : 2} />
+      <polyline points={serie.map((s, i) => `${x(i)},${y(s.promedio)}`).join(' ')} fill="none" className="stroke-marca" strokeWidth={movil ? 2.5 : 2} />
       {serie.map((s, i) => (
         <g key={s.nombre}>
-          <circle cx={x(i)} cy={y(s.promedio)} r={s.actual ? (movil ? 6 : 5) : (movil ? 4 : 3.5)} className={s.actual ? 'fill-hunter' : 'fill-hunter/60'} />
+          <circle cx={x(i)} cy={y(s.promedio)} r={s.actual ? (movil ? 6 : 5) : (movil ? 4 : 3.5)} className={s.actual ? 'fill-marca' : 'fill-marca/60'} />
           <text x={x(i)} y={y(s.promedio) - (movil ? 11 : 9)} textAnchor="middle" className={`fill-negro font-bold ${fs.nota}`}>{s.promedio.toFixed(2)}</text>
           <title>{s.nombre}</title>
           <text x={x(i)} y={H - 14} textAnchor="middle" className={`fill-negro/60 ${fs.fecha} ${s.actual ? 'font-bold' : ''}`}>{s.cierre}</text>
@@ -110,7 +110,7 @@ export function BarrasDelta({ items }: { items: { nombre: string; actual: number
                   textAnchor="start"
                   fontWeight={i.esTotal ? 800 : 700}
                   fontSize={i.esTotal ? 11.5 : 10.5}
-                  className={positivo ? 'fill-emerald-700' : 'fill-hunter'}
+                  className={positivo ? 'fill-emerald-700' : 'fill-marca'}
                 >
                   {positivo ? '+' : '−'}{Math.abs(i.delta!).toFixed(2)} → {i.actual!.toFixed(2)}
                 </text>
@@ -141,7 +141,7 @@ export function BarrasDeltaLista({ items }: { items: { nombre: string; actual: n
         return (
           <li key={i.nombre} className={`grid grid-cols-[1fr_auto] gap-x-2 gap-y-0.5 border-b border-hueso-2 py-2 last:border-b-0 ${i.esTotal ? 'mt-1 border-b-0 border-t border-gris-claro pt-2.5' : ''}`}>
             <span className={`min-w-0 truncate ${i.esTotal ? 'text-[12.5px] font-extrabold' : 'text-[12px] font-bold'}`}>{i.nombre}</span>
-            <span className={`whitespace-nowrap text-right text-[11.5px] font-bold tabular-nums ${nulo ? 'text-gris' : positivo ? 'text-emerald-700' : 'text-hunter'}`}>
+            <span className={`whitespace-nowrap text-right text-[11.5px] font-bold tabular-nums ${nulo ? 'text-gris' : positivo ? 'text-emerald-700' : 'text-alerta'}`}>
               {nulo ? '= igual' : `${positivo ? '+' : '−'}${Math.abs(d).toFixed(2)} → ${i.actual!.toFixed(2)}`}
             </span>
             {/* Barra divergente: mitad izquierda retrocede, derecha avanza */}

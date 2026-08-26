@@ -63,9 +63,9 @@ export function Shell({
       >
         <div className="flex h-16 items-center gap-3 px-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo/hunter-iso-red.png" alt="Hunter" className="h-8 w-8 shrink-0 object-contain" />
+          <img src="/logo/webtilia-iso.png" alt="Webtilia" className="h-8 w-8 shrink-0 object-contain" />
           <span className={`whitespace-nowrap font-display text-sm font-bold tracking-wide transition-opacity ${abierto ? 'opacity-100' : 'opacity-0'}`}>
-            Talent Hub
+            WebtiTalent
           </span>
         </div>
         <nav className="flex-1 overflow-y-auto px-2 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -84,7 +84,7 @@ export function Shell({
                         title={item.label}
                         className={`flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] transition ${
                           activo
-                            ? 'bg-gradient-to-r from-hunter/30 to-transparent font-semibold text-white shadow-[inset_3px_0_0_0_#f0163e]'
+                            ? 'bg-gradient-to-r from-marca/30 to-transparent font-semibold text-white shadow-[inset_3px_0_0_0_#0067ff]'
                             : 'text-white/70 hover:bg-white/5 hover:text-white'
                         }`}
                       >
@@ -117,8 +117,8 @@ export function Shell({
         <header className="sticky top-0 z-30 flex min-h-14 items-center justify-between border-b border-gris-claro bg-hueso px-4 md:hidden" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
           <span className="flex items-center gap-2 font-display text-sm font-bold">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo/hunter-iso-red.png" alt="Hunter" className="h-6 w-6 object-contain" />
-            Talent Hub
+            <img src="/logo/webtilia-iso.png" alt="Webtilia" className="h-6 w-6 object-contain" />
+            WebtiTalent
           </span>
           <MenuAvatar nombre={nombre} rolLabel={rolLabel} paises={paises} paisActual={paisActual} esRrhhRegional={esRrhhRegional} />
         </header>
@@ -146,7 +146,7 @@ export function Shell({
                 <div className="text-sm font-bold">{nombre}</div>
                 <div className="text-[11px] text-gris">{rolLabel}</div>
               </div>
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-hunter font-display text-xs font-extrabold text-white">{iniciales}</span>
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-marca font-display text-xs font-extrabold text-white">{iniciales}</span>
             </div>
           </div>
         </header>

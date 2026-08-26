@@ -15,7 +15,7 @@ const labelCls = 'mb-1 block text-[10px] font-bold uppercase tracking-wide text-
 function BotonesGuardar({ pendiente, onCancelar }: { pendiente: boolean; onCancelar: () => void }) {
   return (
     <div className="mt-3 flex items-center gap-2">
-      <button type="submit" disabled={pendiente} className="rounded-lg bg-hunter px-4 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark disabled:opacity-50">
+      <button type="submit" disabled={pendiente} className="rounded-lg bg-marca px-4 py-1.5 text-xs font-bold text-white hover:bg-marca-dark disabled:opacity-50">
         {pendiente ? 'Guardando…' : 'Guardar'}
       </button>
       <button type="button" onClick={onCancelar} className={btnMiniCls}>Cancelar</button>
@@ -62,7 +62,7 @@ export function CardProposito({ puestoId, descripcion, responsabilidades, puedeG
           <ul className="mt-3">
             {lineas.map((l, i) => (
               <li key={i} className="flex items-start gap-2.5 border-b border-gris-claro/50 py-2.5 text-sm last:border-b-0">
-                <span className="mt-px font-bold text-hunter">›</span>{l}
+                <span className="mt-px font-bold text-marca">›</span>{l}
               </li>
             ))}
           </ul>
@@ -86,7 +86,7 @@ export function CardProposito({ puestoId, descripcion, responsabilidades, puedeG
             <ul className="space-y-2">
               {items.map((valor, i) => (
                 <li key={i} className="flex items-center gap-2">
-                  <span className="font-bold text-hunter">›</span>
+                  <span className="font-bold text-marca">›</span>
                   <input
                     value={valor}
                     onChange={(e) => cambiarItem(i, e.target.value)}
@@ -103,7 +103,7 @@ export function CardProposito({ puestoId, descripcion, responsabilidades, puedeG
             <button
               type="button"
               onClick={() => setItems((s) => [...s, ''])}
-              className="mt-2 rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter"
+              className="mt-2 rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-marca hover:text-marca"
             >
               ＋ Agregar responsabilidad
             </button>
@@ -187,7 +187,7 @@ export function EditarIdentidadPuesto({ puestoId, nombre, nivelId, areaId, nivel
   const [abierto, setAbierto] = useState(false)
   const [aviso, setAviso] = useState<string | null>(null)
   const [pendiente, startTransition] = useTransition()
-  const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+  const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
 
   function enviar(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -232,10 +232,10 @@ export function EditarIdentidadPuesto({ puestoId, nombre, nivelId, areaId, nivel
             </label>
           </div>
           <p className="text-[11px] text-gris">Cambiar el nivel cambia qué evaluación aplica a este puesto en los ciclos que se lancen desde ahora; los que están en curso conservan el perfil con el que se lanzaron.</p>
-          {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+          {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
           <div className="flex items-center justify-end gap-2 pt-1">
             <button type="button" onClick={() => setAbierto(false)} className="rounded-lg px-3 py-2 text-xs font-bold text-gris transition hover:bg-hueso hover:text-negro">Cancelar</button>
-            <button disabled={pendiente} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+            <button disabled={pendiente} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
               {pendiente ? 'Guardando…' : 'Guardar ✓'}
             </button>
           </div>

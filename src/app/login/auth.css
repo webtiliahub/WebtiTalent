@@ -28,8 +28,8 @@
 }
 
 @keyframes htr-breath {
-  0%, 100% { transform: translateY(0);    box-shadow: 0 18px 50px rgba(240, 22, 62, 0.13); }
-  50%      { transform: translateY(-7px); box-shadow: 0 28px 64px rgba(240, 22, 62, 0.18); }
+  0%, 100% { transform: translateY(0);    box-shadow: 0 18px 50px rgba(0, 103, 255, 0.13); }
+  50%      { transform: translateY(-7px); box-shadow: 0 28px 64px rgba(0, 103, 255, 0.18); }
 }
 
 @keyframes htr-enter {
@@ -57,10 +57,10 @@
   position: fixed;
   inset: -25%;
   background:
-    radial-gradient(circle 480px at 22% 28%, rgba(240, 22, 62, 0.10), transparent 70%),
+    radial-gradient(circle 480px at 22% 28%, rgba(0, 103, 255, 0.10), transparent 70%),
     radial-gradient(circle 420px at 78% 70%, rgba(42, 38, 35, 0.08), transparent 70%),
-    radial-gradient(circle 360px at 62% 18%, rgba(240, 22, 62, 0.07), transparent 70%),
-    radial-gradient(circle 300px at 35% 85%, rgba(192, 16, 50, 0.06), transparent 70%);
+    radial-gradient(circle 360px at 62% 18%, rgba(0, 103, 255, 0.07), transparent 70%),
+    radial-gradient(circle 300px at 35% 85%, rgba(0, 80, 199, 0.06), transparent 70%);
   animation: htr-mesh-drift 16s ease-in-out infinite alternate;
 }
 
@@ -70,11 +70,11 @@
   left: 50%;
   translate: -50% -50%;
   border-radius: 50%;
-  border: 1.5px solid rgba(240, 22, 62, 0.12);
+  border: 1.5px solid rgba(0, 103, 255, 0.12);
 }
 .auth-ring-1 { width: 540px; height: 540px; border-style: dashed; animation: htr-spin 50s linear infinite; }
 .auth-ring-2 { width: 700px; height: 700px; border-color: rgba(42, 38, 35, 0.12); animation: htr-spin 75s linear infinite reverse; }
-.auth-ring-3 { width: 880px; height: 880px; border-color: rgba(240, 22, 62, 0.06); animation: htr-spin 100s linear infinite; }
+.auth-ring-3 { width: 880px; height: 880px; border-color: rgba(0, 103, 255, 0.06); animation: htr-spin 100s linear infinite; }
 
 .auth-orbit-dot {
   position: absolute;
@@ -84,8 +84,8 @@
   height: 8px;
   margin: -4px;
   border-radius: 50%;
-  background: #f0163e;
-  box-shadow: 0 0 12px rgba(240, 22, 62, 0.6);
+  background: #0067ff;
+  box-shadow: 0 0 12px rgba(0, 103, 255, 0.6);
   animation: htr-orbit-a 50s linear infinite;
 }
 .auth-orbit-dot--negro {
@@ -100,7 +100,7 @@
 .auth-particle {
   position: fixed;
   border-radius: 50%;
-  background: rgba(240, 22, 62, 0.22);
+  background: rgba(0, 103, 255, 0.22);
   animation: htr-rise linear infinite;
 }
 .auth-particle--negro { background: rgba(42, 38, 35, 0.22); }
@@ -114,9 +114,9 @@
   padding: 40px 40px 36px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(14px);
-  border: 1px solid rgba(240, 22, 62, 0.12);
+  border: 1px solid rgba(0, 103, 255, 0.12);
   border-radius: 22px;
-  box-shadow: 0 18px 50px rgba(240, 22, 62, 0.13);
+  box-shadow: 0 18px 50px rgba(0, 103, 255, 0.13);
   animation: htr-breath 6s ease-in-out 1.4s infinite;
 }
 
@@ -147,7 +147,7 @@
   width: 134px;
   height: 134px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(240, 22, 62, 0.24), transparent 70%);
+  background: radial-gradient(circle, rgba(0, 103, 255, 0.24), transparent 70%);
   animation: htr-halo-pulse 4s ease-in-out infinite;
 }
 .auth-logo-ring {
@@ -210,7 +210,7 @@
   margin-top: 18px;
   border-radius: 999px;
   overflow: hidden;
-  background: rgba(240, 22, 62, 0.12);
+  background: rgba(0, 103, 255, 0.12);
 }
 .auth-progress::after {
   content: '';
@@ -218,7 +218,7 @@
   width: 38%;
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, #c01032, #f0163e);
+  background: linear-gradient(90deg, #0050c7, #0067ff);
   animation: htr-progress 1.1s ease-in-out infinite;
 }
 

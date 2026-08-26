@@ -1,9 +1,9 @@
 /** Radar por dimensión (SVG puro, sin estado — usable en server y client components).
- * Serie principal pintada en rojo Hunter; opcionalmente una serie "esperada" en gris al
+ * Serie principal pintada en azul de marca; opcionalmente una serie "esperada" en gris al
  * fondo (el perfil requerido del puesto) para comparar contra lo obtenido. */
 
 /** Paleta categórica por dimensión (validada CVD/contraste sobre blanco), asignada por orden. */
-export const COLORES_DIMENSION = ['#f0163e', '#2563eb', '#b45309', '#059669', '#7c3aed']
+export const COLORES_DIMENSION = ['#0067ff', '#f0163e', '#b45309', '#059669', '#7c3aed']
 export const colorDim = (idx: number) => COLORES_DIMENSION[idx % COLORES_DIMENSION.length]
 
 function envolver(nombre: string): string[] {
@@ -70,7 +70,7 @@ export function RadarDimensiones({ dims, ariaLabel = 'Perfil por dimensión', mo
         <polygon points={poligono((i) => radioDe(dims[i].valorB))} fill="#0284c7" fillOpacity={0.14} stroke="#0284c7" strokeWidth={1.6} strokeLinejoin="round" />
       )}
       {hayValor && (
-        <polygon points={poligono((i) => radioDe(dims[i].valor))} fill="#f0163e" fillOpacity={0.16} stroke="#f0163e" strokeWidth={1.6} strokeLinejoin="round" />
+        <polygon points={poligono((i) => radioDe(dims[i].valor))} fill="#0067ff" fillOpacity={0.16} stroke="#0067ff" strokeWidth={1.6} strokeLinejoin="round" />
       )}
       {dims.map((d, i) => {
         if (d.valor === null) return null
@@ -119,7 +119,7 @@ export function LeyendaRadar({ etiquetaObtenido }: { etiquetaObtenido: string })
         Perfil esperado del puesto
       </span>
       <span className="inline-flex items-center gap-1.5">
-        <svg width="22" height="8"><rect x="0" y="1" width="22" height="6" fill="#f0163e" fillOpacity="0.25" stroke="#f0163e" strokeWidth="1.2" /></svg>
+        <svg width="22" height="8"><rect x="0" y="1" width="22" height="6" fill="#0067ff" fillOpacity="0.25" stroke="#0067ff" strokeWidth="1.2" /></svg>
         {etiquetaObtenido}
       </span>
     </div>

@@ -26,7 +26,7 @@ export function Chip({ children, tono = 'neutro' }: { children: React.ReactNode;
     neutro: 'bg-hueso-2 text-negro/70',
     ok: 'bg-emerald-50 text-emerald-700',
     pendiente: 'bg-amber-50 text-amber-700',
-    rojo: 'bg-red-50 text-hunter-dark',
+    rojo: 'bg-red-50 text-alerta-dark',
     azul: 'bg-sky-50 text-sky-700',
   }
   return <span className={`inline-flex max-w-full shrink-0 items-center overflow-hidden whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${tonos[tono]}`}>{children}</span>
@@ -76,14 +76,14 @@ export function Titulo({ children, sub, accion }: { children: React.ReactNode; s
 
 export function BotonLink({ href, children, variante = 'primario' }: { href: string; children: React.ReactNode; variante?: 'primario' | 'sec' }) {
   const cls = variante === 'primario'
-    ? 'bg-hunter text-white hover:bg-hunter-dark shadow-md shadow-hunter/30'
+    ? 'bg-marca text-white hover:bg-marca-dark shadow-md shadow-marca/30'
     : 'border border-gris-claro bg-white hover:bg-hueso'
   return <Link href={href} className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2 font-display text-[13px] font-bold transition ${cls}`}>{children}</Link>
 }
 
 export function Nota({ valor, grande = false }: { valor: number | null | undefined; grande?: boolean }) {
   if (valor === null || valor === undefined) return <span className="text-gris">—</span>
-  return <b className={`font-display text-hunter ${grande ? 'text-3xl' : ''}`}>{valor.toFixed(1)}</b>
+  return <b className={`font-display text-marca ${grande ? 'text-3xl' : ''}`}>{valor.toFixed(1)}</b>
 }
 
 export function Vacio({ children }: { children: React.ReactNode }) {

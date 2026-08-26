@@ -47,7 +47,7 @@ export function NominadorPares({ cicloId, equipo }: {
           {p.estado === 'PROPUESTA' && <span className="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">espera a RR.HH.</span>}
           {p.estado === 'ENVIADA'
             ? <span className="text-[10px] font-bold text-emerald-700">respondió ✓</span>
-            : <button type="button" onClick={() => retirar(m.id, p.evaluadorId)} title="Retirar nominación" className="font-bold text-gris transition hover:text-hunter">✕</button>}
+            : <button type="button" onClick={() => retirar(m.id, p.evaluadorId)} title="Retirar nominación" className="font-bold text-gris transition hover:text-marca">✕</button>}
         </span>
       )
     }

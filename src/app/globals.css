@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-hunter: #f0163e;
-  --color-hunter-dark: #c01032;
+  --color-marca: #0067ff;
+  --color-marca-dark: #0050c7;
+  --color-alerta: #f0163e;
+  --color-alerta-dark: #c01032;
   --color-negro: #2a2623;
   --color-hueso: #f7f5f2;
   --color-hueso-2: #efece8;

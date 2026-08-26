@@ -4,7 +4,7 @@ import { PASSWORD_MIN_CARACTERES } from '@/shared/lib/password'
 import { useState, useTransition } from 'react'
 import { cambiarMiPassword } from '@/features/admin/acciones-usuarios'
 
-const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-4 py-3 text-sm outline-none focus:border-hunter'
+const inputCls = 'w-full rounded-xl border border-gris-claro bg-hueso px-4 py-3 text-sm outline-none focus:border-marca'
 
 export function FormCambiarPassword({ forzado, pideActual }: { forzado: boolean; pideActual: boolean }) {
   const [error, setError] = useState<string | null>(null)
@@ -36,10 +36,10 @@ export function FormCambiarPassword({ forzado, pideActual }: { forzado: boolean;
         <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-gris">Confirmar contraseña</label>
         <input type="password" name="confirmar" required minLength={PASSWORD_MIN_CARACTERES} placeholder="Repite la contraseña" className={inputCls} />
       </div>
-      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
       <button
         type="submit" disabled={pendiente}
-        className="w-full rounded-xl bg-hunter py-3 font-display text-sm font-bold text-white shadow-lg shadow-hunter/40 transition hover:bg-hunter-dark disabled:opacity-60"
+        className="w-full rounded-xl bg-marca py-3 font-display text-sm font-bold text-white shadow-lg shadow-marca/40 transition hover:bg-marca-dark disabled:opacity-60"
       >
         {pendiente ? 'Guardando…' : 'Guardar y continuar →'}
       </button>

@@ -42,7 +42,7 @@ export function FormFeedback({ cicloId, colaboradorId, nombre, acuerdosIniciales
       <textarea
         value={acuerdos} onChange={(e) => setAcuerdos(e.target.value)} rows={3}
         placeholder="Lo conversado y acordado en la sesión 1:1…"
-        className="w-full rounded-xl border border-gris-claro bg-white px-3.5 py-2.5 text-base outline-none focus:border-hunter md:text-sm"
+        className="w-full rounded-xl border border-gris-claro bg-white px-3.5 py-2.5 text-base outline-none focus:border-marca md:text-sm"
       />
       <p className="mb-1 mt-3 text-xs font-semibold">Plan de desarrollo individual (PDI)</p>
       <div className="space-y-2">
@@ -55,7 +55,7 @@ export function FormFeedback({ cicloId, colaboradorId, nombre, acuerdosIniciales
               value={a.titulo}
               onChange={(e) => setPdi((s) => s.map((x, j) => (j === i ? { ...x, titulo: e.target.value } : x)))}
               placeholder="Acción de desarrollo…"
-              className="w-full border-b border-dashed border-hueso-2 bg-transparent pb-2 text-base outline-none focus:border-hunter md:flex-1 md:rounded-xl md:border md:border-solid md:border-gris-claro md:bg-white md:px-3.5 md:py-2 md:pb-2 md:text-sm"
+              className="w-full border-b border-dashed border-hueso-2 bg-transparent pb-2 text-base outline-none focus:border-marca md:flex-1 md:rounded-xl md:border md:border-solid md:border-gris-claro md:bg-white md:px-3.5 md:py-2 md:pb-2 md:text-sm"
             />
             <div className="mt-2 flex items-center gap-2 md:contents">
               {/* Ancho fijo en móvil: el input month tiene un mínimo intrínseco en Chromium
@@ -71,12 +71,12 @@ export function FormFeedback({ cicloId, colaboradorId, nombre, acuerdosIniciales
             </div>
           </div>
         ))}
-        <button type="button" onClick={() => setPdi((s) => [...s, { titulo: '' }])} className="text-xs font-bold text-hunter hover:underline">+ Agregar acción</button>
+        <button type="button" onClick={() => setPdi((s) => [...s, { titulo: '' }])} className="text-xs font-bold text-marca hover:underline">+ Agregar acción</button>
       </div>
-      {aviso && <p className={`mt-2 rounded-lg px-3 py-2 text-sm ${aviso.includes('✓') ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-hunter-dark'}`}>{aviso}</p>}
+      {aviso && <p className={`mt-2 rounded-lg px-3 py-2 text-sm ${aviso.includes('✓') ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-alerta-dark'}`}>{aviso}</p>}
       <div className="mt-3 grid grid-cols-2 gap-2 md:flex md:justify-end">
         <button type="button" onClick={() => setAbierto(false)} className="rounded-xl border border-gris-claro bg-white px-4 py-2.5 text-xs font-bold hover:bg-hueso md:py-2">Cerrar</button>
-        <button type="button" disabled={pendiente} onClick={guardar} className="rounded-xl bg-hunter px-4 py-2.5 text-xs font-bold text-white transition hover:bg-hunter-dark disabled:opacity-60 md:py-2">
+        <button type="button" disabled={pendiente} onClick={guardar} className="rounded-xl bg-marca px-4 py-2.5 text-xs font-bold text-white transition hover:bg-marca-dark disabled:opacity-60 md:py-2">
           {pendiente ? 'Guardando…' : 'Guardar ✓'}
         </button>
       </div>

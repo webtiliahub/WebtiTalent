@@ -34,7 +34,7 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
     return d <= -0.15 ? 'bg-red-50 text-red-800' : d >= 0.15 ? 'bg-emerald-50 text-emerald-800' : 'bg-hueso text-negro/70'
   }
   const celdaCls = (base: string, clicable: boolean, seleccionada: boolean) =>
-    `w-full rounded-lg px-1 py-2 font-bold transition ${base} ${clicable ? 'cursor-pointer hover:ring-2 hover:ring-hunter/40' : ''} ${seleccionada ? 'ring-2 ring-hunter' : ''}`
+    `w-full rounded-lg px-1 py-2 font-bold transition ${base} ${clicable ? 'cursor-pointer hover:ring-2 hover:ring-marca/40' : ''} ${seleccionada ? 'ring-2 ring-marca' : ''}`
 
   /* Móvil: un acordeón por área en vez de la tabla (que pide ~1140 px y deja la columna de
      área fuera de vista al arrastrar). Dentro, las dimensiones ordenadas de PEOR A MEJOR:
@@ -48,9 +48,9 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
           <span className="text-[10.5px] font-semibold text-gris">· {nTotal}</span>
         </span>
         <span className="flex shrink-0 items-center gap-2">
-          <span className="font-display text-[15px] font-extrabold text-hunter">{totalGeneral?.toFixed(2) ?? '—'}</span>
+          <span className="font-display text-[15px] font-extrabold text-marca">{totalGeneral?.toFixed(2) ?? '—'}</span>
           {deltaGeneral !== null && Math.abs(deltaGeneral) >= 0.005 && (
-            <span className={`text-[11px] font-bold ${deltaGeneral > 0 ? 'text-emerald-700' : 'text-hunter'}`}>
+            <span className={`text-[11px] font-bold ${deltaGeneral > 0 ? 'text-emerald-700' : 'text-alerta'}`}>
               {deltaGeneral > 0 ? '↑' : '↓'} {Math.abs(deltaGeneral).toFixed(2)}
             </span>
           )}
@@ -66,7 +66,7 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
                 type="button"
                 disabled={v === null}
                 onClick={() => alternar(i, null)}
-                className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-[11.5px] ${tonoAbs(v)} ${activa(i, null) ? 'ring-2 ring-hunter' : ''}`}
+                className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-[11.5px] ${tonoAbs(v)} ${activa(i, null) ? 'ring-2 ring-marca' : ''}`}
               >
                 <span className="min-w-0 flex-1 truncate">{dimensiones[i]}</span>
                 <span className="font-display font-extrabold tabular-nums">{v?.toFixed(2) ?? '—'}</span>
@@ -89,11 +89,11 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
                 <span className="shrink-0 text-[10.5px] font-semibold text-gris">· {fila.n}</span>
               </span>
               <span className="flex shrink-0 items-center gap-2">
-                <span className="font-display text-[15px] font-extrabold text-hunter">{fila.total?.toFixed(2) ?? '—'}</span>
+                <span className="font-display text-[15px] font-extrabold text-marca">{fila.total?.toFixed(2) ?? '—'}</span>
                 {fila.delta === null ? null : Math.abs(fila.delta) < 0.005 ? (
                   <span className="text-[11px] font-bold text-gris">=</span>
                 ) : (
-                  <span className={`text-[11px] font-bold ${fila.delta > 0 ? 'text-emerald-700' : 'text-hunter'}`}>
+                  <span className={`text-[11px] font-bold ${fila.delta > 0 ? 'text-emerald-700' : 'text-alerta'}`}>
                     {fila.delta > 0 ? '↑' : '↓'} {Math.abs(fila.delta).toFixed(2)}
                   </span>
                 )}
@@ -109,7 +109,7 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
                       type="button"
                       disabled={c.n === 0}
                       onClick={() => alternar(i, fila.area)}
-                      className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-[11.5px] ${tonoRel(c.promedio, fila.total)} ${activa(i, fila.area) ? 'ring-2 ring-hunter' : ''}`}
+                      className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-left text-[11.5px] ${tonoRel(c.promedio, fila.total)} ${activa(i, fila.area) ? 'ring-2 ring-marca' : ''}`}
                     >
                       <span className="min-w-0 flex-1 truncate">{c.dim}</span>
                       <span className="font-display font-extrabold tabular-nums">{c.promedio?.toFixed(2) ?? '—'}</span>
@@ -172,7 +172,7 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
                 ) : Math.abs(fila.delta) < 0.005 ? (
                   <span className="text-[11px] font-bold text-gris">= igual</span>
                 ) : (
-                  <span className={`font-bold ${fila.delta > 0 ? 'text-emerald-700' : 'text-hunter'}`}>
+                  <span className={`font-bold ${fila.delta > 0 ? 'text-emerald-700' : 'text-alerta'}`}>
                     {fila.delta > 0 ? '↑' : '↓'} {Math.abs(fila.delta).toFixed(2)}
                   </span>
                 )}
@@ -209,7 +209,7 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
               ) : Math.abs(deltaGeneral) < 0.005 ? (
                 <span className="text-[11px] font-bold text-gris">= igual</span>
               ) : (
-                <span className={`font-bold ${deltaGeneral > 0 ? 'text-emerald-700' : 'text-hunter'}`}>
+                <span className={`font-bold ${deltaGeneral > 0 ? 'text-emerald-700' : 'text-alerta'}`}>
                   {deltaGeneral > 0 ? '↑' : '↓'} {Math.abs(deltaGeneral).toFixed(2)}
                 </span>
               )}
@@ -260,7 +260,7 @@ export function Heatmap({ heatmap, dimensiones, personas, totalPorDimension, tot
                             {equipo.map((p) => (
                               <li key={p.nombre} className="flex items-center justify-between gap-2 border-b border-hueso-2 py-1 text-[12.5px]">
                                 <span className="truncate font-semibold">{p.nombre}</span>
-                                <span className="shrink-0 font-bold text-hunter">{p.notas[sel.dim]!.toFixed(2)}</span>
+                                <span className="shrink-0 font-bold text-marca">{p.notas[sel.dim]!.toFixed(2)}</span>
                               </li>
                             ))}
                           </ul>

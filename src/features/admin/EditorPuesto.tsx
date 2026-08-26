@@ -5,7 +5,7 @@ import { guardarPesosPuesto, alternarCompetenciaPuesto } from './acciones'
 import { Desplegable, btnMiniCls } from './edicion-inline'
 import { RadarDimensiones, colorDim } from '@/shared/ui/RadarDimensiones'
 
-const inputPctCls = 'w-16 rounded-lg border border-gris-claro bg-white px-2 py-1 text-right text-sm font-bold outline-none focus:border-hunter'
+const inputPctCls = 'w-16 rounded-lg border border-gris-claro bg-white px-2 py-1 text-right text-sm font-bold outline-none focus:border-marca'
 
 // ───────────── Perfil por dimensión: pesos + puntaje esperado ─────────────
 
@@ -113,19 +113,19 @@ export function PerfilDimensiones({ puestoId, dimensiones, puedeGestionar = true
               <div key={d.id} className="transition-[width] duration-300" style={{ width: `${d.peso}%`, background: colorDim(i) }} />
             ))}
           </div>
-          <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold ${total === 100 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-hunter-dark'}`}>
+          <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-bold ${total === 100 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-alerta-dark'}`}>
             {total}%{total !== 100 && ' · debe sumar 100'}
           </span>
         </div>
         <div className="mt-3 flex items-center justify-end gap-2">
           <button onClick={() => setEditando(false)} className={btnMiniCls}>Cancelar</button>
-          <button disabled={pendiente || total !== 100} onClick={guardar} className="rounded-xl bg-hunter px-5 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-50">
+          <button disabled={pendiente || total !== 100} onClick={guardar} className="rounded-xl bg-marca px-5 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-50">
             {pendiente ? 'Guardando…' : 'Guardar perfil'}
           </button>
         </div>
       </Desplegable>
 
-      {aviso && <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+      {aviso && <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
       </div>
     </div>
   )
@@ -163,7 +163,7 @@ export function SelectorCompetencias({ puestoId, grupos, puedeGestionar = true }
 
   return (
     <div className="space-y-3">
-      {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{aviso}</p>}
+      {aviso && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{aviso}</p>}
       {grupos.map((g, gi) => {
         const abierto = abiertos[g.nombre]
         const seleccionadas = g.competencias.filter((c) => estado[c.id]).length
@@ -186,7 +186,7 @@ export function SelectorCompetencias({ puestoId, grupos, puedeGestionar = true }
                   {g.competencias.map((c) => (
                     <li key={c.id}>
                       <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-gris-claro px-3.5 py-2 text-sm transition hover:bg-hueso">
-                        <input type="checkbox" checked={estado[c.id]} disabled={!puedeGestionar} onChange={() => alternar(c.id)} className="h-4 w-4 accent-[#f0163e] disabled:cursor-not-allowed" />
+                        <input type="checkbox" checked={estado[c.id]} disabled={!puedeGestionar} onChange={() => alternar(c.id)} className="h-4 w-4 accent-[#0067ff] disabled:cursor-not-allowed" />
                         <span className="font-medium">{c.nombre}</span>
                       </label>
                     </li>

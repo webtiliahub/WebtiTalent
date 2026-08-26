@@ -19,7 +19,7 @@ function EscalaPicker({ valor, onPick }: { valor: number | undefined; onPick: (v
         <button
           key={v} type="button" onClick={() => onPick(v)}
           className={`rounded-lg border py-2 text-sm font-semibold transition ${
-            valor === v ? 'border-hunter bg-hunter text-white shadow-md shadow-hunter/30' : 'border-gris-claro bg-white hover:border-hunter/50'
+            valor === v ? 'border-marca bg-marca text-white shadow-md shadow-marca/30' : 'border-gris-claro bg-white hover:border-marca/50'
           }`}
         >
           {v}
@@ -184,9 +184,9 @@ export function Resolver({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-hunter/25 bg-red-50/50 px-4 py-3 text-sm">
+      <div className="rounded-xl border border-marca/25 bg-blue-50/50 px-4 py-3 text-sm">
         <PenLine size={13} className="mr-1 inline -translate-y-px" />Respondiendo: <b>{titulo}</b> · escala 1 (Insuficiente) → 5 (Excepcional).
-        {soloLectura && <b className="text-hunter-dark"> · Ya enviada (solo lectura)</b>}
+        {soloLectura && <b className="text-marca-dark"> · Ya enviada (solo lectura)</b>}
       </div>
 
       {/* Etapas */}
@@ -195,10 +195,10 @@ export function Resolver({
           <button
             key={e.clave} type="button" onClick={() => setEtapa(e.clave)}
             className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-[13px] font-bold transition ${
-              etapa === e.clave ? 'bg-red-50 text-hunter-dark ring-1 ring-hunter/30' : 'bg-hueso-2 text-gris hover:text-negro'
+              etapa === e.clave ? 'bg-blue-50 text-marca-dark ring-1 ring-marca/30' : 'bg-hueso-2 text-gris hover:text-negro'
             }`}
           >
-            <span className={`grid h-5 w-5 place-items-center rounded-full text-[10px] ${etapa === e.clave ? 'bg-hunter text-white' : 'bg-gris-claro text-gris'}`}>{i + 1}</span>
+            <span className={`grid h-5 w-5 place-items-center rounded-full text-[10px] ${etapa === e.clave ? 'bg-marca text-white' : 'bg-gris-claro text-gris'}`}>{i + 1}</span>
             {e.label}
           </button>
         ))}
@@ -236,10 +236,10 @@ export function Resolver({
                             <button
                               key={j} type="button" onClick={() => responderCompetencia(p.id, j + 1)}
                               className={`flex flex-col gap-1.5 rounded-xl border-[1.5px] p-3 text-left transition md:text-center ${
-                                v === j + 1 ? 'border-hunter bg-red-50/70' : 'border-gris-claro bg-hueso/50 hover:border-gris'
+                                v === j + 1 ? 'border-marca bg-blue-50/70' : 'border-gris-claro bg-hueso/50 hover:border-gris'
                               }`}
                             >
-                              <span className="text-[12.5px] font-bold"><span className="text-hunter">{j + 1}</span> · {NIVELES_ESCALA[j]}</span>
+                              <span className="text-[12.5px] font-bold"><span className="text-marca">{j + 1}</span> · {NIVELES_ESCALA[j]}</span>
                               <span className={`flex-1 text-xs leading-relaxed md:grid md:place-items-center md:text-balance ${v === j + 1 ? 'text-negro' : 'text-gris'}`}>{d}</span>
                             </button>
                           ))}
@@ -285,7 +285,7 @@ export function Resolver({
                     {/* Móvil */}
                     <div className="md:hidden">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-red-50 px-3 py-0.5 font-display text-[13px] font-extrabold text-hunter">{o.peso}%</span>
+                        <span className="rounded-full bg-blue-50 px-3 py-0.5 font-display text-[13px] font-extrabold text-marca">{o.peso}%</span>
                         <span className="rounded-full bg-hueso-2 px-2.5 py-0.5 text-[10.5px] font-bold text-gris">{o.tipo}</span>
                         {o.esTransversal && <span className="ml-auto rounded-full bg-amber-50 px-2.5 py-0.5 text-[10.5px] font-bold text-amber-800">Lo gestiona RR.HH.</span>}
                       </div>
@@ -298,7 +298,7 @@ export function Resolver({
                         </div>
                       ) : (
                         <label className={`mt-3 flex items-center gap-3 rounded-xl border-[1.5px] px-3.5 py-2 transition ${
-                          valor !== '' ? 'border-emerald-500/60 bg-emerald-50/50' : 'border-gris-claro bg-hueso/40 focus-within:border-hunter'
+                          valor !== '' ? 'border-emerald-500/60 bg-emerald-50/50' : 'border-gris-claro bg-hueso/40 focus-within:border-marca'
                         }`}>
                           <span className="text-[10px] font-bold uppercase tracking-wide text-gris">{etiquetaCampo}</span>
                           <input
@@ -313,7 +313,7 @@ export function Resolver({
                     </div>
 
                     {/* Escritorio */}
-                    <span className="hidden w-20 shrink-0 self-center text-center font-display text-2xl font-extrabold tracking-tight text-hunter md:block">{o.peso}%</span>
+                    <span className="hidden w-20 shrink-0 self-center text-center font-display text-2xl font-extrabold tracking-tight text-marca md:block">{o.peso}%</span>
                     <div className="hidden min-w-0 flex-1 md:block">
                       <p className="text-sm font-semibold">{o.titulo} <span className="ml-1 rounded-full bg-hueso-2 px-2 py-0.5 text-[10px] font-semibold text-gris">{o.tipo}</span></p>
                       <p className="text-xs text-gris">{o.detalle}</p>
@@ -328,7 +328,7 @@ export function Resolver({
                             type="number" min={0} max={100} disabled={soloLectura}
                             value={valor}
                             onChange={onCambio}
-                            className="w-20 rounded-lg border border-gris-claro bg-white px-2 py-1.5 text-right text-sm font-bold outline-none focus:border-hunter"
+                            className="w-20 rounded-lg border border-gris-claro bg-white px-2 py-1.5 text-right text-sm font-bold outline-none focus:border-marca"
                           />
                           <span className="text-sm font-bold">%</span>
                         </span>
@@ -372,10 +372,10 @@ export function Resolver({
                             <button
                               key={j} type="button" onClick={() => responderPotencial(p.id, j + 1)}
                               className={`flex flex-col gap-1.5 rounded-xl border-[1.5px] p-3 text-left transition md:text-center ${
-                                v === j + 1 ? 'border-hunter bg-red-50/70' : 'border-gris-claro bg-hueso/50 hover:border-gris'
+                                v === j + 1 ? 'border-marca bg-blue-50/70' : 'border-gris-claro bg-hueso/50 hover:border-gris'
                               }`}
                             >
-                              <span className="text-[12.5px] font-bold"><span className="text-hunter">{j + 1}</span> · {NIVELES_ESCALA[j]}</span>
+                              <span className="text-[12.5px] font-bold"><span className="text-marca">{j + 1}</span> · {NIVELES_ESCALA[j]}</span>
                               <span className={`flex-1 text-xs leading-relaxed md:grid md:place-items-center md:text-balance ${v === j + 1 ? 'text-negro' : 'text-gris'}`}>{d}</span>
                             </button>
                           ))}
@@ -392,7 +392,7 @@ export function Resolver({
         </div>
       )}
 
-      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">{error}</p>}
       {aviso && <p className="rounded-lg bg-emerald-50 px-4 py-2.5 text-sm text-emerald-700">{aviso}</p>}
 
       {/* Navegación */}
@@ -418,11 +418,11 @@ export function Resolver({
               </button>
             )}
             {!esUltima ? (
-              <button type="button" onClick={() => setEtapa(etapas[idx + 1].clave)} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark">
+              <button type="button" onClick={() => setEtapa(etapas[idx + 1].clave)} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark">
                 Siguiente →
               </button>
             ) : (
-              <button type="button" disabled={pendiente} onClick={() => persistir(true)} className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+              <button type="button" disabled={pendiente} onClick={() => persistir(true)} className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
                 {pendiente ? 'Enviando…' : 'Enviar evaluación ✓'}
               </button>
             )}

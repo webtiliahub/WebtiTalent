@@ -60,7 +60,7 @@ export default async function CiclosPage() {
             const barra = (
               <>
                 <div className="h-2 rounded-full bg-hueso-2">
-                  <div className={`h-2 rounded-full ${c.estado === 'CERRADO' ? 'bg-gris' : 'bg-hunter'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
+                  <div className={`h-2 rounded-full ${c.estado === 'CERRADO' ? 'bg-gris' : 'bg-marca'}`} style={{ width: `${Math.min(pct, 100)}%` }} />
                 </div>
                 <div className="mt-0.5 flex justify-between text-[11px] text-gris">
                   <span>{pct}%</span><span>{derecha}</span>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-const CLAVE = 'hunter-banner-instalar'
+const CLAVE = 'marca-banner-instalar'
 const HORAS_DESCARTE = 24
 
 type EventoInstalar = Event & { prompt: () => Promise<void> }
@@ -38,12 +38,12 @@ export function BannerInstalar() {
       <img src="/iconos/icon-192.png" alt="" className="h-8 w-8 rounded-lg" />
       <p className="flex-1 text-xs font-semibold leading-snug">
         {modo === 'android'
-          ? 'Instala Talent Hub en tu pantalla de inicio'
+          ? 'Instala WebtiTalent en tu pantalla de inicio'
           : 'Instálala: toca Compartir y elige “Añadir a pantalla de inicio”'}
       </p>
       {modo === 'android' && (
         <button onClick={async () => { await evento?.prompt(); cerrar() }}
-          className="rounded-xl bg-hunter px-3 py-1.5 text-xs font-bold text-white">Instalar</button>
+          className="rounded-xl bg-marca px-3 py-1.5 text-xs font-bold text-white">Instalar</button>
       )}
       <button onClick={cerrar} aria-label="Descartar" className="px-1 text-sm font-bold text-gris">✕</button>
     </div>

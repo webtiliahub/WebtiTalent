@@ -327,7 +327,7 @@ export default async function AnalisisResultadosPage({ searchParams }: {
             sub: a.kpis.anterior?.promedio != null && a.kpis.promedio !== null
               ? `${a.kpis.promedio - a.kpis.anterior.promedio >= 0 ? '↑' : '↓'} ${Math.abs(a.kpis.promedio - a.kpis.anterior.promedio).toFixed(2)} vs ciclo anterior`
               : 'nota final vigente',
-            tono: a.kpis.anterior?.promedio != null && a.kpis.promedio !== null && a.kpis.promedio < a.kpis.anterior.promedio ? 'text-hunter' : 'text-emerald-700',
+            tono: a.kpis.anterior?.promedio != null && a.kpis.promedio !== null && a.kpis.promedio < a.kpis.anterior.promedio ? 'text-alerta' : 'text-emerald-700',
           },
           {
             valor: String(a.kpis.n), titulo: 'Evaluados',
@@ -345,7 +345,7 @@ export default async function AnalisisResultadosPage({ searchParams }: {
             valor: `${pct(a.kpis.tramos.bajo)}%`, titulo: 'En zona de atención',
             subCorto: `${a.kpis.tramos.bajo} con < 3.0`,
             sub: `${a.kpis.tramos.bajo} persona${a.kpis.tramos.bajo === 1 ? '' : 's'} con nota < 3.0`,
-            tono: a.kpis.tramos.bajo > 0 ? 'text-hunter' : 'text-gris',
+            tono: a.kpis.tramos.bajo > 0 ? 'text-alerta' : 'text-gris',
           },
         ].map((k) => (
           <div key={k.titulo} className="rounded-2xl border border-gris-claro bg-white px-3 py-3.5 text-center sm:px-5 sm:py-5">
@@ -444,7 +444,7 @@ export default async function AnalisisResultadosPage({ searchParams }: {
                           <span className="flex shrink-0 items-center gap-2">
                             <Nota valor={f?.total ?? null} />
                             {f?.delta != null && (
-                              <b className={`text-[12px] ${f.delta > 0 ? 'text-emerald-700' : f.delta < 0 ? 'text-hunter' : 'text-gris'}`}>
+                              <b className={`text-[12px] ${f.delta > 0 ? 'text-emerald-700' : f.delta < 0 ? 'text-alerta' : 'text-gris'}`}>
                                 {f.delta > 0 ? '↑' : f.delta < 0 ? '↓' : '='} {Math.abs(f.delta).toFixed(2)}
                               </b>
                             )}
@@ -467,8 +467,8 @@ export default async function AnalisisResultadosPage({ searchParams }: {
                                         <span className="truncate font-semibold">{p.nombre}</span>
                                         <span className="flex shrink-0 items-center gap-1.5">
                                           <span className="text-[11px] text-gris">{p.anterior!.toFixed(2)} →</span>
-                                          <b className="text-hunter">{p.actual.toFixed(2)}</b>
-                                          <b className={`text-[11px] ${p.delta! > 0 ? 'text-emerald-700' : p.delta! < 0 ? 'text-hunter' : 'text-gris'}`}>
+                                          <b className="text-marca">{p.actual.toFixed(2)}</b>
+                                          <b className={`text-[11px] ${p.delta! > 0 ? 'text-emerald-700' : p.delta! < 0 ? 'text-alerta' : 'text-gris'}`}>
                                             {p.delta! > 0 ? '↑' : p.delta! < 0 ? '↓' : '='} {Math.abs(p.delta!).toFixed(2)}
                                           </b>
                                         </span>
@@ -524,7 +524,7 @@ export default async function AnalisisResultadosPage({ searchParams }: {
                       d.actual === null ? 'text-gris'
                         : d.esperado == null ? 'text-negro'
                         : d.actual >= d.esperado - 0.005 ? 'text-emerald-700'
-                        : 'text-hunter'
+                        : 'text-marca'
                     }`}>{d.actual?.toFixed(2) ?? '—'}</span>
                     {d.esperado != null && <span className="shrink-0 text-[10.5px] tabular-nums text-gris">esp. {d.esperado.toFixed(2)}</span>}
                   </li>

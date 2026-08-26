@@ -18,13 +18,13 @@ export default async function CambiarPasswordPage() {
   const pideActual = !esTemporal
   return (
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-negro">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full border border-hunter/25 [animation-duration:4s]" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-hunter/15" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full border border-marca/25 [animation-duration:4s]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-marca/15" />
 
       <div className="relative w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
         <div className="mb-6 text-center">
           <div className="font-display text-3xl font-extrabold tracking-tight">
-            <span className="text-hunter">●</span> Hunter
+            <span className="text-marca">●</span> WebtiTalent
           </div>
           <p className="mt-1 text-xs uppercase tracking-[0.25em] text-gris">Evaluación de Desempeño 360</p>
         </div>

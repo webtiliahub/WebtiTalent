@@ -158,7 +158,7 @@ export default async function PeriodoDetallePage({ params }: { params: Promise<{
       <div className="mb-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Avance de la carga" valor={`${avancePromedio}%`} sub="promedio del peso definido" />
         <Stat label="Con objetivos al 100%" valor={cobertura.completos} sub={`de ${cobertura.total} colaboradores`} />
-        <Stat label="Pendientes" valor={<span className={cobertura.incompletos.length > 0 ? 'text-hunter' : undefined}>{cobertura.incompletos.length}</span>} sub="no llegan al 100%" />
+        <Stat label="Pendientes" valor={<span className={cobertura.incompletos.length > 0 ? 'text-alerta' : undefined}>{cobertura.incompletos.length}</span>} sub="no llegan al 100%" />
         <Stat
           label={periodo.estado === 'CERRADO' ? 'Estado' : 'Días para el límite'}
           valor={periodo.estado === 'CERRADO' ? 'Cerrado' : vencido ? 'Vencido' : dias}

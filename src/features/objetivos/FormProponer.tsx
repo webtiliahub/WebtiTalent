@@ -5,7 +5,7 @@ import { proponerObjetivo } from './acciones'
 import { Modal } from '@/shared/ui/Modal'
 import { toast } from '@/shared/ui/Toast'
 
-const inputCls = 'rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter'
+const inputCls = 'rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca'
 
 const MESES = [
   ['01', 'Enero'], ['02', 'Febrero'], ['03', 'Marzo'], ['04', 'Abril'], ['05', 'Mayo'], ['06', 'Junio'],
@@ -14,7 +14,7 @@ const MESES = [
 
 /** Píldora SMART que encabeza cada paso del asistente. */
 function PildoraSmart({ texto }: { texto: string }) {
-  return <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-[11px] font-bold text-hunter-dark">{texto}</span>
+  return <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-[11px] font-bold text-alerta-dark">{texto}</span>
 }
 
 /** Datos con los que se puede abrir el modal ya pre-llenado (p. ej. desde una
@@ -32,7 +32,7 @@ export function FormProponer({ periodoId, disponible }: { periodoId: string; dis
         onClick={() => setAbierto(true)}
         disabled={sinPeso}
         title={sinPeso ? 'Ya no tienes peso disponible: tus objetivos suman 100%' : undefined}
-        className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:cursor-not-allowed disabled:opacity-50"
+        className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:cursor-not-allowed disabled:opacity-50"
       >
         ＋ Proponer objetivo
       </button>
@@ -129,7 +129,7 @@ export function ModalProponer({ periodoId, disponible, abierto, onCerrar, prelle
       {/* Barra de progreso del asistente */}
       <div className="mb-5 flex gap-1.5" aria-label={`Paso ${paso} de ${TOTAL_PASOS}`}>
         {Array.from({ length: TOTAL_PASOS }, (_, i) => (
-          <span key={i} className={`h-1 flex-1 rounded-full transition-colors ${i < paso ? 'bg-hunter' : 'bg-hueso-2'}`} />
+          <span key={i} className={`h-1 flex-1 rounded-full transition-colors ${i < paso ? 'bg-marca' : 'bg-hueso-2'}`} />
         ))}
       </div>
 
@@ -149,7 +149,7 @@ export function ModalProponer({ periodoId, disponible, abierto, onCerrar, prelle
             <label htmlFor="ob-desc" className="text-[13px] font-bold">¿Por qué es relevante y a quién impacta?</label>
             <textarea
               id="ob-desc" rows={3} value={descripcion} onChange={(e) => setDescripcion(e.target.value)}
-              placeholder="Qué incluye, a quién impacta y cómo aporta a tu rol y a Hunter"
+              placeholder="Qué incluye, a quién impacta y cómo aporta a tu rol y a Webtilia"
               className={`${inputCls} mt-1.5 w-full`}
             />
             <p className="mt-1 text-[11px] text-gris">Esto cubre la A y la R de SMART: alcanzable con tus recursos y relevante para el negocio.</p>
@@ -201,13 +201,13 @@ export function ModalProponer({ periodoId, disponible, abierto, onCerrar, prelle
               <button
                 type="button" onClick={() => setPeso((p) => Math.max(5, p - 5))} disabled={peso <= 5}
                 aria-label="Bajar peso 5%"
-                className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-hunter transition active:scale-95 disabled:opacity-30"
+                className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-marca transition active:scale-95 disabled:opacity-30"
               >−</button>
               <span className="min-w-[4.5rem] text-center font-display text-2xl font-extrabold">{peso}%</span>
               <button
                 type="button" onClick={() => setPeso((p) => Math.min(pesoMax, p + 5))} disabled={peso >= pesoMax}
                 aria-label="Subir peso 5%"
-                className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-hunter transition active:scale-95 disabled:opacity-30"
+                className="grid h-11 w-11 place-items-center rounded-xl border border-gris-claro bg-white text-xl font-extrabold text-marca transition active:scale-95 disabled:opacity-30"
               >+</button>
             </div>
             <p className="mt-1.5 text-[11px] text-gris">De 5% en 5%, hasta el {pesoMax}% que tienes disponible.</p>
@@ -239,7 +239,7 @@ export function ModalProponer({ periodoId, disponible, abierto, onCerrar, prelle
         </div>
       )}
 
-      {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+      {error && <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
 
       <div className="mt-6 flex items-center gap-2">
         {paso > 1 ? (
@@ -252,11 +252,11 @@ export function ModalProponer({ periodoId, disponible, abierto, onCerrar, prelle
           </button>
         )}
         {paso < TOTAL_PASOS ? (
-          <button type="button" onClick={avanzar} className="flex-1 rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark">
+          <button type="button" onClick={avanzar} className="flex-1 rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark">
             Siguiente →
           </button>
         ) : (
-          <button type="button" onClick={enviar} disabled={pendiente} className="flex-1 rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60">
+          <button type="button" onClick={enviar} disabled={pendiente} className="flex-1 rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60">
             {pendiente ? 'Enviando…' : 'Enviar a aprobación →'}
           </button>
         )}

@@ -55,7 +55,7 @@ export function BannerVentana({ periodo, extensionIndividual = false }: { period
   const dias = diasRestantes(periodo.fechaLimiteCarga)
   if (ventanaVencida(periodo.fechaLimiteCarga)) {
     return (
-      <p className="mb-4 rounded-xl bg-red-50 px-4 py-2.5 text-sm text-hunter-dark">
+      <p className="mb-4 rounded-xl bg-red-50 px-4 py-2.5 text-sm text-alerta-dark">
         <CalendarClock size={14} className="mr-1.5 inline -translate-y-px" />
         El plazo de carga del período <b>{periodo.nombre}</b> venció el {fecha}. Si necesitas cargar un objetivo, coordina con RR.HH.
       </p>

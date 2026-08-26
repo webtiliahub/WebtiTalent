@@ -125,7 +125,7 @@ export function AlcanceEditor({
               const redundante = preview !== null && !preview.excluidos.some((e) => e.id === id)
               return (
                 <button key={id} type="button" onClick={() => setExcluirIds((xs) => xs.filter((x) => x !== id))}
-                  className={`rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-bold text-hunter-dark hover:bg-red-100 ${redundante ? 'opacity-60' : ''}`}
+                  className={`rounded-full bg-red-50 px-2.5 py-1 text-[11px] font-bold text-alerta-dark hover:bg-red-100 ${redundante ? 'opacity-60' : ''}`}
                   title={redundante ? 'Ya no está en el alcance' : 'Quitar ajuste'}>
                   {colaboradores.find((c) => c.id === id)?.nombre ?? id} · excluido{redundante ? ' (ya no está en el alcance)' : ''} ✕
                 </button>
@@ -145,7 +145,7 @@ export function AlcanceEditor({
               <span className="font-display text-2xl font-bold">{preview.total}</span> evaluado{preview.total === 1 ? '' : 's'}
               {preview.porPais.length > 1 && <span className="text-gris"> · {preview.porPais.map((p) => `${p.pais} ${p.total}`).join(' · ')}</span>}
             </p>
-            {preview.total === 0 && <p className="mt-1 text-xs text-hunter-dark">Con estos filtros nadie queda dentro del alcance.</p>}
+            {preview.total === 0 && <p className="mt-1 text-xs text-marca-dark">Con estos filtros nadie queda dentro del alcance.</p>}
             {preview.rechazados.length > 0 && (
               <p className="mt-1 rounded-lg bg-amber-50 px-3 py-1.5 text-xs text-amber-800">
                 No entrarán aunque los agregaste: {preview.rechazados.map((r) => `${r.nombre} (${r.motivo === 'INACTIVO' ? 'inactivo' : r.motivo === 'FUERA_DE_PAIS' ? 'fuera de los países del alcance' : 'menos de 6 meses de antigüedad'})`).join(' · ')}

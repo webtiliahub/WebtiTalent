@@ -15,7 +15,7 @@ function SliderCombinacion({ inicial }: { inicial: number }) {
   return (
     <div className="w-full">
       <div className="mb-1 flex items-baseline justify-between text-xs font-bold">
-        <span className="text-hunter">Competencias {pct}%</span>
+        <span className="text-marca">Competencias {pct}%</span>
         <span className="text-negro/60">Objetivos {100 - pct}%</span>
       </div>
       <input
@@ -28,7 +28,7 @@ function SliderCombinacion({ inicial }: { inicial: number }) {
         onChange={(e) => setPct(Number(e.target.value))}
         aria-label="Peso de competencias en la nota final"
         className={`h-2 w-full cursor-pointer appearance-none rounded-full ${thumbCls}`}
-        style={{ background: `linear-gradient(to right, var(--color-hunter) ${pct}%, var(--color-negro) ${pct}%)` }}
+        style={{ background: `linear-gradient(to right, var(--color-marca) ${pct}%, var(--color-negro) ${pct}%)` }}
       />
     </div>
   )
@@ -60,7 +60,7 @@ function FilaNivel({ nivel, onGuardar, onEliminar, puedeGestionar }: {
         <form className="space-y-2.5" action={(fd) => { onGuardar(fd); setEditando(false) }}>
           <div className="flex items-center gap-2">
             <input name="nombre" defaultValue={nivel.nombre} className={`${inputCls} flex-1 min-w-36`} autoFocus />
-            <button type="submit" className="rounded-lg bg-hunter px-3 py-1.5 text-xs font-bold text-white hover:bg-hunter-dark">Guardar</button>
+            <button type="submit" className="rounded-lg bg-marca px-3 py-1.5 text-xs font-bold text-white hover:bg-marca-dark">Guardar</button>
             <button type="button" onClick={() => setEditando(false)} className={btnMiniCls}>Cancelar</button>
           </div>
           <SliderCombinacion inicial={nivel.compPct} />
@@ -114,7 +114,7 @@ export function PanelNiveles({ niveles, puedeGestionar = true }: { niveles: Nive
       {puedeGestionar && (
         <>
           <Desplegable abierto={!agregando}>
-            <button onClick={() => setAgregando(true)} className="mt-2 rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter">
+            <button onClick={() => setAgregando(true)} className="mt-2 rounded-lg border border-dashed border-gris-claro px-3 py-1.5 text-xs font-bold text-gris transition hover:border-marca hover:text-marca">
               ＋ Agregar nivel
             </button>
           </Desplegable>
@@ -122,7 +122,7 @@ export function PanelNiveles({ niveles, puedeGestionar = true }: { niveles: Nive
             <form className="mt-2 space-y-2.5" action={(fd) => ejecutar(() => crearNivel(fd))}>
               <div className="flex items-center gap-2">
                 <input name="nombre" placeholder="Nombre del nivel…" className={`${inputCls} flex-1 min-w-36`} required minLength={2} autoFocus />
-                <button type="submit" disabled={pendiente} className="rounded-lg border border-hunter px-3 py-1.5 text-xs font-bold text-hunter transition hover:bg-hunter hover:text-white disabled:opacity-50">
+                <button type="submit" disabled={pendiente} className="rounded-lg border border-marca px-3 py-1.5 text-xs font-bold text-marca transition hover:bg-marca hover:text-white disabled:opacity-50">
                   ＋ Agregar
                 </button>
                 <button type="button" onClick={() => setAgregando(false)} className={btnMiniCls}>Cancelar</button>

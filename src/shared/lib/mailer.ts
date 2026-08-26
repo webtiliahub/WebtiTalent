@@ -57,7 +57,7 @@ async function smtp(): Promise<Transporter> {
   return transporterSmtp
 }
 
-const fromSmtp = () => process.env.SMTP_FROM ?? process.env.SMTP_USER ?? 'Talent Hub'
+const fromSmtp = () => process.env.SMTP_FROM ?? process.env.SMTP_USER ?? 'WebtiTalent'
 
 /**
  * En desarrollo sin transporte (ni SMTP ni Resend): imprime el correo a consola y devuelve true
@@ -71,9 +71,9 @@ function modoConsola(linea: string): boolean {
 }
 
 /** Adjunto inline del logo para nodemailer (la plantilla lo referencia con cid:). */
-const adjuntoLogoSmtp = () => ({ filename: 'hunter.png', content: Buffer.from(LOGO_CORREO_B64, 'base64'), cid: LOGO_CORREO_CID })
+const adjuntoLogoSmtp = () => ({ filename: 'webtilia.png', content: Buffer.from(LOGO_CORREO_B64, 'base64'), cid: LOGO_CORREO_CID })
 /** Mismo adjunto para la API de Resend (content_id = inline). */
-const adjuntoLogoResend = () => ({ filename: 'hunter.png', content: LOGO_CORREO_B64, content_id: LOGO_CORREO_CID })
+const adjuntoLogoResend = () => ({ filename: 'webtilia.png', content: LOGO_CORREO_B64, content_id: LOGO_CORREO_CID })
 
 async function enviar(email: string, asunto: string, texto: string, html?: string) {
   const apiKey = process.env.RESEND_API_KEY
@@ -87,7 +87,7 @@ async function enviar(email: string, asunto: string, texto: string, html?: strin
     method: 'POST',
     headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.RESEND_FROM ?? 'Talent Hub <onboarding@resend.dev>',
+      from: process.env.RESEND_FROM ?? 'WebtiTalent <onboarding@resend.dev>',
       to: [email],
       subject: asunto,
       text: texto,
@@ -140,7 +140,7 @@ export async function enviarBatch(correos: CorreoConstruido[]): Promise<{ enviad
     }
     return { enviados, fallidos, erroresMuestra }
   }
-  const from = process.env.RESEND_FROM ?? 'Talent Hub <onboarding@resend.dev>'
+  const from = process.env.RESEND_FROM ?? 'WebtiTalent <onboarding@resend.dev>'
   let enviados = 0
   let fallidos = 0
   const erroresMuestra: string[] = []
@@ -180,16 +180,16 @@ function n(cantidad: number, singular: string, plural: string): string {
   return `${cantidad} ${cantidad === 1 ? singular : plural}`
 }
 
-/** Envuelve el contenido en la tarjeta de marca Hunter (isotipo oficial servido desde la app).
+/** Envuelve el contenido en la tarjeta de marca Webtilia (isotipo oficial servido desde la app).
  * `sinPadding`: usa la variante de tarjeta sin padding propio (banda superior a sangre, contenido
  * con su propio padding interno) — la usan las variantes "último día" (correo 6 del mockup). */
-/** `marca`: los correos del PROCESO de evaluación salen como CENIT (default); los de ACCESO a la
- * plataforma (código 2FA, credenciales, contraseña) salen como Talent Hub. */
+/** `marca`: los correos del PROCESO de evaluación salen como Evaluación 360 (default); los de ACCESO a la
+ * plataforma (código 2FA, credenciales, contraseña) salen como WebtiTalent. */
 export function plantilla(contenido: string, opciones?: { sinPadding?: boolean; marca?: 'proceso' | 'acceso' }) {
   const padTarjeta = opciones?.sinPadding ? 'padding:0;overflow:hidden;' : 'padding:32px;'
   const marca = opciones?.marca === 'acceso'
-    ? { nombre: 'Talent Hub', sub: 'Plataforma de talento — Hunter' }
-    : { nombre: 'CENIT', sub: 'Evaluación de Desempeño · Talent Hub' }
+    ? { nombre: 'WebtiTalent', sub: 'Plataforma de talento — Webtilia' }
+    : { nombre: 'Evaluación 360', sub: 'Evaluación de Desempeño · WebtiTalent' }
   return `<!DOCTYPE html>
 <html lang="es">
 <body style="margin:0;padding:0;background-color:#f7f5f2;">
@@ -198,7 +198,7 @@ export function plantilla(contenido: string, opciones?: { sinPadding?: boolean; 
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;">
         <tr><td style="padding:0 8px 16px;">
           <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-            <td style="width:30px;vertical-align:middle;"><img src="cid:${LOGO_CORREO_CID}" width="24" height="35" alt="Hunter" style="display:block;border:0;outline:none;" /></td>
+            <td style="width:30px;vertical-align:middle;"><img src="cid:${LOGO_CORREO_CID}" width="26" height="26" alt="Webtilia" style="display:block;border:0;outline:none;" /></td>
             <td style="padding-left:10px;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:800;color:#2a2623;">${marca.nombre}
               <div style="font-size:11px;font-weight:400;color:#8a857f;">${marca.sub}</div>
             </td>
@@ -208,7 +208,7 @@ export function plantilla(contenido: string, opciones?: { sinPadding?: boolean; 
           ${contenido}
         </td></tr>
         <tr><td style="padding:16px 8px 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;color:#8a857f;">
-          Correo automático de Talent Hub, la plataforma de talento de Hunter. No respondas a este mensaje.
+          Correo automático de WebtiTalent, la plataforma de talento de Webtilia. No respondas a este mensaje.
         </td></tr>
       </table>
     </td></tr>
@@ -231,7 +231,7 @@ function notaGris(html: string) {
 
 function botonCta(texto: string, ruta: string) {
   return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:22px 0 6px;"><tr>
-    <td style="background-color:#f0163e;border-radius:12px;">
+    <td style="background-color:#0067ff;border-radius:12px;">
       <a href="${URL_APP}${ruta}" style="display:inline-block;padding:12px 26px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;">${texto}</a>
     </td>
   </tr></table>`
@@ -250,13 +250,13 @@ export async function enviarCodigo2FA(email: string, codigo: string) {
     parrafo('Usa este código para completar tu ingreso a la plataforma:') +
     bloqueDestacado(`<div style="text-align:center;font-size:34px;font-weight:800;letter-spacing:10px;color:#2a2623;">${esc(codigo)}</div>`) +
     parrafo(`Es válido por <b>10 minutos</b>.`) +
-    notaGris('Si no intentaste ingresar a Talent Hub, la plataforma de talento de Hunter, ignora este correo: nadie puede entrar sin este código.'),
+    notaGris('Si no intentaste ingresar a WebtiTalent, la plataforma de talento de Webtilia, ignora este correo: nadie puede entrar sin este código.'),
     { marca: 'acceso' },
   )
   await enviar(
     email,
-    `${codigo} es tu código de acceso — Talent Hub`,
-    `Tu código de verificación es: ${codigo}\n\nEs válido por 10 minutos. Si no intentaste ingresar a Talent Hub, ignora este correo.`,
+    `${codigo} es tu código de acceso — WebtiTalent`,
+    `Tu código de verificación es: ${codigo}\n\nEs válido por 10 minutos. Si no intentaste ingresar a WebtiTalent, ignora este correo.`,
     html,
   )
 }
@@ -274,7 +274,7 @@ export async function enviarRestablecimiento(email: string, ruta: string) {
   )
   await enviar(
     email,
-    'Restablece tu contraseña — Talent Hub',
+    'Restablece tu contraseña — WebtiTalent',
     `Recibimos una solicitud para restablecer tu contraseña.\n\nAbre este enlace (válido 30 minutos, un solo uso):\n${URL_APP}${ruta}\n\nSi no fuiste tú, ignora este correo: tu contraseña actual sigue vigente.`,
     html,
   )
@@ -293,7 +293,7 @@ export async function enviarAperturaObjetivos(email: string, nombre: string, per
   )
   await enviar(
     email,
-    `Ya puedes cargar tus objetivos del período ${periodo} — CENIT`,
+    `Ya puedes cargar tus objetivos del período ${periodo} — WebtiTalent`,
     `Hola, ${nombre}:\n\nRR.HH. abrió la carga de objetivos del período ${periodo}. Ingresa a la Plataforma de Evaluación de Desempeño 360, ve a "Mis objetivos" y define tus objetivos con sus pesos.\n\nFecha límite: ${deadline}.\n\nTu jefe directo revisará y aprobará lo que propongas. Los objetivos definidos en esta ventana serán la base de tu evaluación del período.`,
     html,
   )
@@ -313,7 +313,7 @@ export async function enviarCambioTransversales(email: string, nombre: string, p
   )
   await enviar(
     email,
-    `Los objetivos transversales del período ${periodo} cambiaron — CENIT`,
+    `Los objetivos transversales del período ${periodo} cambiaron — WebtiTalent`,
     `Hola, ${nombre}:\n\nRR.HH. actualizó los objetivos transversales del período ${periodo} y el peso total de tus objetivos quedó en ${total}% (debe sumar 100%).\n\nIngresa a la plataforma, ve a "Mis objetivos" y ajusta los pesos con tu jefe directo. Si tu plazo de carga ya venció, coordina con RR.HH. para extenderlo.`,
     html,
   )
@@ -333,7 +333,7 @@ export async function enviarObjetivoReemplazado(email: string, nombre: string, p
   )
   await enviar(
     email,
-    `Tu jefe ajustó tu propuesta de objetivo — CENIT`,
+    `Tu jefe ajustó tu propuesta de objetivo — WebtiTalent`,
     `Hola, ${nombre}:\n\nAl revisar tu propuesta "${tituloOriginal}"${periodo ? ` del período ${periodo}` : ''}, tu jefe la ajustó y aprobó una versión modificada. Tu propuesta original queda registrada como rechazada y el objetivo vigente es: "${tituloNuevo}".\n\nRevisa el detalle en "Mis objetivos". Si algo no te cuadra, conversa con tu jefe directo.`,
     html,
   )
@@ -357,7 +357,7 @@ export async function enviarRecordatorioObjetivos(email: string, nombre: string,
   )
   await enviar(
     email,
-    `Recordatorio: completa tus objetivos del período ${periodo} — CENIT`,
+    `Recordatorio: completa tus objetivos del período ${periodo} — WebtiTalent`,
     `Hola, ${nombre}:\n\nTus objetivos del período ${periodo} están al ${avance}% del peso total (debe llegar a 100%).\n\nLa fecha límite de carga es el ${deadline}. Ingresa a la plataforma, ve a "Mis objetivos" y completa la definición con tu jefe directo.`,
     html,
   )
@@ -375,7 +375,7 @@ export async function enviarResultadosPublicados(email: string, nombre: string, 
   )
   await enviar(
     email,
-    `Tus resultados del ${cicloNombre} ya están disponibles — CENIT`,
+    `Tus resultados del ${cicloNombre} ya están disponibles — WebtiTalent`,
     `Hola, ${nombre}:\n\nEl ciclo ${cicloNombre} cerró y RR.HH. publicó los resultados. Ingresa a la Plataforma de Evaluación de Desempeño 360 y entra a "Mi resultado" para revisar tu nota final, el detalle por competencias y el cumplimiento de tus objetivos.\n\nSi tienes dudas sobre tu resultado, coordina una conversación de retroalimentación con tu jefe directo o con RR.HH.`,
     html,
   )
@@ -390,9 +390,9 @@ export async function enviarCredenciales(email: string, nombre: string, password
       <td style="padding:6px 0 6px 18px;font-size:15px;font-weight:700;color:#2a2623;font-family:Consolas,Menlo,monospace;">${esc(valor)}</td>
     </tr>`
   const html = plantilla(
-    titulo('Tu cuenta en Talent Hub está lista') +
+    titulo('Tu cuenta en WebtiTalent está lista') +
     parrafo(`Hola, <b>${esc(nombre)}</b>:`) +
-    parrafo('Te damos la bienvenida a <b>Talent Hub</b>, la plataforma de talento de Hunter. Estas son tus credenciales de acceso:') +
+    parrafo('Te damos la bienvenida a <b>WebtiTalent</b>, la plataforma de talento de Webtilia. Estas son tus credenciales de acceso:') +
     bloqueDestacado(`<table role="presentation" cellpadding="0" cellspacing="0">${filaCredencial('Usuario', email)}${filaCredencial('Contraseña temporal', passwordTemporal)}</table>`) +
     parrafo('Al ingresar por primera vez se te pedirá crear tu <b>contraseña definitiva</b>. El acceso usa <b>verificación en dos pasos</b>: recibirás un código en este correo cada vez que ingreses.') +
     botonCta('Ingresar a la plataforma', '/') +
@@ -400,8 +400,8 @@ export async function enviarCredenciales(email: string, nombre: string, password
   )
   await enviar(
     email,
-    'Tu cuenta en Talent Hub está lista',
-    `Hola, ${nombre}:\n\nTe damos la bienvenida a Talent Hub, la plataforma de talento de Hunter.\n\nUsuario: ${email}\nContraseña temporal: ${passwordTemporal}\n\nAl ingresar por primera vez se te pedirá crear tu contraseña definitiva. El acceso usa verificación en dos pasos: recibirás un código en este correo cada vez que ingreses.`,
+    'Tu cuenta en WebtiTalent está lista',
+    `Hola, ${nombre}:\n\nTe damos la bienvenida a WebtiTalent, la plataforma de talento de Webtilia.\n\nUsuario: ${email}\nContraseña temporal: ${passwordTemporal}\n\nAl ingresar por primera vez se te pedirá crear tu contraseña definitiva. El acceso usa verificación en dos pasos: recibirás un código en este correo cada vez que ingreses.`,
     html,
   )
 }
@@ -416,7 +416,7 @@ export type DigestPaisEval = { pais: string; evaluadores: number; evaluaciones: 
 
 /** Banda roja superior de la variante "último día" (reemplaza el título normal de la tarjeta). */
 function bandaUltimoDia() {
-  return `<div style="background-color:#f0163e;color:#ffffff;padding:10px 32px;font-size:13px;font-weight:800;letter-spacing:0.5px;border-radius:16px 16px 0 0;">⏰ HOY es el último día</div>`
+  return `<div style="background-color:#0067ff;color:#ffffff;padding:10px 32px;font-size:13px;font-weight:800;letter-spacing:0.5px;border-radius:16px 16px 0 0;">⏰ HOY es el último día</div>`
 }
 
 /** Chip de modalidad de evaluación (AUTO/JEFE/PAR/ASCENDENTE→ASC), colores del mockup. */
@@ -437,8 +437,8 @@ export function construirRecordatorioObjetivosAuto(email: string, nombre: string
   const pct = Math.max(0, Math.min(avance, 100))
   const verbo = diasRestantes === 1 ? 'queda' : 'quedan'
   const asunto = ultimoDia
-    ? `ÚLTIMO DÍA: completa tus objetivos del período ${periodo} — CENIT`
-    : `Te ${verbo} ${n(diasRestantes, 'día', 'días')} para completar tus objetivos del período ${periodo} — CENIT`
+    ? `ÚLTIMO DÍA: completa tus objetivos del período ${periodo} — WebtiTalent`
+    : `Te ${verbo} ${n(diasRestantes, 'día', 'días')} para completar tus objetivos del período ${periodo} — WebtiTalent`
 
   if (ultimoDia) {
     const html = plantilla(
@@ -489,7 +489,7 @@ export async function enviarRecordatorioObjetivosAuto(email: string, nombre: str
 /** Construye el correo de aprobaciones pendientes del jefe sin enviarlo. */
 export function construirRecordatorioAprobacionesJefe(email: string, nombre: string, periodo: string, deadlineTexto: string, filas: FilaAprobacionJefe[], diasRestantes: number): CorreoConstruido {
   const totalObjetivos = filas.reduce((acc, f) => acc + f.objetivos, 0)
-  const asunto = `Tu equipo tiene ${n(totalObjetivos, 'objetivo', 'objetivos')} esperando tu aprobación (${diasRestantes === 1 ? 'queda' : 'quedan'} ${n(diasRestantes, 'día', 'días')}) — CENIT`
+  const asunto = `Tu equipo tiene ${n(totalObjetivos, 'objetivo', 'objetivos')} esperando tu aprobación (${diasRestantes === 1 ? 'queda' : 'quedan'} ${n(diasRestantes, 'día', 'días')}) — WebtiTalent`
   const filasHtml = filas
     .map((f, i) => {
       const borde = i === filas.length - 1 ? '' : 'border-bottom:1px solid #e5e1dc;'
@@ -547,7 +547,7 @@ export async function enviarObjetivosAprobados(email: string, nombre: string, pe
   const filasTexto = filas.map(f => `- ${f.titulo}: ${f.peso}%`).join('\n')
   await enviar(
     email,
-    `Tus objetivos del período ${periodo} fueron aprobados — CENIT`,
+    `Tus objetivos del período ${periodo} fueron aprobados — WebtiTalent`,
     `Hola, ${nombre}:\n\nTu jefe directo aprobó tus objetivos del período ${periodo}:\n\n${filasTexto}\n\nCon los transversales del período, tu peso total queda en ${totalPct}%.\n\nEstos objetivos serán la base de tu evaluación. Podrás registrar sus logros cuando el período lo habilite.`,
     html,
   )
@@ -576,7 +576,7 @@ export async function enviarObjetivoAsignado(email: string, nombre: string, peri
     : `Con este objetivo, tu peso total del período queda en ${totalPct}% — recuerda completar hasta 100%.`
   await enviar(
     email,
-    `Tu jefe te asignó un objetivo del período ${periodo} — CENIT`,
+    `Tu jefe te asignó un objetivo del período ${periodo} — WebtiTalent`,
     `Hola, ${nombre}:\n\nTu jefe directo definió y aprobó este objetivo para ti en el período ${periodo}:\n\n${tituloObjetivo} (${peso}%)\n\n${totalTextoPlano}\n\nSerá parte de la base de tu evaluación del período; podrás registrar su logro cuando el período lo habilite. Si tienes dudas, coordina con tu jefe directo.`,
     html,
   )
@@ -585,8 +585,8 @@ export async function enviarObjetivoAsignado(email: string, nombre: string, peri
 /** Construye el correo de evaluaciones pendientes sin enviarlo. */
 export function construirRecordatorioEvaluaciones(email: string, nombre: string, ciclo: string, deadlineTexto: string, pendientes: PendienteEvaluacion[], diasRestantes: number, ultimoDia: boolean): CorreoConstruido {
   const asunto = ultimoDia
-    ? `ÚLTIMO DÍA: completa tus evaluaciones del ${ciclo} — CENIT`
-    : `Tienes ${n(pendientes.length, 'evaluación pendiente', 'evaluaciones pendientes')} del ${ciclo} (${diasRestantes === 1 ? 'queda' : 'quedan'} ${n(diasRestantes, 'día', 'días')}) — CENIT`
+    ? `ÚLTIMO DÍA: completa tus evaluaciones del ${ciclo} — WebtiTalent`
+    : `Tienes ${n(pendientes.length, 'evaluación pendiente', 'evaluaciones pendientes')} del ${ciclo} (${diasRestantes === 1 ? 'queda' : 'quedan'} ${n(diasRestantes, 'día', 'días')}) — WebtiTalent`
 
   if (ultimoDia) {
     const html = plantilla(
@@ -636,7 +636,7 @@ export function construirRecordatorioEvaluaciones(email: string, nombre: string,
  * del ciclo, esta asignación aparece DESPUÉS del lanzamiento y sin este correo el par solo se
  * enteraba al entrar a la plataforma (o recién con el recordatorio automático). */
 export function construirParAsignado(email: string, nombre: string, evaluado: string, ciclo: string, deadlineTexto: string): CorreoConstruido {
-  const asunto = `Se te asignó como par evaluador de ${evaluado} — CENIT`
+  const asunto = `Se te asignó como par evaluador de ${evaluado} — WebtiTalent`
   const html = plantilla(
     titulo('Te asignaron como par evaluador') +
     parrafo(`Hola, <b>${esc(nombre)}</b>:`) +
@@ -662,7 +662,7 @@ Ingresa a la plataforma y ve a "Mis evaluaciones".`,
 /** Construye el aviso de apertura del ciclo sin enviarlo: al lanzar, cada evaluador con cuenta
  * recibe qué evaluaciones le tocan y hasta cuándo. */
 export function construirAperturaCiclo(email: string, nombre: string, ciclo: string, deadlineTexto: string, pendientes: PendienteEvaluacion[]): CorreoConstruido {
-  const asunto = `Se abrió el ${ciclo}: tienes ${n(pendientes.length, 'evaluación por completar', 'evaluaciones por completar')} — CENIT`
+  const asunto = `Se abrió el ${ciclo}: tienes ${n(pendientes.length, 'evaluación por completar', 'evaluaciones por completar')} — WebtiTalent`
   const filasHtml = pendientes
     .map((p, i) => {
       const borde = i === pendientes.length - 1 ? '' : 'border-bottom:1px solid #e5e1dc;'
@@ -711,7 +711,7 @@ export function construirDigestRrhh(
   const totalSinCompletar = objetivos.reduce((acc, b) => acc + b.filas.reduce((a, f) => a + f.sinCompletar, 0), 0)
   const totalEvaluaciones = evaluaciones.reduce((acc, b) => acc + b.filas.reduce((a, f) => a + f.evaluaciones, 0), 0)
 
-  const asunto = `Resumen de pendientes: ${n(totalSinCompletar, 'persona', 'personas')} con objetivos incompletos · ${n(totalEvaluaciones, 'evaluación', 'evaluaciones')} sin completar — CENIT`
+  const asunto = `Resumen de pendientes: ${n(totalSinCompletar, 'persona', 'personas')} con objetivos incompletos · ${n(totalEvaluaciones, 'evaluación', 'evaluaciones')} sin completar — WebtiTalent`
 
   const bloquesObjetivos = objetivos
     .map((b) => bloqueDestacado(
@@ -799,7 +799,7 @@ export function construirNotaPreliminarDisponible(email: string, nombre: string,
   )
   return {
     to: email,
-    asunto: `Tu nota preliminar del ${ciclo} ya está disponible — CENIT`,
+    asunto: `Tu nota preliminar del ${ciclo} ya está disponible — WebtiTalent`,
     texto: `Hola, ${nombre}:\n\nSe completaron todas tus evaluaciones y logros del ciclo ${ciclo}, y tu nota preliminar ya está visible en la plataforma, con el detalle por competencias y objetivos.\n\nQué sigue:\n1. Revisa tu resultado preliminar y su detalle\n2. Conversa la retroalimentación con tu jefe directo\n3. Da tu conformidad o deja tus comentarios sobre la calificación\n\nEs una vista previa: la nota final se publica al cierre del ciclo, después de la calibración de RR.HH.`,
     html,
   }

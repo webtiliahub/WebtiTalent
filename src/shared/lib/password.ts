@@ -6,7 +6,7 @@ import { z } from 'zod'
 /** Palabras que no deben aparecer en una contraseña: las más comunes y el nombre de la empresa.
  *  El botín peligroso de un login es el par correo+contraseña reutilizable en O365/VPN, donde no
  *  hay 2FA de Hunter — de ahí que valga endurecer aunque el 2FA cubra la entrada a la plataforma. */
-const PALABRAS_PROHIBIDAS = ['password', 'contrasena', 'contraseña', '12345678', 'qwerty', 'hunter', 'carsegsa', 'cenit', 'admin']
+const PALABRAS_PROHIBIDAS = ['password', 'contrasena', 'contraseña', '12345678', 'qwerty', 'webtitalent', 'webtilia', 'admin']
 
 /** Longitud mínima — exportada para que los formularios (minLength y copy) no diverjan del esquema. */
 export const PASSWORD_MIN_CARACTERES = 10
@@ -27,7 +27,7 @@ export const esquemaPasswordNueva = z
   })
 
 
-/** Contraseña caduca a los 6 meses (pedido de Hunter). Se compara contra passwordChangedAt. */
+/** Contraseña caduca a los 6 meses (política heredada del diseño original). Se compara contra passwordChangedAt. */
 export const PASSWORD_EXPIRA_DIAS = 180
 
 export function passwordExpirada(passwordChangedAt: Date | null): boolean {

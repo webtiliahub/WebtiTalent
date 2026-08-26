@@ -28,7 +28,7 @@ export function PreflightLanzamiento({ cicloId, cicloNombre, preflight }: {
 
   const check = (ok: boolean, esAviso: boolean, titulo: string, detalle?: React.ReactNode) => (
     <li className={`rounded-xl border px-3.5 py-2.5 text-[13px] ${ok ? 'border-emerald-200 bg-emerald-50/50' : esAviso ? 'border-amber-200 bg-amber-50/60' : 'border-red-200 bg-red-50/60'}`}>
-      <p className={`font-bold ${ok ? 'text-emerald-700' : esAviso ? 'text-amber-800' : 'text-hunter-dark'}`}>
+      <p className={`font-bold ${ok ? 'text-emerald-700' : esAviso ? 'text-amber-800' : 'text-alerta-dark'}`}>
         {ok ? '✓' : esAviso ? '⚠' : '✕'} {titulo}
       </p>
       {!ok && detalle && <div className="mt-1 text-[12px] text-negro/70">{detalle}</div>}
@@ -164,7 +164,7 @@ export function PreflightLanzamiento({ cicloId, cicloNombre, preflight }: {
         Los pares se asignan después del lanzamiento. Los colaboradores verán sus evaluaciones al iniciar sesión.
       </div>
 
-      <div className="rounded-2xl border border-hunter/30 bg-red-50/40 p-4">
+      <div className="rounded-2xl border border-marca/30 bg-blue-50/40 p-4">
         <p className="text-[13px] font-bold">Confirmación final</p>
         <p className="mt-0.5 text-xs text-gris">Escribe el nombre del ciclo (<b className="text-negro">{cicloNombre}</b>) para habilitar el lanzamiento.</p>
         <div className="mt-2 flex flex-wrap gap-2">
@@ -173,7 +173,7 @@ export function PreflightLanzamiento({ cicloId, cicloNombre, preflight }: {
             onChange={(e) => setConfirmacion(e.target.value)}
             placeholder={cicloNombre}
             disabled={!pf.listo}
-            className="min-w-0 flex-1 rounded-xl border border-gris-claro bg-white px-3.5 py-2.5 text-sm outline-none focus:border-hunter disabled:opacity-50"
+            className="min-w-0 flex-1 rounded-xl border border-gris-claro bg-white px-3.5 py-2.5 text-sm outline-none focus:border-marca disabled:opacity-50"
           />
           <button
             disabled={!puedeLanzar || pendiente}
@@ -186,13 +186,13 @@ export function PreflightLanzamiento({ cicloId, cicloNombre, preflight }: {
                 router.refresh()
               }
             })}
-            className="rounded-xl bg-hunter px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-40"
+            className="rounded-xl bg-marca px-5 py-2.5 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-40"
           >
             <Rocket size={14} className="mr-1 inline -translate-y-px" />{pendiente ? 'Lanzando…' : 'Lanzar ciclo'}
           </button>
         </div>
-        {!pf.listo && <p className="mt-2 text-xs font-bold text-hunter-dark">Resuelve los puntos en rojo para habilitar el lanzamiento.</p>}
-        {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {!pf.listo && <p className="mt-2 text-xs font-bold text-marca-dark">Resuelve los puntos en rojo para habilitar el lanzamiento.</p>}
+        {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
       </div>
 
       <div className="flex justify-end border-t border-gris-claro pt-3">
@@ -224,7 +224,7 @@ function EliminarBorradorCiclo({ cicloId, cicloNombre }: { cicloId: string; cicl
     <>
       <button
         onClick={() => { setError(null); setAbierto(true) }}
-        className="inline-flex items-center gap-1.5 text-xs font-semibold text-gris transition hover:text-hunter"
+        className="inline-flex items-center gap-1.5 text-xs font-semibold text-gris transition hover:text-marca"
       >
         <Trash2 size={13} /> Eliminar este borrador
       </button>
@@ -234,13 +234,13 @@ function EliminarBorradorCiclo({ cicloId, cicloNombre }: { cicloId: string; cicl
           Nadie fue notificado ni respondió nada, así que no se pierde información de evaluaciones.
         </p>
         <p className="mt-1.5 text-xs text-gris">Esta acción no se puede deshacer.</p>
-        {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-4 flex justify-end gap-2">
           <button onClick={() => setAbierto(false)} className="rounded-xl border border-gris-claro px-4 py-2 text-[13px] font-bold transition hover:bg-hueso">Cancelar</button>
           <button
             disabled={pendiente}
             onClick={eliminar}
-            className="rounded-xl bg-hunter px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-40"
+            className="rounded-xl bg-marca px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-40"
           >
             {pendiente ? 'Eliminando…' : 'Eliminar borrador'}
           </button>
@@ -284,7 +284,7 @@ export function TablaParesRrhh({ cicloId, grupos, soloLectura = false }: {
             <span className="rounded-full bg-sky-50 px-2 py-0.5 text-[10px] font-bold text-sky-700">{soloLectura ? 'propuesta sin resolver' : 'propuesta del jefe'}</span>
             {!soloLectura && <>
               <button type="button" disabled={pendiente} onClick={() => correr(() => aprobarPar(p.asignacionId), 'Propuesta aprobada: el par ya puede evaluar')} title="Aprobar propuesta" className="rounded-md bg-emerald-600 px-1.5 py-0.5 text-[11px] font-bold text-white transition hover:bg-emerald-700 disabled:opacity-50">✓</button>
-              <button type="button" disabled={pendiente} onClick={() => correr(() => rechazarPar(p.asignacionId), 'Propuesta rechazada')} title="Rechazar propuesta" className="rounded-md border border-gris-claro px-1.5 py-0.5 text-[11px] font-bold text-gris transition hover:bg-red-50 hover:text-hunter disabled:opacity-50">✕</button>
+              <button type="button" disabled={pendiente} onClick={() => correr(() => rechazarPar(p.asignacionId), 'Propuesta rechazada')} title="Rechazar propuesta" className="rounded-md border border-gris-claro px-1.5 py-0.5 text-[11px] font-bold text-gris transition hover:bg-red-50 hover:text-alerta disabled:opacity-50">✕</button>
             </>}
           </span>
         )
@@ -296,7 +296,7 @@ export function TablaParesRrhh({ cicloId, grupos, soloLectura = false }: {
             ? <span className="text-[10px] font-bold text-emerald-700">respondió ✓</span>
             : soloLectura
               ? <span className="text-[10px] font-bold text-gris">no respondió</span>
-              : <button type="button" disabled={pendiente} onClick={() => correr(() => quitarParRrhh(p.asignacionId), 'Par retirado')} title="Retirar par" className="font-bold text-gris transition hover:text-hunter">✕</button>}
+              : <button type="button" disabled={pendiente} onClick={() => correr(() => quitarParRrhh(p.asignacionId), 'Par retirado')} title="Retirar par" className="font-bold text-gris transition hover:text-marca">✕</button>}
         </span>
       )
     }
@@ -346,7 +346,7 @@ export function TablaParesRrhh({ cicloId, grupos, soloLectura = false }: {
             // Botones con texto: el ✓/✕ de 11 px del escritorio es imposible de acertar con el dedo
             <div className="flex gap-2">
               <button type="button" disabled={pendiente} onClick={() => correr(() => aprobarPar(p.asignacionId), 'Propuesta aprobada: el par ya puede evaluar')} className="flex-1 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-bold text-white transition hover:bg-emerald-700 disabled:opacity-50">Aprobar</button>
-              <button type="button" disabled={pendiente} onClick={() => correr(() => rechazarPar(p.asignacionId), 'Propuesta rechazada')} className="flex-1 rounded-xl border border-gris-claro bg-white px-3 py-2 text-xs font-bold text-gris transition hover:border-hunter hover:text-hunter disabled:opacity-50">Rechazar</button>
+              <button type="button" disabled={pendiente} onClick={() => correr(() => rechazarPar(p.asignacionId), 'Propuesta rechazada')} className="flex-1 rounded-xl border border-gris-claro bg-white px-3 py-2 text-xs font-bold text-gris transition hover:border-marca hover:text-marca disabled:opacity-50">Rechazar</button>
             </div>
           )}
         </div>
@@ -359,7 +359,7 @@ export function TablaParesRrhh({ cicloId, grupos, soloLectura = false }: {
           ? <span className="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">respondió ✓</span>
           : soloLectura
             ? <span className="shrink-0 text-[10px] font-bold text-gris">no respondió</span>
-            : <button type="button" disabled={pendiente} onClick={() => correr(() => quitarParRrhh(p.asignacionId), 'Par retirado')} title="Retirar par" aria-label={`Retirar a ${p.nombre}`} className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-gris-claro text-sm font-bold text-gris transition hover:border-hunter hover:text-hunter disabled:opacity-50">✕</button>}
+            : <button type="button" disabled={pendiente} onClick={() => correr(() => quitarParRrhh(p.asignacionId), 'Par retirado')} title="Retirar par" aria-label={`Retirar a ${p.nombre}`} className="grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-gris-claro text-sm font-bold text-gris transition hover:border-marca hover:text-marca disabled:opacity-50">✕</button>}
       </div>
     )
   }
@@ -513,7 +513,7 @@ export function ListaCalibracion({ grupos, puedeGestionar = true }: {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Buscar colaborador, puesto, jefe o área…"
-        className="mb-3 w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none transition focus:border-hunter"
+        className="mb-3 w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none transition focus:border-marca"
       />
       {filtrados.length === 0 && <p className="rounded-xl bg-hueso px-4 py-6 text-center text-sm text-gris">Sin coincidencias para “{q}”.</p>}
       <div className="space-y-3">
@@ -566,7 +566,7 @@ export function ListaCalibracion({ grupos, puedeGestionar = true }: {
                         </div>
                         {/* Con calibración conviven dos notas: la grande se rotula «vigente» */}
                         <p className="shrink-0 text-right leading-none">
-                          <span className="font-display text-xl font-extrabold text-hunter">{m.notaVigente.toFixed(2)}</span>
+                          <span className="font-display text-xl font-extrabold text-marca">{m.notaVigente.toFixed(2)}</span>
                           <span className="mt-1 block text-[9.5px] font-bold uppercase tracking-wide text-gris">{m.fueCalibrado || m.notaOriginal !== null ? 'vigente' : 'nota'}</span>
                         </p>
                       </div>
@@ -707,7 +707,7 @@ export function Calibrador({ resultadoId, nombre, notaActual, dims, objetivos, c
     })
   }
 
-  const inputCls = 'w-20 rounded-lg border border-gris-claro px-2 py-1 text-center text-sm font-bold outline-none focus:border-hunter placeholder:font-normal placeholder:text-gris/50'
+  const inputCls = 'w-20 rounded-lg border border-gris-claro px-2 py-1 text-center text-sm font-bold outline-none focus:border-marca placeholder:font-normal placeholder:text-gris/50'
 
   return (
     <>
@@ -736,7 +736,7 @@ export function Calibrador({ resultadoId, nombre, notaActual, dims, objetivos, c
                   placeholder={d.nota.toFixed(2)}
                   onChange={(e) => setAjDim({ ...ajDim, [d.dimensionId]: e.target.value })}
                   aria-label={`Nota calibrada de ${d.nombre}`}
-                  className="ml-auto w-24 rounded-lg border border-gris-claro bg-hueso px-2.5 py-2 text-right text-sm font-bold outline-none focus:border-hunter placeholder:font-normal placeholder:text-gris/50"
+                  className="ml-auto w-24 rounded-lg border border-gris-claro bg-hueso px-2.5 py-2 text-right text-sm font-bold outline-none focus:border-marca placeholder:font-normal placeholder:text-gris/50"
                 />
               </div>
             </div>
@@ -796,7 +796,7 @@ export function Calibrador({ resultadoId, nombre, notaActual, dims, objetivos, c
                         placeholder={o.logro === null ? '—' : `${o.logro}%`}
                         onChange={(e) => setAjObj({ ...ajObj, [o.id]: e.target.value })}
                         aria-label={`Logro calibrado de ${o.titulo}`}
-                        className="ml-auto w-24 rounded-lg border border-gris-claro bg-hueso px-2.5 py-2 text-right text-sm font-bold outline-none focus:border-hunter placeholder:font-normal placeholder:text-gris/50"
+                        className="ml-auto w-24 rounded-lg border border-gris-claro bg-hueso px-2.5 py-2 text-right text-sm font-bold outline-none focus:border-marca placeholder:font-normal placeholder:text-gris/50"
                       />
                     )}
                   </div>
@@ -845,23 +845,23 @@ export function Calibrador({ resultadoId, nombre, notaActual, dims, objetivos, c
         <div className="mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 rounded-xl bg-hueso-2 px-4 py-3 text-sm">
           <span>Nota final: <b>{notaActual.toFixed(2)}</b></span>
           <span className="text-gris">→</span>
-          <span className="font-display text-lg font-extrabold text-hunter">{finalPreview === null ? 'pendiente' : finalPreview.toFixed(2)}</span>
+          <span className="font-display text-lg font-extrabold text-marca">{finalPreview === null ? 'pendiente' : finalPreview.toFixed(2)}</span>
           <span className="text-xs text-gris">competencias {compPreview?.toFixed(2) ?? '—'} · objetivos {cumplimientoPreview === null ? '—' : `${Math.round(cumplimientoPreview)}%`}</span>
         </div>
 
         <textarea
           value={motivo} onChange={(e) => setMotivo(e.target.value)} rows={2}
           placeholder="Motivo del ajuste (obligatorio)…"
-          className="mt-3 w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-hunter"
+          className="mt-3 w-full rounded-xl border border-gris-claro bg-hueso px-3.5 py-2.5 text-sm outline-none focus:border-marca"
         />
-        {error && <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         {/* Móvil: los dos botones a lo ancho (al pie de la hoja); escritorio: alineados a la derecha */}
         <div className="mt-4 flex gap-2 md:justify-end">
           <button onClick={() => setAbierto(false)} className="flex-1 rounded-xl border border-gris-claro px-4 py-2.5 text-xs font-bold hover:bg-hueso md:flex-none md:py-2">Cancelar</button>
           <button
             disabled={pendiente}
             onClick={guardar}
-            className="flex-1 rounded-xl bg-hunter px-4 py-2.5 text-xs font-bold text-white transition hover:bg-hunter-dark disabled:opacity-60 md:flex-none md:py-2"
+            className="flex-1 rounded-xl bg-marca px-4 py-2.5 text-xs font-bold text-white transition hover:bg-marca-dark disabled:opacity-60 md:flex-none md:py-2"
           >
             {pendiente ? 'Guardando…' : 'Calibrar ✓'}
           </button>
@@ -907,14 +907,14 @@ export function PanelCierre({ cicloId, pendientes, estado, publicado, feedbackRe
           publicado
             ? <span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700">Publicados ✓</span>
             : puedeGestionar
-              ? <button onClick={() => { setError(null); setConfirmando(true) }} className="rounded-xl bg-hunter px-4 py-2 text-xs font-bold text-white transition hover:bg-hunter-dark">Publicar resultados…</button>
+              ? <button onClick={() => { setError(null); setConfirmando(true) }} className="rounded-xl bg-marca px-4 py-2 text-xs font-bold text-white transition hover:bg-marca-dark">Publicar resultados…</button>
               : <span className="rounded-full bg-hueso-2 px-3 py-1.5 text-xs font-bold text-gris">Sin publicar</span>)}
         <Modal titulo="Publicar resultados" abierto={confirmando} onCerrar={() => setConfirmando(false)}>
           <p className="text-sm">Cada colaborador podrá ver su resultado en <b>“Mi resultado”</b>.</p>
           <p className="mt-2.5 rounded-xl bg-amber-50 px-3.5 py-2.5 text-xs text-amber-800">
             📧 Se enviará un <b>correo a cada participante</b> avisando que sus resultados ya están disponibles, con acceso directo para revisarlos en la plataforma.
           </p>
-          {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+          {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
           <div className="mt-4 flex justify-end gap-2">
             <button onClick={() => setConfirmando(false)} className="rounded-xl border border-gris-claro bg-white px-4 py-2 text-[13px] font-bold transition hover:bg-hueso">Cancelar</button>
             <button
@@ -926,7 +926,7 @@ export function PanelCierre({ cicloId, pendientes, estado, publicado, feedbackRe
                 setConfirmando(false)
                 router.refresh()
               })}
-              className="rounded-xl bg-hunter px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60"
+              className="rounded-xl bg-marca px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60"
             >
               {pendiente ? 'Publicando…' : 'Publicar y notificar ✓'}
             </button>
@@ -964,13 +964,13 @@ export function PanelCierre({ cicloId, pendientes, estado, publicado, feedbackRe
           {pendientes > 0 && <> Hay <b>{pendientes} evaluaci{pendientes === 1 ? 'ón' : 'ones'} sin enviar</b> que quedarán fuera del cálculo.</>}
         </p>
         {feedbackFaltantes.length > 0 && (
-          <p className="mt-2.5 rounded-xl bg-red-50 px-3.5 py-2.5 text-xs text-hunter-dark">
+          <p className="mt-2.5 rounded-xl bg-red-50 px-3.5 py-2.5 text-xs text-alerta-dark">
             ✕ Falta{feedbackFaltantes.length === 1 ? '' : 'n'} <b>{feedbackFaltantes.length} sesi{feedbackFaltantes.length === 1 ? 'ón' : 'ones'} de feedback</b> por registrar ({feedbackFaltantes.slice(0, 4).join(', ')}{feedbackFaltantes.length > 4 ? ` y ${feedbackFaltantes.length - 4} más` : ''}).
             Los jefes las registran en <b>Resultados del equipo</b>; no se puede cerrar antes.
           </p>
         )}
         <label className="mt-3 flex items-center gap-2 text-sm font-semibold">
-          <input type="checkbox" checked={publicar} onChange={(e) => setPublicar(e.target.checked)} className="h-4 w-4 accent-[#f0163e]" />
+          <input type="checkbox" checked={publicar} onChange={(e) => setPublicar(e.target.checked)} className="h-4 w-4 accent-[#0067ff]" />
           Publicar resultados a los colaboradores al cerrar
         </label>
         {publicar ? (
@@ -982,7 +982,7 @@ export function PanelCierre({ cicloId, pendientes, estado, publicado, feedbackRe
             Sin publicar, los resultados solo los ve RR.HH. y <b>no se envía ningún correo</b>. Podrás publicarlos después desde esta pestaña.
           </p>
         )}
-        {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+        {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
         <div className="mt-4 flex justify-end gap-2">
           <button onClick={() => setConfirmando(false)} className="rounded-xl border border-gris-claro bg-white px-4 py-2 text-[13px] font-bold transition hover:bg-hueso">Cancelar</button>
           <button
@@ -994,7 +994,7 @@ export function PanelCierre({ cicloId, pendientes, estado, publicado, feedbackRe
               setConfirmando(false)
               router.refresh()
             })}
-            className="rounded-xl bg-hunter px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60"
+            className="rounded-xl bg-marca px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60"
           >
             {pendiente ? 'Cerrando…' : 'Sí, cerrar ciclo ✓'}
           </button>
@@ -1059,7 +1059,7 @@ export function PanelAvancePais({ cicloId, cicloEstado, filas, puedeGestionar = 
                 </div>
                 <div className="mt-2 flex items-center gap-3">
                   <div className="h-2 w-40 overflow-hidden rounded-full bg-hueso-2">
-                    <div className="h-full rounded-full bg-hunter/70" style={{ width: `${pct}%` }} />
+                    <div className="h-full rounded-full bg-marca/70" style={{ width: `${pct}%` }} />
                   </div>
                   <span className="text-xs text-gris">{f.enviadas} de {f.total} evaluaciones · {pct}% · {f.participantes} participante{f.participantes === 1 ? '' : 's'}</span>
                 </div>
@@ -1074,7 +1074,7 @@ export function PanelAvancePais({ cicloId, cicloEstado, filas, puedeGestionar = 
                   <button onClick={() => { setError(null); setPublicar(true); setCerrando(f) }} className="rounded-xl bg-negro px-3.5 py-2 text-xs font-bold text-white transition hover:bg-negro/80">Cerrar país…</button>
                 )}
                 {puedeGestionar && f.cerrado && !f.publicado && f.puedeCerrar && (
-                  <button onClick={() => { setError(null); setPublicando(f) }} className="rounded-xl bg-hunter px-3.5 py-2 text-xs font-bold text-white transition hover:bg-hunter-dark">Publicar…</button>
+                  <button onClick={() => { setError(null); setPublicando(f) }} className="rounded-xl bg-marca px-3.5 py-2 text-xs font-bold text-white transition hover:bg-marca-dark">Publicar…</button>
                 )}
               </div>
             </div>
@@ -1090,19 +1090,19 @@ export function PanelAvancePais({ cicloId, cicloEstado, filas, puedeGestionar = 
               {cerrando.total - cerrando.enviadas > 0 && <> Hay <b>{cerrando.total - cerrando.enviadas} evaluaci{cerrando.total - cerrando.enviadas === 1 ? 'ón' : 'ones'} sin enviar</b> de este país que quedarán fuera del cálculo.</>}
             </p>
             {cerrando.feedbackRegistrados < cerrando.feedbackRequeridos && (
-              <p className="mt-2.5 rounded-xl bg-red-50 px-3.5 py-2.5 text-xs text-hunter-dark">
+              <p className="mt-2.5 rounded-xl bg-red-50 px-3.5 py-2.5 text-xs text-alerta-dark">
                 ✕ Faltan <b>{cerrando.feedbackRequeridos - cerrando.feedbackRegistrados} sesiones de feedback</b> de {cerrando.pais} por registrar. Los jefes las registran en <b>Resultados del equipo</b>; no se puede cerrar el país antes.
               </p>
             )}
             <label className="mt-3 flex items-center gap-2 text-sm font-semibold">
-              <input type="checkbox" checked={publicar} onChange={(e) => setPublicar(e.target.checked)} className="h-4 w-4 accent-[#f0163e]" />
+              <input type="checkbox" checked={publicar} onChange={(e) => setPublicar(e.target.checked)} className="h-4 w-4 accent-[#0067ff]" />
               Publicar los resultados de {cerrando.pais} al cerrar
             </label>
             {publicar
               ? <p className="mt-2.5 rounded-xl bg-amber-50 px-3.5 py-2.5 text-xs text-amber-800">📧 Se enviará un <b>correo a los participantes de {cerrando.pais}</b> avisando que sus resultados ya están disponibles.</p>
               : <p className="mt-2.5 rounded-xl bg-hueso px-3.5 py-2.5 text-xs text-gris">Sin publicar, los resultados de {cerrando.pais} solo los ve RR.HH. y <b>no se envía ningún correo</b>. Podrás publicarlos después desde aquí.</p>}
             <p className="mt-2.5 text-xs text-gris">Si este es el último país pendiente, el ciclo pasará a <b>Cerrado</b> automáticamente.</p>
-            {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+            {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
             <div className="mt-4 flex justify-end gap-2">
               <button onClick={() => setCerrando(null)} className="rounded-xl border border-gris-claro bg-white px-4 py-2 text-[13px] font-bold transition hover:bg-hueso">Cancelar</button>
               <button
@@ -1116,7 +1116,7 @@ export function PanelAvancePais({ cicloId, cicloEstado, filas, puedeGestionar = 
                   setCerrando(null)
                   router.refresh()
                 })}
-                className="rounded-xl bg-hunter px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60"
+                className="rounded-xl bg-marca px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60"
               >
                 {pendiente ? 'Cerrando…' : `Sí, cerrar ${cerrando.pais} ✓`}
               </button>
@@ -1130,7 +1130,7 @@ export function PanelAvancePais({ cicloId, cicloEstado, filas, puedeGestionar = 
           <>
             <p className="text-sm">Los colaboradores de <b>{publicando.pais}</b> podrán ver su resultado en <b>“Mi resultado”</b>.</p>
             <p className="mt-2.5 rounded-xl bg-amber-50 px-3.5 py-2.5 text-xs text-amber-800">📧 Se enviará un <b>correo a los participantes de {publicando.pais}</b> con acceso directo a sus resultados.</p>
-            {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-hunter-dark">{error}</p>}
+            {error && <p className="mt-2 rounded-lg bg-red-100 px-3 py-2 text-sm text-alerta-dark">{error}</p>}
             <div className="mt-4 flex justify-end gap-2">
               <button onClick={() => setPublicando(null)} className="rounded-xl border border-gris-claro bg-white px-4 py-2 text-[13px] font-bold transition hover:bg-hueso">Cancelar</button>
               <button
@@ -1142,7 +1142,7 @@ export function PanelAvancePais({ cicloId, cicloEstado, filas, puedeGestionar = 
                   setPublicando(null)
                   router.refresh()
                 })}
-                className="rounded-xl bg-hunter px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-hunter/30 transition hover:bg-hunter-dark disabled:opacity-60"
+                className="rounded-xl bg-marca px-4 py-2 font-display text-[13px] font-bold text-white shadow-md shadow-marca/30 transition hover:bg-marca-dark disabled:opacity-60"
               >
                 {pendiente ? 'Publicando…' : 'Publicar y notificar ✓'}
               </button>
