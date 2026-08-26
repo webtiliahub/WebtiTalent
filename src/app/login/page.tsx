@@ -188,7 +188,7 @@ export default function LoginPage() {
         </div>
         <div className="auth-stagger auth-s2 mb-7 mt-3 text-center">
           <h1 className="font-display text-[23px] font-extrabold tracking-tight text-negro">
-            Talent <span className="text-marca">Hub</span>
+            Webti<span className="text-marca">Talent</span>
           </h1>
           <p className="mt-1 text-[13.5px] text-gris">Plataforma de talento — Webtilia</p>
         </div>

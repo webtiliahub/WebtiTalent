@@ -159,9 +159,10 @@
   animation: htr-spin 18s linear infinite reverse;
 }
 .auth-logo-iso {
+  /* La W es apaisada (115x89): se acota por ancho para que respire dentro del anillo de 124px */
   position: relative;
-  height: 90px;
-  width: auto;
+  width: 62px;
+  height: auto;
   filter: drop-shadow(0 5px 12px rgba(42, 38, 35, 0.3));
 }
 
