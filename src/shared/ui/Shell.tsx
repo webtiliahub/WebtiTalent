@@ -63,7 +63,7 @@ export function Shell({
       >
         <div className="flex h-16 items-center gap-3 px-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo/webtilia-iso.png" alt="Webtilia" className="h-8 w-8 shrink-0 object-contain" />
+          <img src="/logo/webtilia-w-blanca.png" alt="Webtilia" className="h-8 w-8 shrink-0 object-contain" />
           <span className={`whitespace-nowrap font-display text-sm font-bold tracking-wide transition-opacity ${abierto ? 'opacity-100' : 'opacity-0'}`}>
             WebtiTalent
           </span>
@@ -117,7 +117,7 @@ export function Shell({
         <header className="sticky top-0 z-30 flex min-h-14 items-center justify-between border-b border-gris-claro bg-hueso px-4 md:hidden" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
           <span className="flex items-center gap-2 font-display text-sm font-bold">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo/webtilia-iso.png" alt="Webtilia" className="h-6 w-6 object-contain" />
+            <img src="/logo/webtilia-w.png" alt="Webtilia" className="h-6 w-6 object-contain" />
             WebtiTalent
           </span>
           <MenuAvatar nombre={nombre} rolLabel={rolLabel} paises={paises} paisActual={paisActual} esRrhhRegional={esRrhhRegional} />
